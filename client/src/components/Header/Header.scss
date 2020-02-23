@@ -1,0 +1,18 @@
+.Header-container {
+  min-height: 126vh;
+}
+
+.Header-top-container {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+}
+
+.Header-title {
+  font-size: 28px;
+}
+
+.Sections-list {
+  display: flex;
+  flex-direction: row;
+}
