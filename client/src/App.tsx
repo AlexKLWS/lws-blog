@@ -9,15 +9,18 @@ import ArticlesSection from 'pages/ArticlesSection/ArticlesSection'
 function App() {
   return (
     <Router>
-      <div>
-        <Header />
-        <Switch>
-          <Route path='/life' component={ArticlesSection} />
-          <Route path='/code' component={ArticlesSection} />
-          <Route path='/guides' component={ArticlesSection} />
-          <Route path='/projects' component={ArticlesSection} />
-          <Route path='/' component={Home} />
-        </Switch>
+      <div className='App-background' />
+      <div className='App-flex-container'>
+        <div className='App-container'>
+          <Header />
+          <Switch>
+            <Route path='/life' component={ArticlesSection} />
+            <Route path='/code' component={ArticlesSection} />
+            <Route path='/guides' component={ArticlesSection} />
+            <Route path='/projects' component={ArticlesSection} />
+            <Route path='/' component={Home} />
+          </Switch>
+        </div>
       </div>
     </Router>
   )
