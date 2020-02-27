@@ -1,18 +1,51 @@
 .Header-container {
-  min-height: 126vh;
 }
 
 .Header-top-container {
   display: flex;
   flex-direction: row;
-  align-content: space-between;
+  width: 100%;
+  justify-content: space-between;
+  padding: 36px 0px;
+}
+
+.Header-right-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .Header-title {
+  font-family: IBM Plex Mono;
+  font-style: normal;
+  font-weight: bold;
   font-size: 28px;
+  text-align: center;
+  margin: 0px;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.Header-subtitle {
+  font-family: IBM Plex Mono;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 11px;
+  text-align: center;
+  margin-right: 16px;
+}
+
+.Header-portrait {
+  background-image: url('../../assets/square_1.jpg');
+  background-size: cover;
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
 }
 
 .Sections-list {
-  display: flex;
   flex-direction: row;
 }
