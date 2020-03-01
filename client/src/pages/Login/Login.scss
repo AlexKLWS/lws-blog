@@ -1,0 +1,25 @@
+@import '../../styles/config';
+@import '../../styles/shared';
+
+.Login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+}
+
+.Login-button {
+  @include normal-mono;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 23px;
+  text-decoration: none;
+  color: $primary-color;
+  padding: 5px 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $secondary-color;
+  }
+}

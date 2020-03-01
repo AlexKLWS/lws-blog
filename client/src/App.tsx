@@ -6,6 +6,7 @@ import Home from 'pages/Home/Home'
 import Header from 'components/Header/Header'
 import ArticlesSection from 'pages/ArticlesSection/ArticlesSection'
 import Contact from 'pages/Contact/Contact'
+import Login from 'pages/Login/Login'
 import routes from 'consts/routes'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route path={routes.guides} component={ArticlesSection} />
             <Route path={routes.projects} component={ArticlesSection} />
             <Route path={routes.contact} component={Contact} />
+            <Route path={routes.login} component={Login} />
             <Route path={routes.home} component={Home} />
           </Switch>
         </div>
