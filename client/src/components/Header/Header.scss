@@ -1,5 +1,4 @@
-.Header-container {
-}
+@import '../../styles/config';
 
 .Header-top-container {
   display: flex;
@@ -7,6 +6,7 @@
   width: 100%;
   justify-content: space-between;
   padding: 36px 0px;
+  border-bottom: $thin-black-color 1px solid;
 }
 
 .Header-right-container {
@@ -16,29 +16,32 @@
 }
 
 .Header-title {
-  font-family: IBM Plex Mono;
-  font-style: normal;
+  @include normal-mono;
   font-weight: bold;
   font-size: 28px;
   text-align: center;
   margin: 0px;
   margin-top: 3px;
-  cursor: pointer;
+  margin-left: 7px;
+  text-decoration: none;
+  color: $primary-color;
 }
 
 .Header-subtitle {
-  font-family: IBM Plex Mono;
-  font-style: normal;
+  @include normal-mono;
   font-weight: 300;
   font-size: 11px;
   text-align: center;
-  margin-right: 16px;
+  color: $primary-color;
+  margin-right: 0.5em;
+
+  &.link {
+    margin-right: 16px;
+  }
 }
 
 .Header-portrait {
-  background-image: url('../../assets/square_1.jpg');
-  background-size: cover;
-  display: block;
+  overflow: hidden;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -48,4 +51,25 @@
 
 .Sections-list {
   flex-direction: row;
+  padding-top: 12px;
+}
+
+.Sections-item {
+  @include normal-mono;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 23px;
+  text-decoration: none;
+  color: $primary-color;
+  margin-right: 64px;
+  padding: 5px 10px;
+
+  &:hover {
+    background-color: $secondary-color;
+  }
+
+  &.active {
+    color: $white-color;
+    background-color: $primary-color;
+  }
 }
