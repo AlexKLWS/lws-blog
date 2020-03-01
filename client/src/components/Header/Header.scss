@@ -1,4 +1,5 @@
 @import '../../styles/config';
+@import '../../styles/shared';
 
 .Header-top-container {
   display: flex;
@@ -16,15 +17,10 @@
 }
 
 .Header-title {
-  @include normal-mono;
-  font-weight: bold;
-  font-size: 28px;
-  text-align: center;
-  margin: 0px;
+  @include title;
   margin-top: 3px;
   margin-left: 7px;
   text-decoration: none;
-  color: $primary-color;
 }
 
 .Header-subtitle {
