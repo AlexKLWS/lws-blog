@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { useMediaQuery } from 'react-responsive'
 
 import 'App.scss'
 import Home from 'pages/Home/Home'
@@ -8,11 +9,16 @@ import ArticlesSection from 'pages/ArticlesSection/ArticlesSection'
 import Contact from 'pages/Contact/Contact'
 import Login from 'pages/Login/Login'
 import routes from 'consts/routes'
+import { isDesktopOrLaptopQuery } from 'consts/media'
 
 function App() {
+  const isDesktopOrLaptop = useMediaQuery({
+    query: isDesktopOrLaptopQuery,
+  })
+
   return (
     <Router>
-      <div className='App-background' />
+      {isDesktopOrLaptop && <div className='App-background' />}
       <div className='App-flex-container'>
         <div className='App-container'>
           <Header />

@@ -1,3 +1,5 @@
+@import './styles/config';
+
 .App-background {
   position: fixed;
   background: #000000;
@@ -11,10 +13,14 @@
 }
 
 .App-container {
-  position: absolute;
-  width: 60%;
-  max-width: 864px;
+  width: 100%;
   padding: 0px 40px;
-  margin: 36px 0px;
   background: #ffffff;
+
+  @media (min-device-width: $breakpoint-desktop-or-laptop) {
+    margin: 36px 0px;
+    position: absolute;
+    width: 60%;
+    max-width: 864px;
+  }
 }
