@@ -1,12 +1,17 @@
 import React from 'react'
 import Img from 'react-image'
 import { Link, useHistory } from 'react-router-dom'
+import { useMediaQuery } from 'react-responsive'
 
 import './Header.scss'
 import routes from 'consts/routes'
+import { isSmallerScreenQuery } from 'consts/media'
 
 const Header: React.FC = () => {
   const history = useHistory()
+  const isSmallerScreen = useMediaQuery({
+    query: isSmallerScreenQuery,
+  })
 
   const getLinkStyle = (route: string) => {
     const currentRoute = history.location.pathname
@@ -24,9 +29,11 @@ const Header: React.FC = () => {
           <Link to={routes.contact} className='Header-subtitle link'>
             Alex Korzh
           </Link>
-          <div className='Header-portrait'>
-            <Img src={process.env.PUBLIC_URL + '/square_1.jpg'} width='auto' height='100%' />
-          </div>
+          {!isSmallerScreen && (
+            <div className='Header-portrait'>
+              <Img src={process.env.PUBLIC_URL + '/square_1.jpg'} width='auto' height='100%' />
+            </div>
+          )}
         </div>
       </div>
       <div className='Sections-list'>
