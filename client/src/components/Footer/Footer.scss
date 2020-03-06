@@ -31,7 +31,7 @@
     background-color: $secondary-color;
   }
 
-  &.active {
+  &:active {
     color: $white-color;
     background-color: $primary-color;
   }
