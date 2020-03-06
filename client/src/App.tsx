@@ -11,6 +11,7 @@ import Contact from 'pages/Contact/Contact'
 import Login from 'pages/Login/Login'
 import routes from 'consts/routes'
 import { isDesktopOrLaptopQuery } from 'consts/media'
+import BackgroundView from 'components/Background/BackgroundView'
 
 function App() {
   const isDesktopOrLaptop = useMediaQuery({
@@ -19,7 +20,7 @@ function App() {
 
   return (
     <Router>
-      {isDesktopOrLaptop && <div className='App-background' />}
+      {isDesktopOrLaptop && <BackgroundView />}
       <div className='App-flex-container'>
         <div className='App-container'>
           <Header />

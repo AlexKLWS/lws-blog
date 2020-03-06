@@ -1,12 +1,5 @@
 @import './styles/config';
 
-.App-background {
-  position: fixed;
-  background: #000000;
-  width: 100%;
-  min-height: 1000px;
-}
-
 .App-flex-container {
   display: flex;
   justify-content: center;
@@ -14,13 +7,14 @@
 
 .App-container {
   width: 100%;
-  padding: 0px 40px;
+  padding: 0px 20px;
   background: #ffffff;
+  position: absolute;
 
-  @media (min-device-width: $breakpoint-desktop-or-laptop) {
+  @media (min-width: $breakpoint-desktop-or-laptop) {
     margin: 36px 0px;
-    position: absolute;
     width: 60%;
     max-width: 864px;
+    padding: 0px 40px;
   }
 }
