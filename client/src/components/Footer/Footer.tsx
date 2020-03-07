@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
           Projects
         </Link>
         <Link to={routes.contact} className='Footer-item'>
-          Contacts
+          Contact
         </Link>
       </div>
       <span className='Footer-copyright-name'>&copy; Alex Korzh</span>
