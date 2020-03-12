@@ -39,8 +39,9 @@ func main() {
 		Browse:  false,
 	}))
 	e.Static("/", "../client/build")
-	secretPages := e.Group("/secret", cookieCheckMiddleware)
-	secretPages.Static("/", "../client/build")
+
+	// Secret group
+	e.Group("/secret", cookieCheckMiddleware)
 
 	api := e.Group("/api")
 
