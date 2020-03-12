@@ -9,6 +9,7 @@ import Footer from 'components/Footer/Footer'
 import ArticlesSection from 'pages/ArticlesSection/ArticlesSection'
 import Contact from 'pages/Contact/Contact'
 import Login from 'pages/Login/Login'
+import Editor from 'pages/Editor/Editor'
 import routes from 'consts/routes'
 import { isDesktopOrLaptopQuery } from 'consts/media'
 import BackgroundView from 'components/Background/BackgroundView'
@@ -31,6 +32,7 @@ function App() {
             <Route path={routes.projects} component={ArticlesSection} />
             <Route path={routes.contact} component={Contact} />
             <Route path={routes.login} component={Login} />
+            <Route path={routes.editor} component={Editor} />
             <Route path={routes.home} component={Home} />
           </Switch>
           <Footer />
