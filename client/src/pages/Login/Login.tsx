@@ -1,28 +1,24 @@
 import React, { useState } from 'react'
 import { RouteProps } from 'react-router'
-
-import './Login.scss'
 import { useHistory } from 'react-router-dom'
 
+import './Login.scss'
+import { useLoginFacade } from 'services/facades/loginFacade'
+
 const Login: React.FC<RouteProps> = (props: RouteProps) => {
-  const [password, setPassword] = useState('')
   const history = useHistory()
+
+  const [password, setPassword] = useState('')
+  const [login] = useLoginFacade()
 
   const onInputValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value)
   }
 
   const onLoginPress = () => {
-    const request = {
-      method: 'POST',
-      body: JSON.stringify({
-        password,
-      }),
-    }
-
-    fetch('http://localhost:1323/api/login', request).then((response) => {
+    login(password).then((response) => {
       console.log('RESPONSE!!!', response)
-      history.push('/secret/editor')
+      // history.push('/secret/editor')
     })
   }
 
