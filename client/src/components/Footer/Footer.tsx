@@ -1,10 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useMediaQuery } from 'react-responsive'
 
 import './Footer.scss'
 import routes from 'consts/routes'
-import { isSmallerScreenQuery } from 'consts/media'
 
 const Footer: React.FC = () => {
   return (

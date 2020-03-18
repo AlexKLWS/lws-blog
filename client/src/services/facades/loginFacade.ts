@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useRef } from 'react'
 
 import { useInjection } from 'services/provider'
 import { AuthenticationServiceId, IAuthenticationService } from 'services/authentication'
