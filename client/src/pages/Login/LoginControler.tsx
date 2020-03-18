@@ -17,12 +17,10 @@ const LoginController: React.FC<RouteProps> = (props: RouteProps) => {
   }
 
   const handleLogin = async () => {
-    try {
-      const loginSuccessful = await login(password)
-      if (loginSuccessful) {
-        history.push(routes.secret.home)
-      }
-    } catch (e) {}
+    const loginSuccessful = await login(password)
+    if (loginSuccessful) {
+      history.push(routes.secret.home)
+    }
   }
 
   return (
