@@ -5,7 +5,10 @@ const guides = '/guides'
 const projects = '/projects'
 const contact = '/contact'
 const login = '/login'
-const editor = '/secret/editor'
+const secret = {
+  home: '/secret',
+  editor: '/secret/editor',
+}
 
 export default {
   home,
@@ -15,5 +18,5 @@ export default {
   projects,
   contact,
   login,
-  editor,
+  secret,
 }

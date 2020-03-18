@@ -8,10 +8,9 @@ import Header from 'components/Header/Header'
 import Footer from 'components/Footer/Footer'
 import ArticlesSection from 'pages/ArticlesSection/ArticlesSection'
 import Contact from 'pages/Contact/Contact'
-import Login from 'pages/Login/Login'
-import Editor from 'pages/Editor/Editor'
-import ContentManagement from 'pages/ContentManagement/ContentManagement'
-import SecretHome from 'pages/SecretHome/SecretHome'
+import Login from 'pages/Login'
+import Editor from 'pages/Secret/Editor'
+import SecretHome from 'pages/Secret/Home'
 import routes from 'consts/routes'
 import { isDesktopOrLaptopQuery } from 'consts/media'
 import BackgroundView from 'components/Background/BackgroundView'
@@ -37,9 +36,8 @@ function App() {
               <Route path={routes.projects} component={ArticlesSection} />
               <Route path={routes.contact} component={Contact} />
               <Route path={routes.login} component={Login} />
-              <Route path={routes.editor} component={Editor} />
-              <Route path={routes.contentManagement} component={ContentManagement} />
-              <Route path={routes.secretHome} component={SecretHome} />
+              <Route path={routes.secret.editor} component={Editor} />
+              <Route path={routes.secret.home} component={SecretHome} />
               <Route path={routes.home} component={Home} />
             </Switch>
             <Footer />
