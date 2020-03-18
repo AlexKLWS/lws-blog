@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 
 import LoginView from './LoginView'
 import { useLoginFacade } from 'services/facades/loginFacade'
+import routes from 'consts/routes'
 
 const LoginController: React.FC<RouteProps> = (props: RouteProps) => {
   const history = useHistory()
@@ -17,7 +18,10 @@ const LoginController: React.FC<RouteProps> = (props: RouteProps) => {
 
   const handleLogin = async () => {
     try {
-      const isLoginSuccessful = await login(password)
+      const loginSuccessful = await login(password)
+      if (loginSuccessful) {
+        history.push(routes.secret.home)
+      }
     } catch (e) {}
   }
 
