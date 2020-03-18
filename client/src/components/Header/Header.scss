@@ -1,5 +1,6 @@
 @import '../../styles/config';
 @import '../../styles/shared';
+@import '../../styles/button';
 
 .Header-top-container {
   display: flex;
@@ -74,16 +75,8 @@
 }
 
 .Sections-item {
-  @include normal-mono;
-  font-weight: 600;
+  @include button;
   font-size: 15px;
-  text-decoration: none;
-  color: $primary-color;
-  padding: 5px 10px;
-
-  &:hover {
-    background-color: $secondary-color;
-  }
 
   &.active {
     color: $white-color;

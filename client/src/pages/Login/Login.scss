@@ -1,5 +1,6 @@
 @import '../../styles/config';
 @import '../../styles/shared';
+@import '../../styles/button';
 
 .Login-container {
   display: flex;
@@ -10,23 +11,7 @@
 }
 
 .Login-button {
-  @include normal-mono;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 23px;
-  text-decoration: none;
-  color: $primary-color;
-  padding: 5px 10px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: $secondary-color;
-  }
-
-  &:active {
-    color: $white-color;
-    background-color: $primary-color;
-  }
+  @include button;
 }
 
 .Login-password {

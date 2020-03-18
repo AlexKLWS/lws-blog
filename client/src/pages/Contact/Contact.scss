@@ -1,5 +1,6 @@
 @import '../../styles/config';
 @import '../../styles/shared';
+@import '../../styles/button';
 
 .Contact-title {
   @include title;
@@ -38,16 +39,7 @@
 }
 
 .Contact-secret {
-  @include normal-mono;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 23px;
-  text-decoration: none;
+  @include button;
   color: $white-color;
-  padding: 5px 10px;
   margin-bottom: 22px;
-
-  &:hover {
-    background-color: $secondary-color;
-  }
 }
