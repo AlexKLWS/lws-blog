@@ -1,6 +1,8 @@
 import { injectable } from 'inversify'
 
 import { apiEndpoint } from 'consts/endpoints'
+import { setCookie } from 'helpers/cookies'
+import { Session } from 'types/session'
 
 export interface IAuthenticationService {
   login: (password: string) => Promise<boolean>
@@ -18,12 +20,15 @@ export class AuthenticationService implements IAuthenticationService {
 
     try {
       const response = await fetch(`${apiEndpoint}/login`, request)
-      console.log('RESPONSE: ', response)
-      return response.status === 200
+      const session: Session | null = await response.json()
+      if (session) {
+        setCookie('token', session.token, 2)
+        return true
+      }
     } catch (e) {
       console.log('ERROR: ', e)
-      return false
     }
+    return false
   }
 }
 
