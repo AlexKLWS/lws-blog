@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -14,9 +13,13 @@ type Login struct {
 	Password string `json:"password"`
 }
 
+type Session struct {
+	Token string `json:"token" xml:"token"`
+}
+
 func cookieCheckMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		cookie, err := c.Cookie("token-id")
+		cookie, err := c.Cookie("token")
 		if err != nil {
 			log.Printf("NO COOKIE HERE!")
 			return err
@@ -56,16 +59,17 @@ func main() {
 			return echo.NewHTTPError(http.StatusInternalServerError)
 		}
 
-		if loginData.Password == "abcd" {
-			cookie := new(http.Cookie)
-			cookie.Name = "token-id"
-			cookie.Value = "lol"
-			cookie.Path = "/"
-			cookie.Expires = time.Now().Add(24 * time.Hour)
-			c.SetCookie(cookie)
+		// newSessionToken := uuid.Must(uuid.NewV4())
+
+		// s := &Session{
+		// 	Token: newSessionToken.String(),
+		// }
+
+		s := &Session{
+			Token: "lol",
 		}
 
-		return c.String(http.StatusOK, "Login was probably processed!")
+		return c.JSON(http.StatusOK, s)
 	})
 
 	e.Logger.Fatal(e.Start(":1323"))
