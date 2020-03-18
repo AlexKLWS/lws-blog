@@ -65,8 +65,12 @@ func main() {
 		// 	Token: newSessionToken.String(),
 		// }
 
-		s := &Session{
-			Token: "lol",
+		var s *Session = nil
+
+		if loginData.Password == "abcd" {
+			s = &Session{
+				Token: "lol",
+			}
 		}
 
 		return c.JSON(http.StatusOK, s)
