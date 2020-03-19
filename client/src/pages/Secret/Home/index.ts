@@ -1,3 +1,3 @@
-import Home from './Home'
+import HomeController from './HomeController'
 
-export default Home
+export default HomeController
