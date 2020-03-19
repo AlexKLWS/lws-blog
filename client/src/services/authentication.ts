@@ -22,7 +22,7 @@ export class AuthenticationService implements IAuthenticationService {
       const response = await fetch(`${apiEndpoint}/login`, request)
       const session: Session | null = await response.json()
       if (session) {
-        setCookie('token', session.token, 2)
+        setCookie('token', session.token, 1)
         return true
       }
     } catch (e) {
