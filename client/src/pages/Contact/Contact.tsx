@@ -10,9 +10,8 @@ const Contact: React.FC<RouteProps> = (props: RouteProps) => {
     <div className='Contact-container'>
       <h1 className='Contact-title'>Contact</h1>
       <p className='Contact-info'>
-        If you have comments, questions or feedback about my work — just shoot me an email, you're
-        more than welcome to! For partnerships or collaborations please use email as well.
-        Otherwise, feel free to also reach out to me on social networks.
+        If you have comments, questions or feedback about my work — just shoot me an email. For partnerships or
+        collaborations inquiries please use email as well. Otherwise, feel free to reach out to me on social networks.
       </p>
       <a className='Contact-link' href='mailto:alexkorzh7@gmail.com'>
         alexkorzh7@gmail.com
