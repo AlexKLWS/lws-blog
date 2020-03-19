@@ -8,6 +8,7 @@ const login = '/login'
 const secret = {
   home: '/secret',
   editor: '/secret/editor',
+  addPage: '/secret/add-page',
 }
 
 export default {
