@@ -1,3 +1,7 @@
+@mixin transition-ease {
+  transition: all 0.15s ease-in-out;
+}
+
 @mixin normal-mono {
   font-family: IBM Plex Mono;
   font-style: normal;
@@ -31,6 +35,28 @@
     border-width: 2px;
     margin-bottom: 29px;
     outline: none;
+  }
+}
+
+@mixin button {
+  @include transition-ease;
+  font-family: IBM Plex Mono;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 23px;
+  text-decoration: none;
+  color: $primary-color;
+  padding: 5px 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $secondary-color;
+  }
+
+  &:active {
+    color: $white-color;
+    background-color: $primary-color;
   }
 }
 

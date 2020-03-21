@@ -1,6 +1,5 @@
 @import '../../styles/config';
 @import '../../styles/shared-mixins';
-@import '../../styles/button';
 
 .Login-container {
   display: flex;
@@ -8,10 +7,6 @@
   justify-content: center;
   align-items: center;
   height: 600px;
-}
-
-.Login-button {
-  @include button;
 }
 
 .Login-password {

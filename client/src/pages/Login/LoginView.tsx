@@ -22,14 +22,14 @@ const LoginView: React.FC<Props> = (props: Props) => {
         value={password}
         onChange={onInputValueChange}
       />
-      <span
-        className='Login-button'
+      <input
+        className='App-button'
         onClick={() => {
           props.onLoginPress(password)
         }}
-      >
-        Log in
-      </span>
+        type='submit'
+        value='Log in'
+      />
     </div>
   )
 }
