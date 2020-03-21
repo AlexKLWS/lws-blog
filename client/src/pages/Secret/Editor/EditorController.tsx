@@ -7,9 +7,14 @@ import { EditorError } from 'types/editor'
 
 const EditorController: React.FC<RouteProps> = (props: RouteProps) => {
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
-  const submitData = (articleName: string, articleSubtitle: string, articleText: string) => {}
+  const submitData = (articleName: string, articleSubtitle: string, articleText: string, articleIcon: File | null) => {}
 
-  const performDataCheck = (articleName: string, articleSubtitle: string, articleText: string) => {
+  const performDataCheck = (
+    articleName: string,
+    articleSubtitle: string,
+    articleText: string,
+    articleIcon: File | null,
+  ) => {
     const errors: EditorError[] = []
     if (!articleName || articleName.length === 0) {
       errors.push(editorErrors.noArticleName)
@@ -19,6 +24,9 @@ const EditorController: React.FC<RouteProps> = (props: RouteProps) => {
     }
     if (!articleText || articleText.length === 0) {
       errors.push(editorErrors.noArticleText)
+    }
+    if (!articleIcon) {
+      errors.push(editorErrors.noArticleIcon)
     }
     setSubmitErrors(errors)
   }

@@ -13,8 +13,14 @@ const noArticleText = {
   description: 'No article content!',
 }
 
+const noArticleIcon = {
+  id: 'no-article-icon',
+  description: 'No article icon!',
+}
+
 export default {
   noArticleName,
   noArticleSubtitle,
   noArticleText,
+  noArticleIcon,
 }

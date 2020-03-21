@@ -7,8 +7,13 @@ import { EditorError } from 'types/editor'
 import ArticleSubmitModal from './Components/ArticleSubmitModal'
 
 interface Props {
-  submitData: (articleName: string, articleSubtitle: string, articleText: string) => void
-  performDataCheck: (articleName: string, articleSubtitle: string, articleText: string) => void
+  submitData: (articleName: string, articleSubtitle: string, articleText: string, articleIcon: File | null) => void
+  performDataCheck: (
+    articleName: string,
+    articleSubtitle: string,
+    articleText: string,
+    articleIcon: File | null,
+  ) => void
   submitErrors: EditorError[]
 }
 
@@ -16,6 +21,7 @@ const EditorView: React.FC<Props> = (props: Props) => {
   const [articleName, setArticleName] = useState('')
   const [articleSubtitle, setArticleSubtitle] = useState('')
   const [articleText, setArticleText] = useState('')
+  const [articleIcon, setArticleIcon] = useState<File | null>(null)
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
@@ -27,13 +33,20 @@ const EditorView: React.FC<Props> = (props: Props) => {
     setArticleSubtitle(event.target.value)
   }
 
+  const onIconFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) {
+      return
+    }
+    setArticleIcon(event.target.files[0])
+  }
+
   const onSubmit = () => {
-    props.submitData(articleName, articleSubtitle, articleText)
+    props.submitData(articleName, articleSubtitle, articleText, articleIcon)
     setModalIsOpen(false)
   }
 
   const onSubmitButtonClick = () => {
-    props.performDataCheck(articleName, articleSubtitle, articleText)
+    props.performDataCheck(articleName, articleSubtitle, articleText, articleIcon)
     setModalIsOpen(true)
   }
 
@@ -48,6 +61,10 @@ const EditorView: React.FC<Props> = (props: Props) => {
           value={articleSubtitle}
           onChange={onSubtitleInputValueChange}
         />
+        <input type='file' className='App-file-input' id='customFile' onChange={onIconFileChange} />
+        <label className='App-button' htmlFor='customFile'>
+          {articleIcon?.name || 'Add icon'}
+        </label>
       </div>
       <SimpleMDE value={articleText} onChange={setArticleText} />
       <div className='Editor-button-container'>
