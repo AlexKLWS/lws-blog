@@ -16,6 +16,14 @@
     background-color: $primary-color;
     border-color: $white-color;
   }
+
+  &.inactive {
+    color: $secondary-color;
+
+    &:hover {
+      background-color: $white-color;
+    }
+  }
 }
 
 .App-input {
