@@ -1,3 +1,3 @@
-import Editor from './Editor'
+import EditorController from './EditorController'
 
-export default Editor
+export default EditorController
