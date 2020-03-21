@@ -8,15 +8,9 @@ import routes from 'consts/routes'
 
 const LoginController: React.FC<RouteProps> = (props: RouteProps) => {
   const history = useHistory()
-
-  const [password, setPassword] = useState('')
   const [login] = useLoginFacade()
 
-  const onInputValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value)
-  }
-
-  const handleLogin = async () => {
+  const handleLogin = async (password: string) => {
     const loginSuccessful = await login(password)
     if (loginSuccessful) {
       history.push(routes.secret.home)
@@ -25,10 +19,8 @@ const LoginController: React.FC<RouteProps> = (props: RouteProps) => {
 
   return (
     <LoginView
-      password={password}
-      onInputValueChange={onInputValueChange}
-      onLoginPress={() => {
-        handleLogin()
+      onLoginPress={(password: string) => {
+        handleLogin(password)
       }}
     />
   )
