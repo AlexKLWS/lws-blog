@@ -4,15 +4,19 @@ import Modal from 'react-modal'
 import 'easymde/dist/easymde.min.css'
 
 import './Editor.scss'
+import { EditorError } from 'types/editor'
 import ArticleSubmitModal from './Components/ArticleSubmitModal'
 
-interface Props {}
+interface Props {
+  submitData: (articleName: string, articleSubtitle: string, articleText: string) => void
+  performDataCheck: (articleName: string, articleSubtitle: string, articleText: string) => void
+  submitErrors: EditorError[]
+}
 
 const EditorView: React.FC<Props> = (props: Props) => {
-  const [currentValue, setCurrentValue] = useState('')
-
   const [articleName, setArticleName] = useState('')
   const [articleSubtitle, setArticleSubtitle] = useState('')
+  const [articleText, setArticleText] = useState('')
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
@@ -22,6 +26,13 @@ const EditorView: React.FC<Props> = (props: Props) => {
 
   const onSubtitleInputValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setArticleSubtitle(event.target.value)
+  }
+
+  const onSubmit = () => {}
+
+  const onSubmitButtonClick = () => {
+    props.performDataCheck(articleName, articleSubtitle, articleText)
+    setModalIsOpen(true)
   }
 
   return (
@@ -36,18 +47,11 @@ const EditorView: React.FC<Props> = (props: Props) => {
           onChange={onSubtitleInputValueChange}
         />
       </div>
-      <SimpleMDE value={currentValue} onChange={setCurrentValue} />
+      <SimpleMDE value={articleText} onChange={setArticleText} />
       <div className='Editor-button-container'>
-        <input
-          className='App-button'
-          onClick={() => {
-            setModalIsOpen(true)
-          }}
-          type={'submit'}
-          value={'Submit'}
-        />
+        <input className='App-button' onClick={onSubmitButtonClick} type={'submit'} value={'Submit'} />
       </div>
-      <ArticleSubmitModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
+      <ArticleSubmitModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} submitErrors={props.submitErrors} />
     </div>
   )
 }
