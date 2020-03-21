@@ -9,6 +9,7 @@ const secret = {
   home: '/secret',
   editor: '/secret/editor',
   addPage: '/secret/add-page',
+  mediaUpload: '/secret/media-upload',
 }
 
 export default {
