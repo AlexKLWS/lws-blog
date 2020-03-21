@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import SimpleMDE from 'react-simplemde-editor'
-import Modal from 'react-modal'
 import 'easymde/dist/easymde.min.css'
 
 import './Editor.scss'
@@ -28,7 +27,10 @@ const EditorView: React.FC<Props> = (props: Props) => {
     setArticleSubtitle(event.target.value)
   }
 
-  const onSubmit = () => {}
+  const onSubmit = () => {
+    props.submitData(articleName, articleSubtitle, articleText)
+    setModalIsOpen(false)
+  }
 
   const onSubmitButtonClick = () => {
     props.performDataCheck(articleName, articleSubtitle, articleText)
@@ -51,7 +53,12 @@ const EditorView: React.FC<Props> = (props: Props) => {
       <div className='Editor-button-container'>
         <input className='App-button' onClick={onSubmitButtonClick} type={'submit'} value={'Submit'} />
       </div>
-      <ArticleSubmitModal modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} submitErrors={props.submitErrors} />
+      <ArticleSubmitModal
+        modalIsOpen={modalIsOpen}
+        submitErrors={props.submitErrors}
+        setModalIsOpen={setModalIsOpen}
+        onSubmit={onSubmit}
+      />
     </div>
   )
 }

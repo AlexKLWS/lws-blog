@@ -6,13 +6,12 @@ import { EditorError } from 'types/editor'
 
 interface Props {
   modalIsOpen: boolean
-  setModalIsOpen: (value: boolean) => void
   submitErrors: EditorError[]
+  onSubmit: () => void
+  setModalIsOpen: (value: boolean) => void
 }
 
 const ArticleSubmitModal: React.FC<Props> = (props: Props) => {
-  const onSubmitButtonClick = () => {}
-
   const onCancelButtonClick = () => {
     props.setModalIsOpen(false)
   }
@@ -34,7 +33,7 @@ const ArticleSubmitModal: React.FC<Props> = (props: Props) => {
         <div className='ArticleSubmitModal-button-container'>
           <input
             className={props.submitErrors.length > 0 ? 'App-button inactive' : 'App-button'}
-            onClick={onSubmitButtonClick}
+            onClick={props.onSubmit}
             type={'submit'}
             value={'Submit'}
             disabled={props.submitErrors.length > 0}
