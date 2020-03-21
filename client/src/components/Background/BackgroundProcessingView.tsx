@@ -10,7 +10,9 @@ export default class BackgroundProcessingView extends Component {
       p5.noFill()
       p5.beginShape()
       for (let x = -100; x <= window.innerWidth * 1.1; x += 65) {
-        p5.curveVertex(x, y + 250 * p5.noise(x / 50 + y / 500))
+        const noiseModifier = p5.noise(x / 50 + y / 500)
+        p5.curveVertex(x, y + 250 * noiseModifier)
+        p5.strokeWeight(noiseModifier)
       }
       p5.endShape()
     }
