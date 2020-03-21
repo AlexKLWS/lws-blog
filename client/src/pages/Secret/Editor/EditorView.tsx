@@ -28,9 +28,9 @@ const EditorView: React.FC<Props> = (props: Props) => {
     <div>
       <h1 className='Editor-title'>Editor</h1>
       <div className='Editor-input-container'>
-        <input className='Editor-input' placeholder='Title' value={articleName} onChange={onNameInputValueChange} />
+        <input className='App-input' placeholder='Title' value={articleName} onChange={onNameInputValueChange} />
         <input
-          className='Editor-input'
+          className='App-input'
           placeholder='Subtitle'
           value={articleSubtitle}
           onChange={onSubtitleInputValueChange}

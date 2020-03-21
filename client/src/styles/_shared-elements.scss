@@ -17,3 +17,7 @@
     border-color: $white-color;
   }
 }
+
+.App-input {
+  @include input-mixin;
+}
