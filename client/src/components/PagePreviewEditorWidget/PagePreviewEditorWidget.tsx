@@ -58,7 +58,7 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
         value={props.subtitle}
         onChange={onSubtitleInputValueChange}
       />
-      <input type='file' className='App-file-input' id='articleIcon' onChange={onIconFileChange} />
+      <input type='file' className='App-file-input' id='articleIcon' onChange={onIconFileChange} accept='.svg' />
       <label className='App-button' htmlFor='articleIcon'>
         {props.icon?.name || 'Add icon'}
       </label>
