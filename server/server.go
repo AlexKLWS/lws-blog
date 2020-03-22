@@ -17,6 +17,19 @@ type Session struct {
 	Token string `json:"token" xml:"token"`
 }
 
+type IconData struct {
+	Data   string `json:"data" xml:"data"`
+	Height string `json:"height" xml:"height"`
+	Width  string `json:"width" xml:"width"`
+}
+
+type ArticleData struct {
+	Name        string   `json:"name" xml:"name"`
+	Subtitle    string   `json:"subtitle" xml:"subtitle"`
+	ArticleText string   `json:"articleText" xml:"articleText"`
+	Icon        IconData `json:"icon" xml:"icon"`
+}
+
 func cookieCheckMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		cookie, err := c.Cookie("token")
@@ -41,6 +54,7 @@ func main() {
 		HTML5:   true,
 		Browse:  false,
 	}))
+	e.Use(middleware.CORS())
 	e.Static("/", "../client/build")
 
 	// Secret group
@@ -74,6 +88,20 @@ func main() {
 		}
 
 		return c.JSON(http.StatusOK, s)
+	})
+
+	api.POST("/new-article", func(c echo.Context) error {
+		articleData := ArticleData{}
+
+		defer c.Request().Body.Close()
+
+		err := json.NewDecoder(c.Request().Body).Decode(&articleData)
+		if err != nil {
+			log.Printf("Failed processing login request: %s\n", err)
+			return echo.NewHTTPError(http.StatusInternalServerError)
+		}
+
+		return c.String(http.StatusOK, "OK")
 	})
 
 	e.Logger.Fatal(e.Start(":1323"))
