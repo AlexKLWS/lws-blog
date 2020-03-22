@@ -27,7 +27,11 @@ const ArticleSubmitModal: React.FC<Props> = (props: Props) => {
         <h2 className='ArticleSubmitModal-title'>Are you ready to submit your text?</h2>
         <ul className='ArticleSubmitModal-errors-list'>
           {props.submitErrors.map((item) => {
-            return <li className='ArticleSubmitModal-error-item'>{item.description}</li>
+            return (
+              <li key={item.id} className='ArticleSubmitModal-error-item'>
+                {item.description}
+              </li>
+            )
           })}
         </ul>
         <div className='ArticleSubmitModal-button-container'>

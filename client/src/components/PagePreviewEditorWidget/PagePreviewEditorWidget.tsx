@@ -6,18 +6,18 @@ import InlineIcon from 'components/InlineIcon'
 interface Props {
   name: string
   subtitle: string
-  icon: File | null
+  icon: string
   iconWidth: string
   iconHeight: string
   setName: (value: string) => void
   setSubtitle: (value: string) => void
-  setIcon: (value: File | null) => void
+  setIcon: (value: string) => void
   setIconWidth: (value: string) => void
   setIconHeight: (value: string) => void
 }
 
 const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
-  const [iconSvg, setIconSVG] = useState('')
+  const [iconSvgFile, setIconSVGFile] = useState<File | null>(null)
 
   const onNameInputValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.setName(event.target.value)
@@ -36,16 +36,18 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
   }
 
   const parseSVG = async (file: File) => {
-    //@ts-ignore
+    // @ts-ignore
     const text = await file.text()
-    setIconSVG(text)
+    props.setIcon(text)
   }
 
   const onIconFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || !event.target.files[0]) {
+      setIconSVGFile(null)
+      props.setIcon('')
       return
     }
-    props.setIcon(event.target.files[0])
+    setIconSVGFile(event.target.files[0])
     parseSVG(event.target.files[0])
   }
 
@@ -60,12 +62,12 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
       />
       <input type='file' className='App-file-input' id='articleIcon' onChange={onIconFileChange} accept='.svg' />
       <label className='App-button' htmlFor='articleIcon'>
-        {props.icon?.name || 'Add icon'}
+        {iconSvgFile?.name || 'Add icon'}
       </label>
-      {iconSvg.length > 0 && (
+      {props.icon.length > 0 && (
         <div className='PPEW-icon-row'>
           <div className='PPEW-icon-container'>
-            <InlineIcon svg={iconSvg} />
+            <InlineIcon svg={props.icon} />
           </div>
           <input
             className='PPEW-icon-dimensions-input'

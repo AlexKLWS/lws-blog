@@ -11,17 +11,12 @@ const EditorController: React.FC<RouteProps> = (props: RouteProps) => {
     articleName: string,
     articleSubtitle: string,
     articleText: string,
-    articleIcon: File | null,
+    articleIcon: string,
     articleIconWidth: string,
     articleIconHeight: string,
   ) => {}
 
-  const performDataCheck = (
-    articleName: string,
-    articleSubtitle: string,
-    articleText: string,
-    articleIcon: File | null,
-  ) => {
+  const performDataCheck = (articleName: string, articleSubtitle: string, articleText: string, articleIcon: string) => {
     const errors: EditorError[] = []
     if (!articleName || articleName.length === 0) {
       errors.push(editorErrors.noArticleName)
@@ -32,7 +27,7 @@ const EditorController: React.FC<RouteProps> = (props: RouteProps) => {
     if (!articleText || articleText.length === 0) {
       errors.push(editorErrors.noArticleText)
     }
-    if (!articleIcon) {
+    if (!articleIcon || articleIcon.length === 0) {
       errors.push(editorErrors.noArticleIcon)
     }
     setSubmitErrors(errors)
