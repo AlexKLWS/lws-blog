@@ -3,18 +3,12 @@ import { RouteProps } from 'react-router-dom'
 
 import EditorView from './EditorView'
 import editorErrors from 'consts/editorErrors'
+import { useArticlePostFacade } from 'services/facades/articlePostFacade'
 import { EditorError } from 'types/editor'
 
 const EditorController: React.FC<RouteProps> = (props: RouteProps) => {
+  const [postArticle] = useArticlePostFacade()
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
-  const submitData = (
-    articleName: string,
-    articleSubtitle: string,
-    articleText: string,
-    articleIcon: File,
-    articleIconWidth: string,
-    articleIconHeight: string,
-  ) => {}
 
   const performDataCheck = (
     articleName: string,
@@ -38,7 +32,7 @@ const EditorController: React.FC<RouteProps> = (props: RouteProps) => {
     setSubmitErrors(errors)
   }
 
-  return <EditorView submitData={submitData} performDataCheck={performDataCheck} submitErrors={currentSubmitErrors} />
+  return <EditorView submitData={postArticle} performDataCheck={performDataCheck} submitErrors={currentSubmitErrors} />
 }
 
 export default EditorController
