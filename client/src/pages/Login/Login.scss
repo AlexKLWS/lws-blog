@@ -8,3 +8,8 @@
   align-items: center;
   height: 600px;
 }
+
+.Login-input {
+  @include input-mixin;
+  margin-bottom: 30px;
+}

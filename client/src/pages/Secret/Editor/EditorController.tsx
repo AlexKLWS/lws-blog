@@ -7,7 +7,14 @@ import { EditorError } from 'types/editor'
 
 const EditorController: React.FC<RouteProps> = (props: RouteProps) => {
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
-  const submitData = (articleName: string, articleSubtitle: string, articleText: string, articleIcon: File | null) => {}
+  const submitData = (
+    articleName: string,
+    articleSubtitle: string,
+    articleText: string,
+    articleIcon: File | null,
+    articleIconWidth: string,
+    articleIconHeight: string,
+  ) => {}
 
   const performDataCheck = (
     articleName: string,

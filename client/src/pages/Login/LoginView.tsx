@@ -16,7 +16,7 @@ const LoginView: React.FC<Props> = (props: Props) => {
   return (
     <div className='Login-container'>
       <input
-        className='App-input'
+        className='Login-input'
         type='password'
         placeholder='password'
         value={password}

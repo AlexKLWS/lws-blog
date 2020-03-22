@@ -1,0 +1,32 @@
+@import '../../styles/config';
+@import '../../styles/shared-mixins';
+@import '../../styles/shared-elements';
+
+.PPEW-input-container {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 30px;
+}
+
+.PPEW-icon-container {
+  display: block;
+  border: 1px solid;
+  padding: 10px;
+}
+
+.PPEW-icon-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.PPEW-input {
+  @include input-mixin;
+  margin-bottom: 30px;
+}
+
+.PPEW-icon-dimensions-input {
+  @include input-mixin;
+  margin-left: 20px;
+}

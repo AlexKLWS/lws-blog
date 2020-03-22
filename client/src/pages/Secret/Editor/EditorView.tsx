@@ -4,10 +4,18 @@ import 'easymde/dist/easymde.min.css'
 
 import './Editor.scss'
 import { EditorError } from 'types/editor'
+import PagePreviewEditorWidget from 'components/PagePreviewEditorWidget'
 import ArticleSubmitModal from './Components/ArticleSubmitModal'
 
 interface Props {
-  submitData: (articleName: string, articleSubtitle: string, articleText: string, articleIcon: File | null) => void
+  submitData: (
+    articleName: string,
+    articleSubtitle: string,
+    articleText: string,
+    articleIcon: File | null,
+    articleIconWidth: string,
+    articleIconHeight: string,
+  ) => void
   performDataCheck: (
     articleName: string,
     articleSubtitle: string,
@@ -22,26 +30,13 @@ const EditorView: React.FC<Props> = (props: Props) => {
   const [articleSubtitle, setArticleSubtitle] = useState('')
   const [articleText, setArticleText] = useState('')
   const [articleIcon, setArticleIcon] = useState<File | null>(null)
+  const [articleIconWidth, setArticleIconWidth] = useState('')
+  const [articleIconHeight, setArticleIconHeight] = useState('')
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
-  const onNameInputValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setArticleName(event.target.value)
-  }
-
-  const onSubtitleInputValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setArticleSubtitle(event.target.value)
-  }
-
-  const onIconFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) {
-      return
-    }
-    setArticleIcon(event.target.files[0])
-  }
-
   const onSubmit = () => {
-    props.submitData(articleName, articleSubtitle, articleText, articleIcon)
+    props.submitData(articleName, articleSubtitle, articleText, articleIcon, articleIconWidth, articleIconHeight)
     setModalIsOpen(false)
   }
 
@@ -53,19 +48,18 @@ const EditorView: React.FC<Props> = (props: Props) => {
   return (
     <div>
       <h1 className='Editor-title'>Editor</h1>
-      <div className='Editor-input-container'>
-        <input className='App-input' placeholder='Title' value={articleName} onChange={onNameInputValueChange} />
-        <input
-          className='App-input'
-          placeholder='Subtitle'
-          value={articleSubtitle}
-          onChange={onSubtitleInputValueChange}
-        />
-        <input type='file' className='App-file-input' id='customFile' onChange={onIconFileChange} />
-        <label className='App-button' htmlFor='customFile'>
-          {articleIcon?.name || 'Add icon'}
-        </label>
-      </div>
+      <PagePreviewEditorWidget
+        name={articleName}
+        subtitle={articleSubtitle}
+        icon={articleIcon}
+        iconWidth={articleIconWidth}
+        iconHeight={articleIconHeight}
+        setName={setArticleName}
+        setSubtitle={setArticleSubtitle}
+        setIcon={setArticleIcon}
+        setIconWidth={setArticleIconWidth}
+        setIconHeight={setArticleIconHeight}
+      />
       <SimpleMDE value={articleText} onChange={setArticleText} />
       <div className='Editor-button-container'>
         <input className='App-button' onClick={onSubmitButtonClick} type={'submit'} value={'Submit'} />
