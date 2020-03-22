@@ -31,13 +31,13 @@ export class ArticlePostService implements IArticlePostService {
     if (articleIconWidth.length > 0) {
       iconWidth = articleIconWidth
     } else {
-      iconWidth = articleIconHeight || null
+      iconWidth = articleIconHeight.length > 0 ? articleIconHeight : null
     }
     let iconHeight
     if (articleIconHeight.length > 0) {
       iconHeight = articleIconHeight
     } else {
-      iconHeight = articleIconWidth || null
+      iconHeight = articleIconWidth.length > 0 ? articleIconWidth : null
     }
     return {
       name: articleName,
