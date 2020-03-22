@@ -1,4 +1,5 @@
 import { injectable } from 'inversify'
+import axios from 'axios'
 
 import { apiEndpoint } from 'consts/endpoints'
 import { setCookie } from 'helpers/cookies'
@@ -13,14 +14,16 @@ export class AuthenticationService implements IAuthenticationService {
   public async login(password: string) {
     const request = {
       method: 'POST',
-      body: JSON.stringify({
+      url: `${apiEndpoint}/login`,
+      data: {
         password,
-      }),
+      },
     }
 
     try {
-      const response = await fetch(`${apiEndpoint}/login`, request)
-      const session: Session | null = await response.json()
+      //@ts-ignore
+      const response = await axios(request)
+      const session: Session | null = await response.data
       if (session) {
         setCookie('token', session.token, 1)
         return true
