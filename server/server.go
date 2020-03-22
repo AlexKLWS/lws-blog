@@ -54,7 +54,11 @@ func main() {
 		HTML5:   true,
 		Browse:  false,
 	}))
-	e.Use(middleware.CORS())
+	e.Use(middleware.Recover())
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"http://localhost:3000"},
+		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
+	}))
 	e.Static("/", "../client/build")
 
 	// Secret group
