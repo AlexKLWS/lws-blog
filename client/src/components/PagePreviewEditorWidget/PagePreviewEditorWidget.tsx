@@ -6,19 +6,17 @@ import InlineIcon from 'components/InlineIcon'
 interface Props {
   name: string
   subtitle: string
-  icon: string
+  icon: File | null
   iconWidth: string
   iconHeight: string
   setName: (value: string) => void
   setSubtitle: (value: string) => void
-  setIcon: (value: string) => void
+  setIcon: (value: File | null) => void
   setIconWidth: (value: string) => void
   setIconHeight: (value: string) => void
 }
 
 const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
-  const [iconSvgFile, setIconSVGFile] = useState<File | null>(null)
-
   const onNameInputValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.setName(event.target.value)
   }
@@ -35,20 +33,11 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
     props.setIconHeight(event.target.value)
   }
 
-  const parseSVG = async (file: File) => {
-    // @ts-ignore
-    const text = await file.text()
-    props.setIcon(text)
-  }
-
   const onIconFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || !event.target.files[0]) {
-      setIconSVGFile(null)
-      props.setIcon('')
       return
     }
-    setIconSVGFile(event.target.files[0])
-    parseSVG(event.target.files[0])
+    props.setIcon(event.target.files[0])
   }
 
   return (
@@ -62,13 +51,10 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
       />
       <input type='file' className='App-file-input' id='articleIcon' onChange={onIconFileChange} accept='.svg' />
       <label className='App-button' htmlFor='articleIcon'>
-        {iconSvgFile?.name || 'Add icon'}
+        {props.icon?.name || 'Add icon'}
       </label>
-      {props.icon.length > 0 && (
+      {props.icon && (
         <div className='PPEW-icon-row'>
-          <div className='PPEW-icon-container'>
-            <InlineIcon svg={props.icon} />
-          </div>
           <input
             className='PPEW-icon-dimensions-input'
             placeholder='Width'

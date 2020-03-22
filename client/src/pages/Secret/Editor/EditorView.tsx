@@ -12,11 +12,16 @@ interface Props {
     articleName: string,
     articleSubtitle: string,
     articleText: string,
-    articleIcon: string,
+    articleIcon: File | null,
     articleIconWidth: string,
     articleIconHeight: string,
   ) => void
-  performDataCheck: (articleName: string, articleSubtitle: string, articleText: string, articleIcon: string) => void
+  performDataCheck: (
+    articleName: string,
+    articleSubtitle: string,
+    articleText: string,
+    articleIcon: File | null,
+  ) => void
   submitErrors: EditorError[]
 }
 
@@ -24,7 +29,7 @@ const EditorView: React.FC<Props> = (props: Props) => {
   const [articleName, setArticleName] = useState('')
   const [articleSubtitle, setArticleSubtitle] = useState('')
   const [articleText, setArticleText] = useState('')
-  const [articleIcon, setArticleIcon] = useState('')
+  const [articleIcon, setArticleIcon] = useState<File | null>(null)
   const [articleIconWidth, setArticleIconWidth] = useState('')
   const [articleIconHeight, setArticleIconHeight] = useState('')
 
