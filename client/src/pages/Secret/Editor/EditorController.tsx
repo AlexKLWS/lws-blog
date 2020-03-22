@@ -1,10 +1,18 @@
 import React, { useState } from 'react'
 import { RouteProps } from 'react-router-dom'
+import Loadable from 'react-loadable'
 
 import EditorView from './EditorView'
 import editorErrors from 'consts/editorErrors'
 import { useArticlePostFacade } from 'services/facades/articlePostFacade'
 import { EditorError } from 'types/editor'
+
+const LoadableEditorView = Loadable({
+  loader: () => import('./EditorView'),
+  loading: () => {
+    return <div>LOADING</div>
+  },
+})
 
 const EditorController: React.FC<RouteProps> = (props: RouteProps) => {
   const [postArticle] = useArticlePostFacade()
@@ -32,7 +40,13 @@ const EditorController: React.FC<RouteProps> = (props: RouteProps) => {
     setSubmitErrors(errors)
   }
 
-  return <EditorView submitData={postArticle} performDataCheck={performDataCheck} submitErrors={currentSubmitErrors} />
+  return (
+    <LoadableEditorView
+      submitData={postArticle}
+      performDataCheck={performDataCheck}
+      submitErrors={currentSubmitErrors}
+    />
+  )
 }
 
 export default EditorController
