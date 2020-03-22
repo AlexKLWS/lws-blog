@@ -12,7 +12,7 @@ interface Props {
     articleName: string,
     articleSubtitle: string,
     articleText: string,
-    articleIcon: File | null,
+    articleIcon: File,
     articleIconWidth: string,
     articleIconHeight: string,
   ) => void
@@ -36,6 +36,9 @@ const EditorView: React.FC<Props> = (props: Props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const onSubmit = () => {
+    if (!articleIcon) {
+      return
+    }
     props.submitData(articleName, articleSubtitle, articleText, articleIcon, articleIconWidth, articleIconHeight)
     setModalIsOpen(false)
   }

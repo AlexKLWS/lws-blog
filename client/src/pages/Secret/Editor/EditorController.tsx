@@ -11,7 +11,7 @@ const EditorController: React.FC<RouteProps> = (props: RouteProps) => {
     articleName: string,
     articleSubtitle: string,
     articleText: string,
-    articleIcon: File | null,
+    articleIcon: File,
     articleIconWidth: string,
     articleIconHeight: string,
   ) => {}

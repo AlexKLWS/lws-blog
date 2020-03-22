@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import './PagePreviewEditorWidget.scss'
-import InlineIcon from 'components/InlineIcon'
 
 interface Props {
   name: string
