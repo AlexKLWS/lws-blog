@@ -14,7 +14,7 @@ export class AuthenticationService implements IAuthenticationService {
   public async login(password: string) {
     const request = {
       method: 'POST',
-      url: `${apiEndpoint}/login`,
+      url: `${apiEndpoint}/auth/login`,
       data: {
         password,
       },
