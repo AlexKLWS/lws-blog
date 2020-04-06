@@ -1,18 +1,8 @@
 import React, { useState, useRef } from 'react'
 
 import './FileUploadWidget.scss'
-
-interface UploadData {
-  id: string
-  folder?: string
-  files?: FileData[]
-}
-
-interface FileData {
-  id: string
-  file?: File
-  newName?: string
-}
+import { UploadData, FileData } from 'types/file'
+import FileListItem from './FileListItem'
 
 interface Props {}
 
@@ -65,6 +55,19 @@ const FileUploadWidget = (props: Props) => {
     setFolderSelectors(selectors)
   }
 
+  const updateFilename = (selector: UploadData, fileId: string, filename: string) => {
+    const selectors = [...folderSelectors]
+    const folderSelectorIndex = selectors.findIndex((s) => s.id === selector.id)
+
+    for (const file of selectors[folderSelectorIndex].files!) {
+      if (file.id === fileId) {
+        file.newName = filename
+        break
+      }
+    }
+    setFolderSelectors(selectors)
+  }
+
   const renderFolderSelectors = () => {
     return folderSelectors.map((selector) => {
       return (
@@ -89,7 +92,7 @@ const FileUploadWidget = (props: Props) => {
                 multiple
               />
               <label className='App-button' htmlFor={`fileSelector-${selector.id}`}>
-                {'Add files to folder'}
+                {'Add files'}
               </label>
             </div>
             <input
@@ -105,19 +108,16 @@ const FileUploadWidget = (props: Props) => {
             {selector.files &&
               selector.files
                 .map((fileData) => {
-                  if (!fileData.file) {
-                    return null
-                  }
-                  return (
-                    <li className='FUW-file-list-item' key={`${selector.id}-${fileData.file.name}`}>
-                      <span className='FUW-file-list-item-name-label'>{fileData.file.name}</span>
-                      <input
-                        placeholder='Rename upon upload'
-                        className='FUW-file-list-item-input'
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {}}
-                      />
-                    </li>
-                  )
+                  return fileData.file ? (
+                    <FileListItem
+                      key={`${selector.id}-${fileData.file.name}`}
+                      fileData={fileData}
+                      filename={fileData.newName}
+                      updateFilename={(filename: string) => {
+                        updateFilename(selector, fileData.id, filename)
+                      }}
+                    />
+                  ) : null
                 })
                 .filter((element) => element !== null)}
           </ul>
