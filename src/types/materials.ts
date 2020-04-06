@@ -6,9 +6,11 @@ export interface PagePreview {
   id?: string
   name: string
   subtitle: string
-  icon: {
-    data: string
-    height: string | null
-    width: string | null
-  }
+  icon: IconData
+}
+
+export interface IconData {
+  data: string
+  height: string | null
+  width: string | null
 }
