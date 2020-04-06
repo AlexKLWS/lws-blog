@@ -32,6 +32,11 @@ const HomeView: React.FC<Props> = (props: Props) => {
                 > Add page
               </Link>
             </li>
+            <li className='SecretHome-dropdown-item'>
+              <Link to={routes.secret.fileUpload} className={'SecretHome-dropdown'}>
+                > Add files
+              </Link>
+            </li>
           </ul>
         )}
       </div>

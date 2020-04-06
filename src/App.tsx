@@ -9,6 +9,8 @@ import Footer from 'components/Footer/Footer'
 import ArticlesSection from 'pages/ArticlesSection/ArticlesSection'
 import Contact from 'pages/Contact/Contact'
 import Login from 'pages/Login'
+import FileUpload from 'pages/Secret/FileUpload'
+import PageEditor from 'pages/Secret/PageEditor'
 import Editor from 'pages/Secret/Editor'
 import SecretHome from 'pages/Secret/Home'
 import routes from 'consts/routes'
@@ -36,6 +38,8 @@ function App() {
               <Route path={routes.projects} component={ArticlesSection} />
               <Route path={routes.contact} component={Contact} />
               <Route path={routes.login} component={Login} />
+              <Route path={routes.secret.addPage} component={PageEditor} />
+              <Route path={routes.secret.fileUpload} component={FileUpload} />
               <Route path={routes.secret.editor} component={Editor} />
               <Route path={routes.secret.home} component={SecretHome} />
               <Route path={routes.home} component={Home} />

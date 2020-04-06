@@ -6,6 +6,7 @@ import './Editor.scss'
 import { EditorError } from 'types/editor'
 import PagePreviewEditorWidget from 'components/PagePreviewEditorWidget'
 import ArticleSubmitModal from './Components/ArticleSubmitModal'
+import FileUploadWidget from 'components/FileUploadWidget'
 
 interface Props {
   submitData: (
@@ -64,6 +65,7 @@ const EditorView: React.FC<Props> = (props: Props) => {
         setIconHeight={setArticleIconHeight}
       />
       <SimpleMDE value={articleText} onChange={setArticleText} />
+      <FileUploadWidget />
       <div className='Editor-button-container'>
         <input className='App-button' onClick={onSubmitButtonClick} type={'submit'} value={'Submit'} />
       </div>
