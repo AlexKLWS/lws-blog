@@ -1,0 +1,89 @@
+@import '../../styles/config';
+@import '../../styles/shared-mixins';
+@import '../../styles/shared-elements';
+
+.FUW-container {
+  padding-top: 36px;
+}
+
+.FUW-selector-list-item {
+  display: inline-block;
+}
+
+.FUW-folder-selector-list {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.FUW-label {
+  @include normal-mono;
+  margin-left: auto;
+}
+
+.FUW-remove-button {
+  @include button;
+  border-width: 1px;
+  border-color: $white-color;
+  margin-left: auto;
+
+  &:focus {
+    border-color: $secondary-color;
+    border-width: 1px;
+    outline: none;
+  }
+
+  &:active {
+    color: $white-color;
+    background-color: $primary-color;
+    border-color: $white-color;
+  }
+}
+
+.FUW-add-button {
+  @include button;
+  border-width: 1px;
+  border-color: $white-color;
+
+  &:focus {
+    border-color: $secondary-color;
+    border-width: 1px;
+    outline: none;
+  }
+
+  &:active {
+    color: $white-color;
+    background-color: $primary-color;
+    border-color: $white-color;
+  }
+}
+
+.FUW-file-input-container {
+  padding-left: 3.5%;
+}
+
+.FUW-selector-item-container {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  width: 100%;
+  padding-top: 16px;
+}
+
+.FUW-file-list {
+  list-style-type: square;
+}
+
+.FUW-file-list-item {
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.FUW-file-list-item-name-label {
+  @include normal-mono;
+}
+
+.FUW-file-list-item-input {
+  @include input-mixin;
+  margin-left: auto;
+}
