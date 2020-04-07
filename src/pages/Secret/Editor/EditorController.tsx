@@ -25,13 +25,13 @@ const EditorController: React.FC<RouteProps> = (props: RouteProps) => {
     articleIcon: File | null,
   ) => {
     const errors: EditorError[] = []
-    if (!articleName || articleName.length === 0) {
+    if (!articleName) {
       errors.push(editorErrors.noArticleName)
     }
-    if (!articleSubtitle || articleSubtitle.length === 0) {
+    if (!articleSubtitle) {
       errors.push(editorErrors.noArticleSubtitle)
     }
-    if (!articleText || articleText.length === 0) {
+    if (!articleText) {
       errors.push(editorErrors.noArticleText)
     }
     if (!articleIcon) {
