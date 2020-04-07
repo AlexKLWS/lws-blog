@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 
 import { useInjection } from 'services/provider'
-import { ArticlePostServiceId, IArticlePostService } from 'services/articlePost'
+import { ArticlePostServiceId, IMaterialPostService } from 'services/materialPost'
 
 export function useArticlePostFacade(): [
   (
@@ -13,7 +13,7 @@ export function useArticlePostFacade(): [
     articleIconHeight: string,
   ) => void,
 ] {
-  const service = useRef(useInjection<IArticlePostService>(ArticlePostServiceId))
+  const service = useRef(useInjection<IMaterialPostService>(ArticlePostServiceId))
   const postArticle = (
     articleName: string,
     articleSubtitle: string,

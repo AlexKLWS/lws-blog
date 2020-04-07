@@ -1,11 +1,11 @@
 import 'reflect-metadata'
 import { Container, interfaces, ContainerModule } from 'inversify'
 import { AuthenticationService, AuthenticationServiceId, IAuthenticationService } from './authentication'
-import { ArticlePostService, ArticlePostServiceId, IArticlePostService } from './articlePost'
+import { MaterailPostService, ArticlePostServiceId, IMaterialPostService } from './materialPost'
 
 export const containerModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<IAuthenticationService>(AuthenticationServiceId).to(AuthenticationService)
-  bind<IArticlePostService>(ArticlePostServiceId).to(ArticlePostService)
+  bind<IMaterialPostService>(ArticlePostServiceId).to(MaterailPostService)
 })
 
 export const container = new Container()
