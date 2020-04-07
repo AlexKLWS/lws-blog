@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from 'react-modal'
 
-import './ArticleSubmitModal.scss'
+import './SubmitModal.scss'
 import { EditorError } from 'types/editor'
 
 interface Props {
@@ -24,7 +24,7 @@ const ArticleSubmitModal: React.FC<Props> = (props: Props) => {
       overlayClassName='ArticleSubmitModal-modal-overlay'
     >
       <div className='ArticleSubmitModal-content-container'>
-        <h2 className='ArticleSubmitModal-title'>Are you ready to submit your text?</h2>
+        <h2 className='ArticleSubmitModal-title'>Are you ready to submit the material?</h2>
         <ul className='ArticleSubmitModal-errors-list'>
           {props.submitErrors.map((item) => {
             return (

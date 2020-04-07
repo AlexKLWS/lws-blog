@@ -5,7 +5,7 @@ import 'easymde/dist/easymde.min.css'
 import './Editor.scss'
 import { EditorError } from 'types/editor'
 import PagePreviewEditorWidget from 'components/PagePreviewEditorWidget'
-import ArticleSubmitModal from './Components/ArticleSubmitModal'
+import SubmitModal from 'components/Secret/SubmitModal'
 import FileUploadWidget from 'components/FileUploadWidget'
 
 interface Props {
@@ -69,7 +69,7 @@ const EditorView: React.FC<Props> = (props: Props) => {
       <div className='Editor-button-container'>
         <input className='App-button' onClick={onSubmitButtonClick} type={'submit'} value={'Submit'} />
       </div>
-      <ArticleSubmitModal
+      <SubmitModal
         modalIsOpen={modalIsOpen}
         submitErrors={props.submitErrors}
         setModalIsOpen={setModalIsOpen}
