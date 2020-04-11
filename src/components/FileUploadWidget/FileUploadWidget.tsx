@@ -1,16 +1,16 @@
 import React, { useState, useRef } from 'react'
 
 import './FileUploadWidget.scss'
-import { UploadData, FileData } from 'types/file'
+import { FolderData, FileData } from 'types/file'
 import FileListItem from './FileListItem'
 
 interface Props {}
 
 const FileUploadWidget = (props: Props) => {
   const folderSelectorId = useRef(0)
-  const [folderSelectors, setFolderSelectors] = useState<UploadData[]>([{ id: String(folderSelectorId.current) }])
+  const [folderSelectors, setFolderSelectors] = useState<FolderData[]>([{ id: String(folderSelectorId.current) }])
 
-  const onFolderNameSpecify = (selector: UploadData, event: React.ChangeEvent<HTMLInputElement>) => {
+  const onFolderNameSpecify = (selector: FolderData, event: React.ChangeEvent<HTMLInputElement>) => {
     const selectors = [...folderSelectors]
     const folderSelectorIndex = selectors.findIndex((s) => s.id === selector.id)
 
@@ -22,7 +22,7 @@ const FileUploadWidget = (props: Props) => {
     setFolderSelectors(selectors)
   }
 
-  const onFilesAdd = (selector: UploadData, event: React.ChangeEvent<HTMLInputElement>) => {
+  const onFilesAdd = (selector: FolderData, event: React.ChangeEvent<HTMLInputElement>) => {
     const selectors = [...folderSelectors]
     const folderSelectorIndex = selectors.findIndex((s) => s.id === selector.id)
 
@@ -55,7 +55,7 @@ const FileUploadWidget = (props: Props) => {
     setFolderSelectors(selectors)
   }
 
-  const updateFilename = (selector: UploadData, fileId: string, filename: string) => {
+  const updateFilename = (selector: FolderData, fileId: string, filename: string) => {
     const selectors = [...folderSelectors]
     const folderSelectorIndex = selectors.findIndex((s) => s.id === selector.id)
 
