@@ -8,113 +8,113 @@ interface Props {}
 
 const FileUploadWidget = (props: Props) => {
   const folderSelectorId = useRef(0)
-  const [folderSelectors, setFolderSelectors] = useState<FolderData[]>([{ id: String(folderSelectorId.current) }])
+  const [folderDatas, setFolderDatas] = useState<FolderData[]>([{ id: String(folderSelectorId.current) }])
 
-  const onFolderNameSpecify = (selector: FolderData, event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectors = [...folderSelectors]
-    const folderSelectorIndex = selectors.findIndex((s) => s.id === selector.id)
+  const onFolderNameSpecify = (data: FolderData, event: React.ChangeEvent<HTMLInputElement>) => {
+    const datas = [...folderDatas]
+    const folderSelectorIndex = datas.findIndex((s) => s.id === data.id)
 
-    selectors[folderSelectorIndex] = {
-      id: selector.id,
+    datas[folderSelectorIndex] = {
+      id: data.id,
       folder: event.target.value,
-      files: selector.files,
+      files: data.files,
     }
-    setFolderSelectors(selectors)
+    setFolderDatas(datas)
   }
 
-  const onFilesAdd = (selector: FolderData, event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectors = [...folderSelectors]
-    const folderSelectorIndex = selectors.findIndex((s) => s.id === selector.id)
+  const onFilesAdd = (data: FolderData, event: React.ChangeEvent<HTMLInputElement>) => {
+    const datas = [...folderDatas]
+    const folderSelectorIndex = datas.findIndex((s) => s.id === data.id)
 
     const files: FileData[] = []
     if (event.target.files) {
       for (let index = 0; index < event.target.files.length; index++) {
-        files.push({ id: selector.id + String(index), file: event.target.files[index] })
+        files.push({ id: data.id + String(index), file: event.target.files[index] })
       }
     }
 
-    selectors[folderSelectorIndex] = {
-      id: selector.id,
-      folder: selector.folder,
+    datas[folderSelectorIndex] = {
+      id: data.id,
+      folder: data.folder,
       files,
     }
-    setFolderSelectors(selectors)
+    setFolderDatas(datas)
   }
 
   const addFolder = () => {
     folderSelectorId.current++
-    setFolderSelectors([...folderSelectors, { id: String(folderSelectorId.current) }])
+    setFolderDatas([...folderDatas, { id: String(folderSelectorId.current) }])
   }
 
   const removeFolder = (id: string) => {
-    let selectors = folderSelectors.filter((selector) => selector.id !== id)
-    if (!selectors.length) {
+    let datas = folderDatas.filter((selector) => selector.id !== id)
+    if (!datas.length) {
       folderSelectorId.current++
-      selectors = [{ id: String(folderSelectorId.current) }]
+      datas = [{ id: String(folderSelectorId.current) }]
     }
-    setFolderSelectors(selectors)
+    setFolderDatas(datas)
   }
 
-  const updateFilename = (selector: FolderData, fileId: string, filename: string) => {
-    const selectors = [...folderSelectors]
-    const folderSelectorIndex = selectors.findIndex((s) => s.id === selector.id)
+  const updateFilename = (data: FolderData, fileId: string, filename: string) => {
+    const datas = [...folderDatas]
+    const folderSelectorIndex = datas.findIndex((s) => s.id === data.id)
 
-    for (const file of selectors[folderSelectorIndex].files!) {
+    for (const file of datas[folderSelectorIndex].files!) {
       if (file.id === fileId) {
         file.newName = filename
         break
       }
     }
-    setFolderSelectors(selectors)
+    setFolderDatas(datas)
   }
 
   const renderFolderSelectors = () => {
-    return folderSelectors.map((selector) => {
+    return folderDatas.map((data) => {
       return (
-        <li className='FUW-selector-list-item' key={`${selector.id}`}>
+        <li className='FUW-selector-list-item' key={`${data.id}`}>
           <div className='FUW-selector-item-container'>
             <input
               placeholder='Specify folder name'
               className='App-input'
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                onFolderNameSpecify(selector, event)
+                onFolderNameSpecify(data, event)
               }}
             />
             <div className='FUW-file-input-container'>
               <input
                 type='file'
                 className='App-file-input'
-                id={`fileSelector-${selector.id}`}
+                id={`fileSelector-${data.id}`}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  onFilesAdd(selector, event)
+                  onFilesAdd(data, event)
                 }}
                 accept='image/x-png,image/gif,image/jpeg'
                 multiple
               />
-              <label className='App-button' htmlFor={`fileSelector-${selector.id}`}>
+              <label className='App-button' htmlFor={`fileSelector-${data.id}`}>
                 {'Add files'}
               </label>
             </div>
             <input
               className='FUW-remove-button'
               onClick={() => {
-                removeFolder(selector.id)
+                removeFolder(data.id)
               }}
               type='submit'
               value='-'
             />
           </div>
           <ul className='FUW-file-list'>
-            {selector.files &&
-              selector.files
+            {data.files &&
+              data.files
                 .map((fileData) => {
                   return fileData.file ? (
                     <FileListItem
-                      key={`${selector.id}-${fileData.file.name}`}
+                      key={`${data.id}-${fileData.file.name}`}
                       fileData={fileData}
                       filename={fileData.newName}
                       updateFilename={(filename: string) => {
-                        updateFilename(selector, fileData.id, filename)
+                        updateFilename(data, fileData.id, filename)
                       }}
                     />
                   ) : null
