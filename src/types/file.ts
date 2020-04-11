@@ -6,8 +6,7 @@ export interface FolderData {
 
 export interface FileData {
   id: string
-  file?: File
-  referenceId?: string
+  file: File
   newName?: string
 }
 
@@ -20,4 +19,9 @@ export interface UploadMetaData {
 export interface FileMetaData {
   id: string
   referenceId: string
+}
+
+export interface FileUploadForm {
+  referenceId: string
+  file: File
 }
