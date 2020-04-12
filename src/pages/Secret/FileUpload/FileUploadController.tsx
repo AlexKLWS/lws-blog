@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import FileUploadView from './FileUploadView'
-import { EditorError } from 'types/editor'
 
 const FileUploadController = () => {
-  const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
-
-  return <FileUploadView submitErrors={currentSubmitErrors} />
+  return <FileUploadView />
 }
 
 export default FileUploadController
