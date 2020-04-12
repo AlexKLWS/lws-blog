@@ -1,5 +1,5 @@
 import { injectable } from 'inversify'
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 
 import { ArticleData, PageData } from 'types/materials'
 import { apiEndpoint } from 'consts/endpoints'
@@ -129,14 +129,13 @@ export class MaterailPostService implements IMaterialPostService {
       articleIconHeight,
     )
 
-    const request = {
+    const request: AxiosRequestConfig = {
       method: 'POST',
-      url: `${apiEndpoint}/new-article`,
+      url: `${apiEndpoint}/articles`,
       data: articleData,
     }
 
     try {
-      //@ts-ignore
       const response = await axios(request)
       const responseData = await response.data
     } catch (e) {
