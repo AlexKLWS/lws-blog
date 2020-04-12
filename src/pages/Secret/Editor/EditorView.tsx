@@ -65,10 +65,10 @@ const EditorView: React.FC<Props> = (props: Props) => {
         setIconHeight={setArticleIconHeight}
       />
       <SimpleMDE value={articleText} onChange={setArticleText} />
-      <FileUploadWidget />
       <div className='Editor-button-container'>
         <input className='App-button' onClick={onSubmitButtonClick} type={'submit'} value={'Submit'} />
       </div>
+      <FileUploadWidget />
       <SubmitModal
         modalIsOpen={modalIsOpen}
         submitErrors={props.submitErrors}
