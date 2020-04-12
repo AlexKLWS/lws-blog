@@ -1,75 +1,22 @@
-import React, { useState, useRef } from 'react'
+import React from 'react'
 
 import './FileUploadWidget.scss'
-import { FolderData, FileData } from 'types/file'
+import { FolderData } from 'types/file'
 import FileListItem from './FileListItem'
 
-interface Props {}
+interface Props {
+  folderDatas: FolderData[]
+  onUploadButtonClick: () => void
+  onFolderNameSpecify: (data: FolderData, event: React.ChangeEvent<HTMLInputElement>) => void
+  onFilesAdd: (data: FolderData, event: React.ChangeEvent<HTMLInputElement>) => void
+  addFolder: () => void
+  removeFolder: (id: string) => void
+  updateFilename: (data: FolderData, fileId: string, filename: string) => void
+}
 
-const FileUploadWidget = (props: Props) => {
-  const folderSelectorId = useRef(0)
-  const [folderDatas, setFolderDatas] = useState<FolderData[]>([{ id: String(folderSelectorId.current) }])
-
-  const onFolderNameSpecify = (data: FolderData, event: React.ChangeEvent<HTMLInputElement>) => {
-    const datas = [...folderDatas]
-    const folderSelectorIndex = datas.findIndex((s) => s.id === data.id)
-
-    datas[folderSelectorIndex] = {
-      id: data.id,
-      folder: event.target.value,
-      files: data.files,
-    }
-    setFolderDatas(datas)
-  }
-
-  const onFilesAdd = (data: FolderData, event: React.ChangeEvent<HTMLInputElement>) => {
-    const datas = [...folderDatas]
-    const folderSelectorIndex = datas.findIndex((s) => s.id === data.id)
-
-    const files: FileData[] = []
-    if (event.target.files) {
-      for (let index = 0; index < event.target.files.length; index++) {
-        files.push({ id: data.id + String(index), file: event.target.files[index] })
-      }
-    }
-
-    datas[folderSelectorIndex] = {
-      id: data.id,
-      folder: data.folder,
-      files,
-    }
-    setFolderDatas(datas)
-  }
-
-  const addFolder = () => {
-    folderSelectorId.current++
-    setFolderDatas([...folderDatas, { id: String(folderSelectorId.current) }])
-  }
-
-  const removeFolder = (id: string) => {
-    let datas = folderDatas.filter((selector) => selector.id !== id)
-    if (!datas.length) {
-      folderSelectorId.current++
-      datas = [{ id: String(folderSelectorId.current) }]
-    }
-    setFolderDatas(datas)
-  }
-
-  const updateFilename = (data: FolderData, fileId: string, filename: string) => {
-    const datas = [...folderDatas]
-    const folderSelectorIndex = datas.findIndex((s) => s.id === data.id)
-
-    for (const file of datas[folderSelectorIndex].files!) {
-      if (file.id === fileId) {
-        file.newName = filename
-        break
-      }
-    }
-    setFolderDatas(datas)
-  }
-
+const FileUploadWidget: React.FC<Props> = (props: Props) => {
   const renderFolderSelectors = () => {
-    return folderDatas.map((data) => {
+    return props.folderDatas.map((data) => {
       return (
         <li className='FUW-selector-list-item' key={`${data.id}`}>
           <div className='FUW-selector-item-container'>
@@ -77,7 +24,7 @@ const FileUploadWidget = (props: Props) => {
               placeholder='Specify folder name'
               className='App-input'
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                onFolderNameSpecify(data, event)
+                props.onFolderNameSpecify(data, event)
               }}
             />
             <div className='FUW-file-input-container'>
@@ -86,7 +33,7 @@ const FileUploadWidget = (props: Props) => {
                 className='App-file-input'
                 id={`fileSelector-${data.id}`}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  onFilesAdd(data, event)
+                  props.onFilesAdd(data, event)
                 }}
                 accept='image/x-png,image/gif,image/jpeg'
                 multiple
@@ -98,7 +45,7 @@ const FileUploadWidget = (props: Props) => {
             <input
               className='FUW-remove-button'
               onClick={() => {
-                removeFolder(data.id)
+                props.removeFolder(data.id)
               }}
               type='submit'
               value='-'
@@ -114,7 +61,7 @@ const FileUploadWidget = (props: Props) => {
                       fileData={fileData}
                       filename={fileData.newName}
                       updateFilename={(filename: string) => {
-                        updateFilename(data, fileData.id, filename)
+                        props.updateFilename(data, fileData.id, filename)
                       }}
                     />
                   ) : null
@@ -130,9 +77,12 @@ const FileUploadWidget = (props: Props) => {
     <div className='FUW-container'>
       <div>
         <span className='FUW-label'>Folders: </span>
-        <input className='FUW-add-button' onClick={addFolder} type='submit' value='+' />
+        <input className='FUW-add-button' onClick={props.addFolder} type='submit' value='+' />
       </div>
       <ul className='FUW-folder-selector-list'>{renderFolderSelectors()}</ul>
+      <div className='FUW-upload-button-container'>
+        <input className='App-button' onClick={props.onUploadButtonClick} type={'submit'} value={'Upload Files'} />
+      </div>
     </div>
   )
 }

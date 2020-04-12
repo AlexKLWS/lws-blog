@@ -87,3 +87,9 @@
   @include input-mixin;
   margin-left: auto;
 }
+
+.FUW-upload-button-container {
+  display: flex;
+  justify-content: center;
+  padding: 36px 0px;
+}

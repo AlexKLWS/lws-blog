@@ -1,3 +1,3 @@
-import FileUploadWidget from './FileUploadWidget'
+import FileUploadWidgetController from './FileUploadWidgetController'
 
-export default FileUploadWidget
+export default FileUploadWidgetController
