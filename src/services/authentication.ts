@@ -1,7 +1,7 @@
 import { injectable } from 'inversify'
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 
-import { apiEndpoint } from 'consts/endpoints'
+import { authEndpoint } from 'consts/endpoints'
 import { setCookie } from 'helpers/cookies'
 import { Session } from 'types/session'
 
@@ -12,16 +12,15 @@ export interface IAuthenticationService {
 @injectable()
 export class AuthenticationService implements IAuthenticationService {
   public async login(password: string) {
-    const request = {
+    const request: AxiosRequestConfig = {
       method: 'POST',
-      url: `${apiEndpoint}/auth/login`,
+      url: `${authEndpoint}/login`,
       data: {
         password,
       },
     }
 
     try {
-      //@ts-ignore
       const response = await axios(request)
       const session: Session | null = await response.data
       if (session) {
