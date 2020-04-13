@@ -1,9 +1,9 @@
-import { injectable, id } from 'inversify'
+import { injectable } from 'inversify'
 import { v4 as uuidv4 } from 'uuid'
 import axios, { AxiosRequestConfig } from 'axios'
 
 import { apiEndpoint } from 'consts/endpoints'
-import { FolderData, UploadMetaData } from 'types/file'
+import { FolderData, FileMetaData, UploadMetaDataBody } from 'types/file'
 
 export interface IFileUploadService {
   uploadFiles: (folderData: FolderData[], uploadProgressCallback: (progressEvent: any) => void) => Promise<void>
@@ -11,20 +11,30 @@ export interface IFileUploadService {
 
 @injectable()
 export class FileUploadService implements IFileUploadService {
-  private createMetadata(folderData: FolderData[]) {
-    const folderMetadatas: UploadMetaData[] = []
+  private assignReferenceIdsToFiles(folderData: FolderData[]) {
     for (const folder of folderData) {
-      const files = folder.files
-        ? folder.files.map((file) => ({
-            id: file.id,
-            referenceId: uuidv4(),
-          }))
+      if (!folder.files) {
+        continue
+      }
+      for (const file of folder.files) {
+        file.referenceId = uuidv4()
+      }
+    }
+  }
+
+  private createMetadata(folderData: FolderData[]): UploadMetaDataBody {
+    const folderMetadatas: FileMetaData[] = []
+    for (const folder of folderData) {
+      const files: FileMetaData[] = folder.files
+        ? folder.files.map((file) => {
+            return {
+              folder: folder.folder,
+              newName: file.newName,
+              id: file.referenceId!,
+            }
+          })
         : []
-      folderMetadatas.push({
-        id: folder.id,
-        folder: folder.folder || '',
-        files,
-      })
+      folderMetadatas.concat(files)
     }
     return {
       metaData: folderMetadatas,
@@ -32,13 +42,17 @@ export class FileUploadService implements IFileUploadService {
   }
 
   public async uploadFiles(folderData: FolderData[], uploadProgressCallback: (progressEvent: any) => void) {
-    const metaData = this.createMetadata(folderData)
+    // Not very efficient, but the code is cleaner
+    // TODO: Think how to refactor
+    this.assignReferenceIdsToFiles(folderData)
+    const data = this.createMetadata(folderData)
 
     const metaDataRequest: AxiosRequestConfig = {
       method: 'POST',
       onUploadProgress: uploadProgressCallback,
       url: `${apiEndpoint}/files/metadata`,
-      data: metaData,
+      withCredentials: true,
+      data,
     }
 
     try {
