@@ -17,6 +17,11 @@ export interface FileMetaData {
   newName?: string
 }
 
+export interface FileUploadFormData {
+  fileItemId: string
+  data: FormData
+}
+
 export interface UploadMetaDataBody {
   metaData: FileMetaData[]
 }
