@@ -75,12 +75,26 @@
 
 .FUW-file-list-item {
   padding-top: 16px;
+}
+
+.FUW-file-list-item-row {
+  padding-top: 8px;
   display: flex;
   align-items: center;
 }
 
+.FUW-file-list-item-error {
+  @include normal-mono;
+  color: $red-color;
+  font-size: 11px;
+}
+
 .FUW-file-list-item-name-label {
   @include normal-mono;
+  white-space: pre;
+  &.bold {
+    font-weight: 700;
+  }
 }
 
 .FUW-file-list-item-input {
