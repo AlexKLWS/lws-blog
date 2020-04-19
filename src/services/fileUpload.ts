@@ -3,14 +3,91 @@ import { v4 as uuidv4 } from 'uuid'
 import axios, { AxiosRequestConfig } from 'axios'
 
 import { apiEndpoint } from 'consts/endpoints'
-import { FolderData, FileMetaData, UploadMetaDataBody } from 'types/file'
+import { FolderData, FileMetaData, UploadMetaDataBody, FileUploadFormData } from 'types/file'
+import { BehaviorSubject } from 'rxjs'
 
 export interface IFileUploadService {
-  uploadFiles: (folderData: FolderData[], uploadProgressCallback: (progressEvent: any) => void) => Promise<void>
+  getFileUploadStatus: (fileItemId: string) => BehaviorSubject<number>
+  getFileURL: (fileItemId: string) => BehaviorSubject<string>
+  getUploadError: (fileItemId: string) => BehaviorSubject<boolean>
+  uploadFiles: (folderData: FolderData[]) => Promise<void>
 }
 
 @injectable()
 export class FileUploadService implements IFileUploadService {
+  private readonly _fileUploadStatuses: { [fileItemId: string]: BehaviorSubject<number> } = {}
+  private readonly _fileURLs: { [fileItemId: string]: BehaviorSubject<string> } = {}
+  private readonly _uploadErrors: { [fileItemId: string]: BehaviorSubject<boolean> } = {}
+
+  public getFileUploadStatus(fileItemId: string): BehaviorSubject<number> {
+    if (!this._fileUploadStatuses[fileItemId]) {
+      this._fileUploadStatuses[fileItemId] = new BehaviorSubject<number>(0)
+    }
+    return this._fileUploadStatuses[fileItemId]
+  }
+
+  public getFileURL(fileItemId: string): BehaviorSubject<string> {
+    if (!this._fileURLs[fileItemId]) {
+      this._fileURLs[fileItemId] = new BehaviorSubject<string>('')
+    }
+    return this._fileURLs[fileItemId]
+  }
+
+  public getUploadError(fileItemId: string): BehaviorSubject<boolean> {
+    if (!this._uploadErrors[fileItemId]) {
+      this._uploadErrors[fileItemId] = new BehaviorSubject<boolean>(false)
+    }
+    return this._uploadErrors[fileItemId]
+  }
+
+  public async uploadFiles(folderData: FolderData[]) {
+    // Not very efficient, but the code is cleaner
+    // TODO: Think how to refactor
+    this.assignReferenceIdsToFiles(folderData)
+    const data = this.createMetadata(folderData)
+
+    const metaDataRequest: AxiosRequestConfig = {
+      method: 'PUT',
+      url: `${apiEndpoint}/files/metadata`,
+      withCredentials: true,
+      data,
+    }
+
+    try {
+      const response = await axios(metaDataRequest)
+    } catch (error) {
+      return
+    }
+
+    const formData = this.createFormdata(folderData)
+
+    formData.forEach(async ({ fileItemId, data }) => {
+      const fileDataRequest: AxiosRequestConfig = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        method: 'PUT',
+        onUploadProgress: this.onUploadProgressFactory(fileItemId),
+        url: `${apiEndpoint}/files`,
+        withCredentials: true,
+        data,
+      }
+      try {
+        const fileURLResponse = await axios(fileDataRequest)
+        const fileURL = await fileURLResponse.data()
+        this._fileURLs[fileItemId].next(fileURL)
+      } catch (_) {
+        this._uploadErrors[fileItemId].next(true)
+      }
+    })
+  }
+
+  private onUploadProgressFactory(fileItemId: string) {
+    return (progressEvent: any) => {
+      this._fileUploadStatuses[fileItemId].next(Math.round((progressEvent.loaded * 100) / progressEvent.total))
+    }
+  }
+
   private assignReferenceIdsToFiles(folderData: FolderData[]) {
     for (const folder of folderData) {
       if (!folder.files) {
@@ -36,14 +113,13 @@ export class FileUploadService implements IFileUploadService {
         : []
       folderMetadatas = folderMetadatas.concat(files)
     }
-    console.log('FOLDER-METADATAS: ', folderMetadatas)
     return {
       metaData: folderMetadatas,
     }
   }
 
-  private createFormdata(folderData: FolderData[]): FormData[] {
-    const formDatas: FormData[] = []
+  private createFormdata(folderData: FolderData[]): FileUploadFormData[] {
+    const formDatas: FileUploadFormData[] = []
     for (const folder of folderData) {
       if (!folder.files) {
         continue
@@ -52,53 +128,13 @@ export class FileUploadService implements IFileUploadService {
         const data = new FormData()
         data.append('referenceId', file.referenceId!)
         data.append('file', file.file!)
-        formDatas.push(data)
+        formDatas.push({
+          fileItemId: file.id,
+          data,
+        })
       }
     }
     return formDatas
-  }
-
-  public async uploadFiles(folderData: FolderData[], uploadProgressCallback: (progressEvent: any) => void) {
-    console.log('FOLDER-DATA: ', folderData)
-    // Not very efficient, but the code is cleaner
-    // TODO: Think how to refactor
-    this.assignReferenceIdsToFiles(folderData)
-    const data = this.createMetadata(folderData)
-
-    const metaDataRequest: AxiosRequestConfig = {
-      method: 'PUT',
-      onUploadProgress: uploadProgressCallback,
-      url: `${apiEndpoint}/files/metadata`,
-      withCredentials: true,
-      data,
-    }
-
-    try {
-      console.log('SENDING-DATA: ', data)
-      const response = await axios(metaDataRequest)
-      console.log('RESPONSE-CODE: ', response.status)
-    } catch (error) {}
-
-    const formData = this.createFormdata(folderData)
-    await Promise.all(
-      formData.map(async (data) => {
-        const fileDataRequest: AxiosRequestConfig = {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-          method: 'PUT',
-          onUploadProgress: uploadProgressCallback,
-          url: `${apiEndpoint}/files`,
-          withCredentials: true,
-          data,
-        }
-        const fileURLResponse = await axios(fileDataRequest)
-        const fileURL = await fileURLResponse.data()
-        console.log('FILE-UPLOADED-WITH-URL: ', fileURL)
-      }),
-    ).catch((error) => {
-      console.log('FILE-UPLOAD-ERROR: ', error)
-    })
   }
 }
 
