@@ -37,7 +37,7 @@ const FileListItem = ({ fileData, filename, updateFilename, useFileItemData }: P
         )}
       </div>
       <div className='FUW-file-list-item-row'>
-        {true && <span className='FUW-file-list-item-error'>{`There was an error uploading this file`}</span>}
+        {isError && <span className='FUW-file-list-item-error'>{`There was an error uploading this file`}</span>}
       </div>
     </li>
   )
