@@ -7,6 +7,7 @@ import { FolderData, FileMetaData, UploadMetaDataBody, FileUploadFormData } from
 import { BehaviorSubject } from 'rxjs'
 
 export interface IFileUploadService {
+  metadataUploadError: BehaviorSubject<boolean>
   getFileUploadStatus: (fileItemId: string) => BehaviorSubject<number>
   getFileURL: (fileItemId: string) => BehaviorSubject<string>
   getUploadError: (fileItemId: string) => BehaviorSubject<boolean>
@@ -17,7 +18,12 @@ export interface IFileUploadService {
 export class FileUploadService implements IFileUploadService {
   private readonly _fileUploadStatuses: { [fileItemId: string]: BehaviorSubject<number> } = {}
   private readonly _fileURLs: { [fileItemId: string]: BehaviorSubject<string> } = {}
-  private readonly _uploadErrors: { [fileItemId: string]: BehaviorSubject<boolean> } = {}
+  private readonly _fileUploadErrors: { [fileItemId: string]: BehaviorSubject<boolean> } = {}
+  private readonly _metadataUploadError: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+
+  get metadataUploadError(): BehaviorSubject<boolean> {
+    return this._metadataUploadError
+  }
 
   public getFileUploadStatus(fileItemId: string): BehaviorSubject<number> {
     if (!this._fileUploadStatuses[fileItemId]) {
@@ -34,10 +40,10 @@ export class FileUploadService implements IFileUploadService {
   }
 
   public getUploadError(fileItemId: string): BehaviorSubject<boolean> {
-    if (!this._uploadErrors[fileItemId]) {
-      this._uploadErrors[fileItemId] = new BehaviorSubject<boolean>(false)
+    if (!this._fileUploadErrors[fileItemId]) {
+      this._fileUploadErrors[fileItemId] = new BehaviorSubject<boolean>(false)
     }
-    return this._uploadErrors[fileItemId]
+    return this._fileUploadErrors[fileItemId]
   }
 
   public async uploadFiles(folderData: FolderData[]) {
@@ -54,9 +60,9 @@ export class FileUploadService implements IFileUploadService {
     }
 
     try {
-      const response = await axios(metaDataRequest)
+      await axios(metaDataRequest)
     } catch (error) {
-      return
+      this._metadataUploadError.next(true)
     }
 
     const formData = this.createFormdata(folderData)
@@ -77,7 +83,7 @@ export class FileUploadService implements IFileUploadService {
         const fileURL = await fileURLResponse.data()
         this._fileURLs[fileItemId].next(fileURL)
       } catch (_) {
-        this._uploadErrors[fileItemId].next(true)
+        this._fileUploadErrors[fileItemId].next(true)
       }
     })
   }

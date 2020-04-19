@@ -9,7 +9,7 @@ const FileUploadWidgetController: React.FC<Props> = (props: Props) => {
   const folderSelectorId = useRef(0)
   const [folderDatas, setFolderDatas] = useState<FolderData[]>([{ id: String(folderSelectorId.current) }])
 
-  const [uploadFiles, useFileItemData] = useFileUploadFacade()
+  const [uploadFiles, useFileItemData, isError] = useFileUploadFacade()
 
   const onUploadButtonClick = () => {
     uploadFiles(folderDatas)
@@ -83,6 +83,7 @@ const FileUploadWidgetController: React.FC<Props> = (props: Props) => {
       removeFolder={removeFolder}
       updateFilename={updateFilename}
       useFileItemData={useFileItemData}
+      isError={isError}
     />
   )
 }

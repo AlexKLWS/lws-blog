@@ -6,6 +6,7 @@ import FileListItem from './FileListItem'
 
 interface Props {
   folderDatas: FolderData[]
+  isError: boolean
   onUploadButtonClick: () => void
   onFolderNameSpecify: (data: FolderData, event: React.ChangeEvent<HTMLInputElement>) => void
   onFilesAdd: (data: FolderData, event: React.ChangeEvent<HTMLInputElement>) => void
@@ -82,6 +83,9 @@ const FileUploadWidget: React.FC<Props> = (props: Props) => {
         <input className='FUW-add-button' onClick={props.addFolder} type='submit' value='+' />
       </div>
       <ul className='FUW-folder-selector-list'>{renderFolderSelectors()}</ul>
+      <div className='FUW-file-list-item-row'>
+        {props.isError && <span className='FUW-file-list-item-error'>{`There was an error uploading metadata`}</span>}
+      </div>
       <div className='FUW-upload-button-container'>
         <input className='App-button' onClick={props.onUploadButtonClick} type={'submit'} value={'Upload Files'} />
       </div>

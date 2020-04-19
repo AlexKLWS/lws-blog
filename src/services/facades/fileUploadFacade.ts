@@ -5,11 +5,22 @@ import { IFileUploadService, FileUploadServiceId } from 'services/fileUpload'
 import { FolderData } from 'types/file'
 import { Subscription } from 'rxjs'
 
-export function useFileUploadFacade(): [(folderData: FolderData[]) => void, (id: string) => [number, string, boolean]] {
+export function useFileUploadFacade(): [
+  (folderData: FolderData[]) => void,
+  (id: string) => [number, string, boolean],
+  boolean,
+] {
   const service = useRef(useInjection<IFileUploadService>(FileUploadServiceId))
   const uploadFiles = (folderData: FolderData[]) => {
     service.current.uploadFiles(folderData)
   }
+
+  const [isError, setIsError] = useState(false)
+
+  useEffect(() => {
+    const sub = service.current.metadataUploadError.subscribe((isError) => setIsError(isError))
+    return () => sub.unsubscribe()
+  }, [service])
 
   const useFileItemData = (id: string): [number, string, boolean] => {
     const [uploadPercentage, setUploadPercentage] = useState(0)
@@ -30,5 +41,5 @@ export function useFileUploadFacade(): [(folderData: FolderData[]) => void, (id:
     return [uploadPercentage, fileURL, isError]
   }
 
-  return [uploadFiles, useFileItemData]
+  return [uploadFiles, useFileItemData, isError]
 }
