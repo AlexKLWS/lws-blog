@@ -88,8 +88,8 @@ export class MaterailPostService implements IMaterialPostService {
     )
 
     const request = {
-      method: 'POST',
-      url: `${apiEndpoint}/new-page`,
+      method: 'PUT',
+      url: `${apiEndpoint}/pages`,
       withCredentials: true,
       data: pageData,
     }
