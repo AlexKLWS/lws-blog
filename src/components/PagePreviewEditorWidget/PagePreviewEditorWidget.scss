@@ -30,3 +30,14 @@
   @include input-mixin;
   margin-right: 20px;
 }
+
+.PPEW-dropdown-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 30px;
+}
+
+.PPEW-dropdown-label {
+  @include normal-mono;
+  margin-bottom: 15px;
+}

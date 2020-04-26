@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 
 import './PagePreviewEditorWidget.scss'
 import { Category } from 'types/materials'
+import { DropdownItem } from 'types/dropdown'
+import Dropdown from 'components/Dropdown/Dropdown'
 
 interface Props {
   name: string
@@ -42,6 +44,23 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
     props.setIcon(event.target.files[0])
   }
 
+  const dropdownItems: DropdownItem[] = useMemo(() => {
+    const items: DropdownItem[] = []
+    for (let item in Category) {
+      const index = Number(item)
+      if (typeof index === 'number' && !isNaN(index)) {
+        const category = Category[index]
+        items.push({
+          label: category,
+          callback: () => {
+            props.setCategory(index)
+          },
+        })
+      }
+    }
+    return items
+  }, [])
+
   return (
     <div className='PPEW-input-container'>
       <input className='PPEW-input' placeholder='Title' value={props.name} onChange={onNameInputValueChange} />
@@ -71,6 +90,10 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
           />
         </div>
       )}
+      <div className='PPEW-dropdown-container'>
+        <span className='PPEW-dropdown-label'>Category:</span>
+        <Dropdown dropdownTriggerText={Category[props.category]} items={dropdownItems} />
+      </div>
     </div>
   )
 }
