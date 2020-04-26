@@ -4,6 +4,7 @@ import './PageEditor.scss'
 import PagePreviewEditorWidget from 'components/PagePreviewEditorWidget'
 import { EditorError } from 'types/editor'
 import SubmitModal from 'components/Secret/SubmitModal'
+import { Category } from 'types/materials'
 
 interface Props {
   submitData: (
@@ -12,6 +13,7 @@ interface Props {
     pageIcon: File,
     pageIconWidth: string,
     pageIconHeight: string,
+    pageCategory: Category,
     pageURL: string,
   ) => void
   performDataCheck: (pageName: string, pageSubtitle: string, pageIcon: File | null, pageURL: string) => void
@@ -25,6 +27,7 @@ const PageEditorView = (props: Props) => {
   const [pageIcon, setPageIcon] = useState<File | null>(null)
   const [pageIconWidth, setPageIconWidth] = useState('')
   const [pageIconHeight, setPageIconHeight] = useState('')
+  const [pageCategory, setPageCategory] = useState(Category.Misc)
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
@@ -32,7 +35,7 @@ const PageEditorView = (props: Props) => {
     if (!pageIcon) {
       return
     }
-    props.submitData(pageName, pageSubtitle, pageIcon, pageIconWidth, pageIconHeight, pageURL)
+    props.submitData(pageName, pageSubtitle, pageIcon, pageIconWidth, pageIconHeight, pageCategory, pageURL)
     setModalIsOpen(false)
   }
 
@@ -54,11 +57,13 @@ const PageEditorView = (props: Props) => {
         icon={pageIcon}
         iconWidth={pageIconWidth}
         iconHeight={pageIconHeight}
+        category={pageCategory}
         setName={setPageName}
         setSubtitle={setPageSubtitle}
         setIcon={setPageIcon}
         setIconWidth={setPageIconWidth}
         setIconHeight={setPageIconHeight}
+        setCategory={setPageCategory}
       />
       <div className='PE-URL-container'>
         <input placeholder='URL' className='App-input' onChange={onURLInputValueChange} />

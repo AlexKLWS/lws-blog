@@ -1,7 +1,7 @@
 import { injectable } from 'inversify'
 import axios, { AxiosRequestConfig } from 'axios'
 
-import { ArticleData, PageData } from 'types/materials'
+import { ArticleData, PageData, Category } from 'types/materials'
 import { apiEndpoint } from 'consts/endpoints'
 
 export interface IMaterialPostService {
@@ -12,6 +12,7 @@ export interface IMaterialPostService {
     articleIcon: File,
     articleIconWidth: string,
     articleIconHeight: string,
+    articleCategory: Category,
   ) => Promise<void>
   postPage: (
     pageName: string,
@@ -19,6 +20,7 @@ export interface IMaterialPostService {
     pageIcon: File,
     pageIconWidth: string,
     pageIconHeight: string,
+    pageCategory: Category,
     pageURL: string,
   ) => Promise<void>
 }
@@ -47,6 +49,7 @@ export class MaterailPostService implements IMaterialPostService {
     pageIcon: File,
     pageIconWidth: string,
     pageIconHeight: string,
+    pageCategory: Category,
     pageURL: string,
   ): Promise<PageData> {
     // @ts-ignore
@@ -56,6 +59,7 @@ export class MaterailPostService implements IMaterialPostService {
       name: pageName,
       subtitle: pageSubtitle,
       pageURL,
+      category: pageCategory,
       icon: {
         data: iconText,
         height: iconHeight,
@@ -70,9 +74,18 @@ export class MaterailPostService implements IMaterialPostService {
     pageIcon: File,
     pageIconWidth: string,
     pageIconHeight: string,
+    pageCategory: Category,
     pageURL: string,
   ) {
-    const pageData = await this.formPageData(pageName, pageSubtitle, pageIcon, pageIconWidth, pageIconHeight, pageURL)
+    const pageData = await this.formPageData(
+      pageName,
+      pageSubtitle,
+      pageIcon,
+      pageIconWidth,
+      pageIconHeight,
+      pageCategory,
+      pageURL,
+    )
 
     const request = {
       method: 'POST',
@@ -97,6 +110,7 @@ export class MaterailPostService implements IMaterialPostService {
     articleIcon: File,
     articleIconWidth: string,
     articleIconHeight: string,
+    articleCategory: Category,
   ): Promise<ArticleData> {
     // @ts-ignore
     const iconText = await articleIcon.text()
@@ -105,6 +119,7 @@ export class MaterailPostService implements IMaterialPostService {
       name: articleName,
       subtitle: articleSubtitle,
       articleText: articleText,
+      category: articleCategory,
       icon: {
         data: iconText,
         height: iconHeight,
@@ -120,6 +135,7 @@ export class MaterailPostService implements IMaterialPostService {
     articleIcon: File,
     articleIconWidth: string,
     articleIconHeight: string,
+    articleCategory: Category,
   ) {
     const articleData = await this.formArticlData(
       articleName,
@@ -128,6 +144,7 @@ export class MaterailPostService implements IMaterialPostService {
       articleIcon,
       articleIconWidth,
       articleIconHeight,
+      articleCategory,
     )
 
     const request: AxiosRequestConfig = {

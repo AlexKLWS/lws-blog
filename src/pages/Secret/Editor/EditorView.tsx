@@ -7,6 +7,7 @@ import { EditorError } from 'types/editor'
 import PagePreviewEditorWidget from 'components/PagePreviewEditorWidget'
 import SubmitModal from 'components/Secret/SubmitModal'
 import FileUploadWidget from 'components/FileUploadWidget'
+import { Category } from 'types/materials'
 
 interface Props {
   submitData: (
@@ -16,6 +17,7 @@ interface Props {
     articleIcon: File,
     articleIconWidth: string,
     articleIconHeight: string,
+    category: Category,
   ) => void
   performDataCheck: (
     articleName: string,
@@ -33,6 +35,7 @@ const EditorView: React.FC<Props> = (props: Props) => {
   const [articleIcon, setArticleIcon] = useState<File | null>(null)
   const [articleIconWidth, setArticleIconWidth] = useState('')
   const [articleIconHeight, setArticleIconHeight] = useState('')
+  const [articleCategory, setArticleCategory] = useState(Category.Misc)
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
@@ -40,7 +43,15 @@ const EditorView: React.FC<Props> = (props: Props) => {
     if (!articleIcon) {
       return
     }
-    props.submitData(articleName, articleSubtitle, articleText, articleIcon, articleIconWidth, articleIconHeight)
+    props.submitData(
+      articleName,
+      articleSubtitle,
+      articleText,
+      articleIcon,
+      articleIconWidth,
+      articleIconHeight,
+      articleCategory,
+    )
     setModalIsOpen(false)
   }
 
@@ -58,11 +69,13 @@ const EditorView: React.FC<Props> = (props: Props) => {
         icon={articleIcon}
         iconWidth={articleIconWidth}
         iconHeight={articleIconHeight}
+        category={articleCategory}
         setName={setArticleName}
         setSubtitle={setArticleSubtitle}
         setIcon={setArticleIcon}
         setIconWidth={setArticleIconWidth}
         setIconHeight={setArticleIconHeight}
+        setCategory={setArticleCategory}
       />
       <SimpleMDE value={articleText} onChange={setArticleText} />
       <div className='Editor-button-container'>

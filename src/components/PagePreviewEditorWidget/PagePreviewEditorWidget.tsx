@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import './PagePreviewEditorWidget.scss'
+import { Category } from 'types/materials'
 
 interface Props {
   name: string
@@ -8,11 +9,13 @@ interface Props {
   icon: File | null
   iconWidth: string
   iconHeight: string
+  category: Category
   setName: (value: string) => void
   setSubtitle: (value: string) => void
   setIcon: (value: File | null) => void
   setIconWidth: (value: string) => void
   setIconHeight: (value: string) => void
+  setCategory: (value: Category) => void
 }
 
 const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
