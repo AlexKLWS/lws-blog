@@ -4,6 +4,7 @@ import './Dropdown.scss'
 import { DropdownItem } from 'types/dropdown'
 
 interface Props {
+  dropdownTriggerText: string
   items: DropdownItem[]
 }
 
@@ -17,7 +18,7 @@ const Dropdown: React.FC<Props> = (props: Props) => {
   return (
     <div className='Dropdown-container'>
       <div className={dropdownIsOpen ? 'Dropdown-trigger open' : 'Dropdown-trigger'} onClick={onDropdownPress}>
-        + Add
+        {`+ ${props.dropdownTriggerText}`}
       </div>
 
       {dropdownIsOpen && (

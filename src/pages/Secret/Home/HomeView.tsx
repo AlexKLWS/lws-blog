@@ -10,7 +10,7 @@ interface Props {
 const HomeView: React.FC<Props> = (props: Props) => {
   return (
     <div>
-      <Dropdown items={props.dropdownItems} />
+      <Dropdown dropdownTriggerText={'Add'} items={props.dropdownItems} />
     </div>
   )
 }
