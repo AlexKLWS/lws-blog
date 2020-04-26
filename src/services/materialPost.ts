@@ -77,6 +77,7 @@ export class MaterailPostService implements IMaterialPostService {
     const request = {
       method: 'POST',
       url: `${apiEndpoint}/new-page`,
+      withCredentials: true,
       data: pageData,
     }
 
@@ -130,8 +131,9 @@ export class MaterailPostService implements IMaterialPostService {
     )
 
     const request: AxiosRequestConfig = {
-      method: 'POST',
+      method: 'PUT',
       url: `${apiEndpoint}/articles`,
+      withCredentials: true,
       data: articleData,
     }
 
