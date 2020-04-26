@@ -1,0 +1,62 @@
+@import '../../styles/config';
+@import '../../styles/shared-mixins';
+
+.Dropdown-container {
+  display: block;
+  position: relative;
+  width: 200px;
+}
+
+.Dropdown-trigger {
+  @include button;
+
+  &:active {
+    color: $primary-color;
+    background-color: $secondary-color;
+  }
+
+  &.open {
+    background-color: $secondary-color;
+  }
+}
+
+.Dropdown-menu-list {
+  list-style: none inside none;
+  left: 0;
+  position: absolute;
+  transition: all 0.5s ease;
+  width: 100%;
+  margin: 0 auto;
+  padding-inline-start: 0px;
+  background-color: $secondary-color;
+}
+
+.Dropdown-item-container {
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.Dropdown-item-button {
+  @include button;
+  background-color: $secondary-color;
+  border-width: 1px;
+  border-color: $secondary-color;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  &:active {
+    color: $primary-color;
+    background-color: $secondary-color;
+  }
+
+  &.open {
+    background-color: $secondary-color;
+  }
+
+  &:hover {
+    background-color: $primary-color;
+    color: $white-color;
+  }
+}
