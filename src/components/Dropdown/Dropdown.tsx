@@ -30,7 +30,10 @@ const Dropdown: React.FC<Props> = (props: Props) => {
                   value={`> ${item.label}`}
                   type='submit'
                   className={'Dropdown-item-button'}
-                  onClick={item.callback}
+                  onClick={() => {
+                    onDropdownPress()
+                    item.callback()
+                  }}
                 />
               </li>
             )
