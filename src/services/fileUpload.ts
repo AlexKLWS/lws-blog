@@ -1,5 +1,4 @@
 import { injectable } from 'inversify'
-import { v4 as uuidv4 } from 'uuid'
 import axios, { AxiosRequestConfig } from 'axios'
 
 import { apiEndpoint } from 'consts/endpoints'
@@ -49,7 +48,6 @@ export class FileUploadService implements IFileUploadService {
   public async uploadFiles(folderData: FolderData[]) {
     // Not very efficient, but the code is cleaner
     // TODO: Think how to refactor
-    this.assignReferenceIdsToFiles(folderData)
     const data = this.createMetadata(folderData)
 
     const metaDataRequest: AxiosRequestConfig = {
@@ -59,13 +57,18 @@ export class FileUploadService implements IFileUploadService {
       data,
     }
 
+    let metaDataWithReferenceIds = []
     try {
-      await axios(metaDataRequest)
-    } catch (error) {
+      const fileMetaDataresponse = await axios(metaDataRequest)
+      metaDataWithReferenceIds = fileMetaDataresponse.data.metaData
+      this._metadataUploadError.next(false)
+    } catch (_) {
       this._metadataUploadError.next(true)
+      return
     }
 
-    const formData = this.createFormdata(folderData)
+    const folderDataWithReferenceIds = this.addReferenceIdToFolderData(folderData, metaDataWithReferenceIds)
+    const formData = this.createFormdata(folderDataWithReferenceIds)
 
     formData.forEach(async ({ fileItemId, data }) => {
       const fileDataRequest: AxiosRequestConfig = {
@@ -80,8 +83,8 @@ export class FileUploadService implements IFileUploadService {
       }
       try {
         const fileURLResponse = await axios(fileDataRequest)
-        const fileURL = await fileURLResponse.data()
-        this._fileURLs[fileItemId].next(fileURL)
+        this._fileURLs[fileItemId].next(fileURLResponse.data)
+        this._fileUploadErrors[fileItemId].next(false)
       } catch (_) {
         this._fileUploadErrors[fileItemId].next(true)
       }
@@ -94,15 +97,22 @@ export class FileUploadService implements IFileUploadService {
     }
   }
 
-  private assignReferenceIdsToFiles(folderData: FolderData[]) {
-    for (const folder of folderData) {
-      if (!folder.files) {
-        continue
-      }
-      for (const file of folder.files) {
-        file.referenceId = uuidv4()
-      }
-    }
+  private addReferenceIdToFolderData(folderData: FolderData[], metaData: FileMetaData[]): FolderData[] {
+    const result = folderData
+      .map((data) => {
+        const folder = data
+        if (!folder.files) {
+          return null
+        }
+        folder.files = folder.files.map((file) => {
+          const fileMetaData = metaData.find((d) => d.id === file.id)
+          file.referenceId = fileMetaData?.referenceId
+          return file
+        })
+        return folder
+      })
+      .filter((value) => value !== null) as FolderData[]
+    return result
   }
 
   private createMetadata(folderData: FolderData[]): UploadMetaDataBody {
@@ -113,7 +123,7 @@ export class FileUploadService implements IFileUploadService {
             return {
               folder: folder.folder,
               newName: file.newName,
-              id: file.referenceId!,
+              id: file.id,
             }
           })
         : []

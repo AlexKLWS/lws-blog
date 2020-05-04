@@ -15,6 +15,7 @@ export interface FileMetaData {
   id: string
   folder?: string
   newName?: string
+  referenceId?: string
 }
 
 export interface FileUploadFormData {
