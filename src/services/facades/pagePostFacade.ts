@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 
 import { useInjection } from 'services/provider'
-import { ArticlePostServiceId, IMaterialPostService } from 'services/materialPost'
+import { MaterialPostServiceId, IMaterialPostService } from 'services/materialPost'
 import { Category } from 'types/materials'
 
 export function usePagePostFacade(): [
@@ -15,7 +15,7 @@ export function usePagePostFacade(): [
     pageURL: string,
   ) => void,
 ] {
-  const service = useRef(useInjection<IMaterialPostService>(ArticlePostServiceId))
+  const service = useRef(useInjection<IMaterialPostService>(MaterialPostServiceId))
   const postPage = (
     pageName: string,
     pageSubtitle: string,

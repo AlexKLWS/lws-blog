@@ -163,4 +163,4 @@ export class MaterailPostService implements IMaterialPostService {
   }
 }
 
-export const ArticlePostServiceId = Symbol('ArticlePostService')
+export const MaterialPostServiceId = Symbol('MaterialPostService')
