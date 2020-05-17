@@ -1,30 +1,28 @@
 import React, { useMemo } from 'react'
-import { RouteProps, useHistory } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router-dom'
 
 import HomeView from './HomeView'
-import { DropdownItem } from 'types/dropdown'
 import routes from 'consts/routes'
 
-const HomeController: React.FC<RouteProps> = (props: RouteProps) => {
-  const history = useHistory()
+const HomeController: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
   const dropdownItems = useMemo(
     () => [
       {
         label: 'Add article',
         callback: () => {
-          history.push(routes.secret.editor)
+          props.history.push(routes.secret.editor)
         },
       },
       {
         label: 'Add page',
         callback: () => {
-          history.push(routes.secret.addPage)
+          props.history.push(routes.secret.addPage)
         },
       },
       {
         label: 'Add files',
         callback: () => {
-          history.push(routes.secret.fileUpload)
+          props.history.push(routes.secret.fileUpload)
         },
       },
     ],
