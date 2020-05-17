@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { RouteProps } from 'react-router'
+import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 
 import LoginView from './LoginView'
