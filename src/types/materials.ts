@@ -6,8 +6,13 @@ export interface PageData extends Material {
   pageURL: string
 }
 
+export interface PreviewMaterial extends Material {
+  createdAt: string
+  pageURL?: string
+}
+
 export interface Material {
-  id?: string
+  referenceId?: string
   name: string
   subtitle: string
   icon: IconData
