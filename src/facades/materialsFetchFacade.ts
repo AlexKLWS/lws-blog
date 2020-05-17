@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { IMaterialFetchService, MaterialFetchServiceId } from 'services/materialsFetch'
 import { useInjection } from 'services/provider'
 import { Subscription } from 'rxjs'
-import { Category } from 'types/materials'
+import { Category, PreviewMaterial } from 'types/materials'
 
 export const useMaterialsProvider = () => {
   const service = useRef(useInjection<IMaterialFetchService>(MaterialFetchServiceId))
@@ -11,7 +11,7 @@ export const useMaterialsProvider = () => {
     service.current.fetchMaterialPreviews(category, fromDate)
   }
 
-  const [materialPreviews, setMaterialPreviews] = useState<any[]>([])
+  const [materialPreviews, setMaterialPreviews] = useState<PreviewMaterial[]>([])
 
   useEffect(() => {
     const subscriptions: Subscription[] = [
