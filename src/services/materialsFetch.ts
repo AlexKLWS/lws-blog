@@ -10,6 +10,11 @@ export interface IMaterialFetchService {
   fetchMaterialPreviews: (category: Category, fromDate: string | null) => Promise<void>
 }
 
+interface RequestParams {
+  fromDate?: string
+  category?: number
+}
+
 @injectable()
 export class MaterailFetchService implements IMaterialFetchService {
   private readonly _materials: BehaviorSubject<PreviewMaterial[]> = new BehaviorSubject<PreviewMaterial[]>([])
@@ -19,10 +24,16 @@ export class MaterailFetchService implements IMaterialFetchService {
   }
 
   public async fetchMaterialPreviews(category: Category, fromDate: string | null) {
+    const params: RequestParams = {
+      category,
+      fromDate: fromDate || undefined,
+    }
+
     const request: AxiosRequestConfig = {
       method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
       url: `${apiEndpoint}/materials`,
-      withCredentials: true,
+      params,
     }
 
     try {
