@@ -3,7 +3,7 @@ import { RouteProps } from 'react-router'
 import { useHistory } from 'react-router-dom'
 
 import LoginView from './LoginView'
-import { useLoginFacade } from 'services/facades/loginFacade'
+import { useLoginFacade } from 'facades/loginFacade'
 import routes from 'consts/routes'
 
 const LoginController: React.FC<RouteProps> = (props: RouteProps) => {

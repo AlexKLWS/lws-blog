@@ -3,7 +3,7 @@ import Loadable from 'react-loadable'
 
 import { EditorError } from 'types/editor'
 import pageEditorErrors from 'consts/pageEditorErrors'
-import { usePagePostFacade } from 'services/facades/pagePostFacade'
+import { usePagePostFacade } from 'facades/pagePostFacade'
 import { RouteProps } from 'react-router-dom'
 
 const LoadablePageEditorView = Loadable({

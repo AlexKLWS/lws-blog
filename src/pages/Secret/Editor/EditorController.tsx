@@ -3,7 +3,7 @@ import { RouteProps } from 'react-router-dom'
 import Loadable from 'react-loadable'
 
 import editorErrors from 'consts/editorErrors'
-import { useArticlePostFacade } from 'services/facades/materialPostFacade'
+import { useArticlePostFacade } from 'facades/materialPostFacade'
 import { EditorError } from 'types/editor'
 
 const LoadableEditorView = Loadable({

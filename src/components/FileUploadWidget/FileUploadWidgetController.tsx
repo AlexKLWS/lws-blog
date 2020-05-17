@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import FileUploadWidget from './FileUploadWidget'
 import { FolderData, FileData } from 'types/file'
-import { useFileUploadFacade } from 'services/facades/fileUploadFacade'
+import { useFileUploadFacade } from 'facades/fileUploadFacade'
 
 interface Props {}
 
