@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs'
 
 export interface IMaterialFetchService {
   materialPreviews: BehaviorSubject<PreviewMaterial[]>
-  fetchMaterialPreviews: (date?: Date, category?: Category) => Promise<void>
+  fetchMaterialPreviews: (category: Category, fromDate: string | null) => Promise<void>
 }
 
 @injectable()
@@ -18,7 +18,7 @@ export class MaterailFetchService implements IMaterialFetchService {
     return this._materials
   }
 
-  public async fetchMaterialPreviews(date?: Date, category?: Category) {
+  public async fetchMaterialPreviews(category: Category, fromDate: string | null) {
     const request: AxiosRequestConfig = {
       method: 'GET',
       url: `${apiEndpoint}/materials`,
