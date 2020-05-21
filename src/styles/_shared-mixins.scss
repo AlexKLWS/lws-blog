@@ -48,14 +48,14 @@
   color: $primary-color;
   padding: 5px 10px;
   cursor: pointer;
+  display: flex;
 
   &:hover {
     background-color: $secondary-color;
   }
 
   &:active {
-    color: $white-color;
-    background-color: $primary-color;
+    background-color: $secondary-color-active;
   }
 }
 
