@@ -1,3 +1,86 @@
+@import '../../styles/config';
+@import '../../styles/shared-mixins';
+@import '../../styles/shared-elements';
+
 .Home-container {
-  background: red;
+}
+
+.Material-preview-item-container {
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+.Material-preview-item {
+  @include transition-ease;
+  padding: 8px 24px 8px 0px;
+  display: flex;
+  color: $primary-color;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $secondary-color;
+  }
+
+  &:active {
+    background-color: $secondary-color-active;
+  }
+}
+
+.Material-preview-items-row {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  @media (min-width: $breakpoint-desktop-or-laptop) {
+    flex-direction: row;
+  }
+}
+
+.Material-preview-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 24px;
+}
+
+.Material-preview-items-title {
+  @include normal-mono;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 21px;
+  height: 42px;
+  justify-self: center;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.Material-preview-items-subtitle {
+  @include normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 18px;
+  height: 36px;
+  justify-self: center;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.Pagination-controls-container {
+  display: flex;
+  flex: 1 1 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0px;
+}
+
+.Arrow-left {
+}
+
+.Arrow-right {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
