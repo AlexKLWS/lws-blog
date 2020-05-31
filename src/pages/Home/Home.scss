@@ -11,18 +11,17 @@
 }
 
 .Material-preview-item {
-  @include transition-ease;
+  @include button;
   padding: 8px 24px 8px 0px;
   display: flex;
-  color: $primary-color;
-  cursor: pointer;
+  border-width: 1px;
+  border-color: $white-color;
+  border-style: solid;
 
-  &:hover {
-    background-color: $secondary-color;
-  }
-
-  &:active {
-    background-color: $secondary-color-active;
+  &:focus {
+    border-color: $secondary-color;
+    border-width: 1px;
+    outline: none;
   }
 }
 
@@ -83,4 +82,12 @@
 .Arrow-right {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
+}
+
+.Page-index {
+  @include normal-mono;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 0px 34px;
 }

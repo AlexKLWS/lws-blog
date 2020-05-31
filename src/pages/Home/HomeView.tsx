@@ -17,7 +17,16 @@ const HomeView: React.FC<Props> = (props: Props) => {
   const renderPreviewsItems = (previewMaterial: PreviewMaterial) => {
     return (
       <div key={previewMaterial.referenceId} className={'Material-preview-item-container'}>
-        <div className={'Material-preview-item'}>
+        <div
+          tabIndex={0}
+          className={'Material-preview-item'}
+          onClick={() => {
+            console.log('LOLOLOLO')
+          }}
+          onKeyPressCapture={() => {
+            console.log('KEYEKEYKEYKEYKYE')
+          }}
+        >
           <div className={'Material-preview-icon-container'}>
             <InlineIcon svg={previewMaterial.icon.data} />
           </div>
@@ -70,7 +79,7 @@ const HomeView: React.FC<Props> = (props: Props) => {
           <button className='App-button' onClick={props.navigateToPrevPage}>
             <Arrow />
           </button>
-          <p>{`${props.currentPage}/${props.pagesCount}`}</p>
+          <p className='Page-index'>{`${props.currentPage}/${props.pagesCount}`}</p>
           <button className='App-button' onClick={props.navigateToNextPage}>
             <Arrow className={'Arrow-right'} />
           </button>
