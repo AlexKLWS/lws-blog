@@ -14,7 +14,7 @@ const HomeController: React.FC<RouteComponentProps> = (props: RouteComponentProp
     const category = resolveCategoryFromPathname(props.location as any)
     const pageFromQuery = new URLSearchParams(props.location?.search).get(page) || 1
     fetchMaterialPreviews(category, pageFromQuery)
-    if (pageFromQuery != currentPage) {
+    if (pageFromQuery !== currentPage) {
       setCurrentPage(pageFromQuery as number)
     }
   }, [props.location])
