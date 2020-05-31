@@ -33,6 +33,15 @@
   margin-top: 3px;
   margin-left: 7px;
   text-decoration: none;
+  border-width: 1px;
+  border-color: $white-color;
+  border-style: solid;
+
+  &:focus {
+    border-color: $secondary-color;
+    border-width: 1px;
+    outline: none;
+  }
 }
 
 .Header-subtitle {
@@ -49,6 +58,15 @@
     margin-top: 5px;
     @media (min-width: $breakpoint-desktop-or-laptop) {
       margin-top: 0px;
+    }
+    border-width: 1px;
+    border-color: $white-color;
+    border-style: solid;
+
+    &:focus {
+      border-color: $secondary-color;
+      border-width: 1px;
+      outline: none;
     }
   }
 
@@ -81,6 +99,15 @@
 .Sections-item {
   @include button;
   font-size: 15px;
+  border-width: 1px;
+  border-color: $white-color;
+  border-style: solid;
+
+  &:focus {
+    border-color: $secondary-color;
+    border-width: 1px;
+    outline: none;
+  }
 
   &.active {
     color: $white-color;
