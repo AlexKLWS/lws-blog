@@ -56,9 +56,6 @@
   &.link {
     margin-right: 16px;
     margin-top: 5px;
-    @media (min-width: $breakpoint-desktop-or-laptop) {
-      margin-top: 0px;
-    }
     border-width: 1px;
     border-color: $white-color;
     border-style: solid;
@@ -67,6 +64,9 @@
       border-color: $secondary-color;
       border-width: 1px;
       outline: none;
+    }
+    @media (min-width: $breakpoint-desktop-or-laptop) {
+      margin-top: 0px;
     }
   }
 
