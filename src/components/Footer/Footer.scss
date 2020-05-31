@@ -22,6 +22,15 @@
 .Footer-item {
   @include button;
   font-size: 13px;
+  border-width: 1px;
+  border-color: $white-color;
+  border-style: solid;
+
+  &:focus {
+    border-color: $secondary-color;
+    border-width: 1px;
+    outline: none;
+  }
 
   @media (min-width: $breakpoint-desktop-or-laptop) {
     font-size: 16px;
