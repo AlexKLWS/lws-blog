@@ -1,32 +1,40 @@
 import { injectable } from 'inversify'
 import axios, { AxiosRequestConfig } from 'axios'
 
-import { Category, PreviewMaterial } from 'types/materials'
+import { Category } from 'types/materials'
 import { apiEndpoint } from 'consts/endpoints'
 import { BehaviorSubject } from 'rxjs'
+import { PagePreviewsData } from 'types/pagePreviewData'
 
 export interface IMaterialFetchService {
-  materialPreviews: BehaviorSubject<PreviewMaterial[]>
-  fetchMaterialPreviews: (category: Category, fromDate: string | null) => Promise<void>
+  materialPreviews: BehaviorSubject<PagePreviewsData>
+  fetchMaterialPreviews: (category: Category, page: string | number) => Promise<void>
 }
 
 interface RequestParams {
-  fromDate?: string
+  page?: string | number
   category?: number
+}
+
+const PAGE_PREVIEW_DATA_DEFAULTS = {
+  materialPreviews: [],
+  pagesCount: 1,
 }
 
 @injectable()
 export class MaterailFetchService implements IMaterialFetchService {
-  private readonly _materials: BehaviorSubject<PreviewMaterial[]> = new BehaviorSubject<PreviewMaterial[]>([])
+  private readonly _pagePreviewsData: BehaviorSubject<PagePreviewsData> = new BehaviorSubject<PagePreviewsData>(
+    PAGE_PREVIEW_DATA_DEFAULTS,
+  )
 
   public get materialPreviews() {
-    return this._materials
+    return this._pagePreviewsData
   }
 
-  public async fetchMaterialPreviews(category: Category, fromDate: string | null) {
+  public async fetchMaterialPreviews(category: Category, page: string | number) {
     const params: RequestParams = {
       category,
-      fromDate: fromDate || undefined,
+      page,
     }
 
     const request: AxiosRequestConfig = {
@@ -38,8 +46,10 @@ export class MaterailFetchService implements IMaterialFetchService {
 
     try {
       const response = await axios(request)
-      const responseData = response.data || []
-      this._materials.next(responseData)
+      const responseData = response.data
+        ? { materialPreviews: response.data.materials, pagesCount: response.data.pageCount }
+        : PAGE_PREVIEW_DATA_DEFAULTS
+      this._pagePreviewsData.next(responseData)
     } catch (e) {
       console.log('ERROR: ', e)
     }

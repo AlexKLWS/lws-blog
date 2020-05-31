@@ -7,16 +7,18 @@ import { Category, PreviewMaterial } from 'types/materials'
 export const useMaterialsProvider = () => {
   const service = useRef(useInjection<IMaterialFetchService>(MaterialFetchServiceId))
 
-  const fetchMaterialPreviews = (category: Category, fromDate: string | null) => {
-    service.current.fetchMaterialPreviews(category, fromDate)
+  const fetchMaterialPreviews = (category: Category, page: string | number) => {
+    service.current.fetchMaterialPreviews(category, page)
   }
 
   const [materialPreviews, setMaterialPreviews] = useState<PreviewMaterial[]>([])
+  const [pagesCount, setPagesCount] = useState<number>(1)
 
   useEffect(() => {
     const subscriptions: Subscription[] = [
       service.current.materialPreviews.subscribe((m) => {
-        setMaterialPreviews(m)
+        setMaterialPreviews(m.materialPreviews)
+        setPagesCount(m.pagesCount)
       }),
     ]
     return () => {
@@ -24,5 +26,5 @@ export const useMaterialsProvider = () => {
     }
   }, [])
 
-  return { materialPreviews, fetchMaterialPreviews }
+  return { materialPreviews, pagesCount, fetchMaterialPreviews }
 }
