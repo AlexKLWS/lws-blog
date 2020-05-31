@@ -1,1 +1,1 @@
-export const fromDate = 'fromDate'
+export const page = 'page'
