@@ -4,6 +4,7 @@
   @include button;
   border-width: 1px;
   border-color: $white-color;
+  border-style: solid;
 
   &:focus {
     border-color: $secondary-color;
