@@ -35,10 +35,28 @@
   font-weight: 600;
   color: $primary-color;
   padding-bottom: 28px;
+  border-width: 1px;
+  border-color: $white-color;
+  border-style: solid;
+
+  &:focus {
+    border-color: $secondary-color;
+    border-width: 1px;
+    outline: none;
+  }
 }
 
 .Contact-secret {
   @include button;
   color: $white-color;
   margin-bottom: 22px;
+  border-width: 1px;
+  border-color: $white-color;
+  border-style: solid;
+
+  &:focus {
+    border-color: $secondary-color;
+    border-width: 1px;
+    outline: none;
+  }
 }
