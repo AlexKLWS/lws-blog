@@ -11,6 +11,7 @@ interface Props {
   pagesCount: number
   navigateToNextPage: () => void
   navigateToPrevPage: () => void
+  onPreviewItemPress: (previewMaterial: PreviewMaterial) => void
 }
 
 const HomeView: React.FC<Props> = (props: Props) => {
@@ -21,10 +22,10 @@ const HomeView: React.FC<Props> = (props: Props) => {
           tabIndex={0}
           className={'Material-preview-item'}
           onClick={() => {
-            console.log('LOLOLOLO')
+            props.onPreviewItemPress(previewMaterial)
           }}
           onKeyPressCapture={() => {
-            console.log('KEYEKEYKEYKEYKYE')
+            props.onPreviewItemPress(previewMaterial)
           }}
         >
           <div className={'Material-preview-icon-container'}>

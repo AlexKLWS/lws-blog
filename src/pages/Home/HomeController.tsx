@@ -4,7 +4,8 @@ import { RouteComponentProps } from 'react-router-dom'
 import HomeView from './HomeView'
 import { useMaterialsProvider } from 'facades/materialsFetchFacade'
 import { page } from 'consts/query'
-import { resolveCategoryFromPathname } from 'helpers/resolveCategory'
+import { resolveCategoryFromPathname, getCategoryPathname } from 'helpers/resolveCategory'
+import { PreviewMaterial, Category } from 'types/materials'
 
 const HomeController: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
   const { materialPreviews, pagesCount, fetchMaterialPreviews } = useMaterialsProvider()
@@ -37,7 +38,15 @@ const HomeController: React.FC<RouteComponentProps> = (props: RouteComponentProp
     setCurrentPage(newPage)
   }
 
-  console.log('MATERIALS: ', materialPreviews)
+  const onPreviewItemPress = (previewMaterial: PreviewMaterial) => {
+    if (previewMaterial.pageURL) {
+      props.history.push(previewMaterial.pageURL)
+    } else if (previewMaterial.category === Category.Misc) {
+      props.history.push(`/${previewMaterial.referenceId}`)
+    } else {
+      props.history.push(`/${getCategoryPathname(previewMaterial.category)}/${previewMaterial.referenceId}`)
+    }
+  }
 
   return (
     <HomeView
@@ -46,6 +55,7 @@ const HomeController: React.FC<RouteComponentProps> = (props: RouteComponentProp
       navigateToNextPage={navigateToNextPage}
       currentPage={currentPage}
       pagesCount={pagesCount}
+      onPreviewItemPress={onPreviewItemPress}
     />
   )
 }
