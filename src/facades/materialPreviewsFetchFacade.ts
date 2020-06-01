@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { IMaterialFetchService, MaterialFetchServiceId } from 'services/materialsFetch'
+import { IMaterialFetchService, MaterialFetchServiceId } from 'services/materialPreviewsFetch'
 import { useInjection } from 'services/provider'
 import { Subscription } from 'rxjs'
 import { Category, PreviewMaterial } from 'types/materials'
 
-export const useMaterialsProvider = () => {
+export const useMaterialPreviewsProvider = () => {
   const service = useRef(useInjection<IMaterialFetchService>(MaterialFetchServiceId))
 
   const fetchMaterialPreviews = (category: Category, page: string | number) => {

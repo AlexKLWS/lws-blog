@@ -3,7 +3,7 @@ import { Container, interfaces, ContainerModule } from 'inversify'
 import { AuthenticationService, AuthenticationServiceId, IAuthenticationService } from './authentication'
 import { MaterailPostService, MaterialPostServiceId, IMaterialPostService } from './materialPost'
 import { FileUploadService, IFileUploadService, FileUploadServiceId } from './fileUpload'
-import { IMaterialFetchService, MaterialFetchServiceId, MaterailFetchService } from './materialsFetch'
+import { IMaterialFetchService, MaterialFetchServiceId, MaterailFetchService } from './materialPreviewsFetch'
 
 export const containerModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<IAuthenticationService>(AuthenticationServiceId).to(AuthenticationService)

@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 
 import HomeView from './HomeView'
-import { useMaterialsProvider } from 'facades/materialsFetchFacade'
+import { useMaterialPreviewsProvider } from 'facades/materialPreviewsFetchFacade'
 import { page } from 'consts/query'
 import { resolveCategoryFromPathname, getCategoryPathname } from 'helpers/resolveCategory'
 import { PreviewMaterial, Category } from 'types/materials'
 
 const HomeController: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
-  const { materialPreviews, pagesCount, fetchMaterialPreviews } = useMaterialsProvider()
+  const { materialPreviews, pagesCount, fetchMaterialPreviews } = useMaterialPreviewsProvider()
   const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
