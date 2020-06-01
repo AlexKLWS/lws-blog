@@ -15,3 +15,18 @@ export const resolveCategoryFromPathname = (location: Location) => {
       return Category.Misc
   }
 }
+
+export const getCategoryPathname = (category: Category) => {
+  switch (category) {
+    case Category.Code:
+      return 'code'
+    case Category.Life:
+      return 'life'
+    case Category.Projects:
+      return 'projects'
+    case Category.Guides:
+      return 'guides'
+    default:
+      return ''
+  }
+}
