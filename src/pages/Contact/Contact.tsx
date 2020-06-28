@@ -13,8 +13,8 @@ const Contact: React.FC<RouteProps> = (props: RouteProps) => {
         If you have comments, questions or feedback about my work — just shoot me an email. For partnerships or
         collaborations inquiries please use email as well. Otherwise, feel free to reach out to me on social networks.
       </p>
-      <a className='Contact-link' href='mailto:alexkorzh7@gmail.com'>
-        alexkorzh7@gmail.com
+      <a className='Contact-link' href='mailto:alex_korzh@hey.com'>
+        alex_korzh@hey.com
       </a>
       <a className='Contact-link' href='https://github.com/AlexKLWS'>
         Github
