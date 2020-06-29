@@ -3,14 +3,9 @@ import Highlight, { defaultProps } from 'prism-react-renderer'
 import theme from 'prism-react-renderer/themes/nightOwl'
 
 import './CodeRendererView.scss'
+import { MarkdownNodeProps } from 'types/markdown'
 
-interface Props {
-  language: any
-  value: string
-  children: React.ReactChildren
-}
-
-const CodeRenderView = (props: Props) => {
+const CodeRenderView = (props: MarkdownNodeProps) => {
   return (
     <Highlight {...defaultProps} theme={theme} code={props.value} language='jsx'>
       {({ tokens, getLineProps, getTokenProps }) => (
