@@ -1,10 +1,16 @@
-import React from 'react'
-import { useParams, RouteComponentProps } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { RouteComponentProps } from 'react-router-dom'
 import { ArticleView } from './ArticleView'
+import { useArticleProvider } from 'facades/articleFetchFacade'
 
 const ArticlesSection: React.FC<RouteComponentProps<{ id: string }>> = (props: RouteComponentProps<{ id: string }>) => {
-  console.log('ID: ', props.match.params.id)
-  return <ArticleView />
+  const { article, fetchArticle } = useArticleProvider()
+
+  useEffect(() => {
+    fetchArticle(props.match.params.id)
+  }, [])
+
+  return <ArticleView article={article} />
 }
 
 export default ArticlesSection
