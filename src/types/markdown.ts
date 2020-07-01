@@ -1,5 +1,6 @@
 export interface MarkdownNodeProps {
   language: any
-  value: string
+  value?: string
   children: React.ReactChildren
+  src?: string
 }
