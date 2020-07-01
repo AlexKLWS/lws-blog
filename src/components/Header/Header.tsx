@@ -1,5 +1,5 @@
 import React from 'react'
-import Img from 'react-image'
+import { useImage } from 'react-image'
 import { Link, useHistory } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
 
@@ -18,6 +18,11 @@ const Header: React.FC = () => {
     return route === currentRoute ? 'Sections-item active' : 'Sections-item'
   }
 
+  const { src } = useImage({
+    srcList: process.env.PUBLIC_URL + '/square_1.jpg',
+    useSuspense: false,
+  })
+
   return (
     <div className='Header-container'>
       <div className='Header-top-container'>
@@ -31,7 +36,7 @@ const Header: React.FC = () => {
           </Link>
           {!isSmallerScreen && (
             <div className='Header-portrait'>
-              <Img src={process.env.PUBLIC_URL + '/square_1.jpg'} width='auto' height='100%' />
+              <img src={src} width='auto' height='100%' />
             </div>
           )}
         </div>
