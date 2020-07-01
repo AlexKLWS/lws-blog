@@ -6,8 +6,11 @@ import './CodeRendererView.scss'
 import { MarkdownNodeProps } from 'types/markdown'
 
 const CodeRenderView = (props: MarkdownNodeProps) => {
+  if (!props.value) {
+    return null
+  }
   return (
-    <Highlight {...defaultProps} theme={theme} code={props.value} language='jsx'>
+    <Highlight {...defaultProps} theme={theme} code={props.value!} language='jsx'>
       {({ tokens, getLineProps, getTokenProps }) => (
         <pre className={'CodeRendererPre'}>
           {tokens.map((line, i) => (
