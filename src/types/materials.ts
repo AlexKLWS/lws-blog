@@ -13,6 +13,7 @@ export interface PreviewMaterial extends Material {
 
 export interface Material {
   referenceId?: string
+  createdAt?: string
   name: string
   subtitle: string
   icon: IconData
