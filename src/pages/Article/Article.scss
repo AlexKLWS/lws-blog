@@ -1,0 +1,38 @@
+@import '../../styles/config';
+@import '../../styles/shared-mixins';
+
+.ArticleContainer {
+  padding: 20px 42px;
+}
+
+.ArticleTitle {
+  @include normal-mono;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 36px;
+  margin: 0px;
+}
+
+.ArticleSubtitle {
+  @include normal-mono;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 18px;
+  margin: 0px;
+  padding: 20px 0px;
+}
+
+.ArticleTitleContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ArticleDate {
+  @include normal-mono;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 25px;
+  padding: 20px 0px 24px 0px;
+}

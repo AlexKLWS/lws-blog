@@ -1,27 +1,34 @@
 import React from 'react'
+import moment from 'moment'
 import { ArticleData } from 'types/materials'
-
 import ReactMarkdown from 'react-markdown'
+
+import './Article.scss'
+
 import CodeRenderView from 'components/markdownNodes/CodeRenderer/CodeRendererView'
 import InlineCodeRenderer from 'components/markdownNodes/InlineCodeRenderer/InlineCodeRenderer'
+import TextRenderer from 'components/markdownNodes/TextRenderer/TextRenderer'
+import ImageRenderer from 'components/markdownNodes/ImageRenderer/ImageRenderer'
 
 interface Props {
   article: ArticleData | null
 }
 
 export const ArticleView: React.FC<Props> = ({ article }: Props) => {
-  let source
-
-  if (article) {
-    source = `\`import React, { useState } from "react";\`` + ` \n ` + article.articleText
-  }
-
+  const date = !!article && moment(article.createdAt!).format('DD/MM/YYYY')
   return (
-    <div>
-      <h1>ArticlesSection</h1>
+    <div className={'ArticleContainer'}>
+      <div className={'ArticleTitleContainer'}>
+        <h1 className={'ArticleTitle'}>{article?.name}</h1>
+        <h3 className={'ArticleSubtitle'}>{article?.subtitle}</h3>
+      </div>
       {!!article && (
-        <ReactMarkdown source={source} renderers={{ code: CodeRenderView, inlineCode: InlineCodeRenderer }} />
+        <ReactMarkdown
+          source={article.articleText}
+          renderers={{ code: CodeRenderView, inlineCode: InlineCodeRenderer, text: TextRenderer, image: ImageRenderer }}
+        />
       )}
+      <p className={'ArticleDate'}>{date}</p>
     </div>
   )
 }
