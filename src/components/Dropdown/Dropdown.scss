@@ -6,6 +6,7 @@
   position: relative;
   width: 200px;
   z-index: 9;
+  padding-bottom: 40px;
 }
 
 .Dropdown-trigger {
@@ -41,7 +42,7 @@
 .Dropdown-item-button {
   @include button;
   background-color: $secondary-color;
-  border-width: 1px;
+  border-width: 0px;
   border-color: $secondary-color;
   display: flex;
   flex-direction: column;
