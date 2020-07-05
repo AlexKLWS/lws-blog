@@ -9,7 +9,7 @@ export interface IMaterialPostService {
     articleName: string,
     articleSubtitle: string,
     articleText: string,
-    articleIcon: File,
+    articleIcon: File | string,
     articleIconWidth: string,
     articleIconHeight: string,
     articleCategory: Category,
@@ -17,7 +17,7 @@ export interface IMaterialPostService {
   postPage: (
     pageName: string,
     pageSubtitle: string,
-    pageIcon: File,
+    pageIcon: File | string,
     pageIconWidth: string,
     pageIconHeight: string,
     pageCategory: Category,
@@ -46,14 +46,19 @@ export class MaterailPostService implements IMaterialPostService {
   private async formPageData(
     pageName: string,
     pageSubtitle: string,
-    pageIcon: File,
+    pageIcon: File | string,
     pageIconWidth: string,
     pageIconHeight: string,
     pageCategory: Category,
     pageURL: string,
   ): Promise<PageData> {
-    // @ts-ignore
-    const iconText = await pageIcon.text()
+    let iconText = ''
+    if (typeof pageIcon === 'string') {
+      iconText = pageIcon
+    } else {
+      // @ts-ignore
+      iconText = await pageIcon.text()
+    }
     const [iconWidth, iconHeight] = this.processIconDimensions(pageIconWidth, pageIconHeight)
     return {
       name: pageName,
@@ -71,7 +76,7 @@ export class MaterailPostService implements IMaterialPostService {
   public async postPage(
     pageName: string,
     pageSubtitle: string,
-    pageIcon: File,
+    pageIcon: File | string,
     pageIconWidth: string,
     pageIconHeight: string,
     pageCategory: Category,
@@ -107,13 +112,18 @@ export class MaterailPostService implements IMaterialPostService {
     articleName: string,
     articleSubtitle: string,
     articleText: string,
-    articleIcon: File,
+    articleIcon: File | string,
     articleIconWidth: string,
     articleIconHeight: string,
     articleCategory: Category,
   ): Promise<ArticleData> {
-    // @ts-ignore
-    const iconText = await articleIcon.text()
+    let iconText = ''
+    if (typeof articleIcon === 'string') {
+      iconText = articleIcon
+    } else {
+      // @ts-ignore
+      iconText = await articleIcon.text()
+    }
     const [iconWidth, iconHeight] = this.processIconDimensions(articleIconWidth, articleIconHeight)
     return {
       name: articleName,
@@ -132,7 +142,7 @@ export class MaterailPostService implements IMaterialPostService {
     articleName: string,
     articleSubtitle: string,
     articleText: string,
-    articleIcon: File,
+    articleIcon: File | string,
     articleIconWidth: string,
     articleIconHeight: string,
     articleCategory: Category,

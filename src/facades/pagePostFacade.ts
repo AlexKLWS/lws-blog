@@ -8,7 +8,7 @@ export function usePagePostFacade(): [
   (
     pageName: string,
     pageSubtitle: string,
-    pageIcon: File,
+    pageIcon: File | string,
     pageIconWidth: string,
     pageIconHeight: string,
     pageCategory: Category,
@@ -19,7 +19,7 @@ export function usePagePostFacade(): [
   const postPage = (
     pageName: string,
     pageSubtitle: string,
-    pageIcon: File,
+    pageIcon: File | string,
     pageIconWidth: string,
     pageIconHeight: string,
     pageCategory: Category,
