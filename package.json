@@ -57,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.157",
     "@types/react-loadable": "^5.5.3",
     "@types/react-modal": "^3.10.5",
     "@types/uuid": "^7.0.2",
