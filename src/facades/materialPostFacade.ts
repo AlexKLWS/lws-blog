@@ -4,17 +4,7 @@ import { useInjection } from 'services/provider'
 import { MaterialPostServiceId, IMaterialPostService } from 'services/materialPost'
 import { Category } from 'types/materials'
 
-export function useArticlePostFacade(): [
-  (
-    articleName: string,
-    articleSubtitle: string,
-    articleText: string,
-    articleIcon: File | string,
-    articleIconWidth: string,
-    articleIconHeight: string,
-    category: Category,
-  ) => void,
-] {
+export const useArticlePostFacade = () => {
   const service = useRef(useInjection<IMaterialPostService>(MaterialPostServiceId))
   const postArticle = (
     articleName: string,
@@ -24,6 +14,7 @@ export function useArticlePostFacade(): [
     articleIconWidth: string,
     articleIconHeight: string,
     category: Category,
+    referenceId?: string,
   ) => {
     service.current.postArticle(
       articleName,
@@ -33,8 +24,9 @@ export function useArticlePostFacade(): [
       articleIconWidth,
       articleIconHeight,
       category,
+      referenceId,
     )
   }
 
-  return [postArticle]
+  return { postArticle }
 }

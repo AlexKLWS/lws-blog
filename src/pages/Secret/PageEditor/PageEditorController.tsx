@@ -6,6 +6,7 @@ import pageEditorErrors from 'consts/pageEditorErrors'
 import { usePagePostFacade } from 'facades/pagePostFacade'
 import { RouteComponentProps } from 'react-router-dom'
 import { usePageMaterialProvider } from 'facades/pageFetchFacade'
+import { Category } from 'types/materials'
 
 const LoadablePageEditorView = Loadable({
   loader: () => import('./PageEditorView'),
@@ -27,7 +28,7 @@ const PageEditorController: React.FC<RouteComponentProps<{ id?: string }>> = (
     }
   }, [])
 
-  const [postPage] = usePagePostFacade()
+  const { postPage } = usePagePostFacade()
 
   const performDataCheck = (
     pageName: string,
@@ -51,11 +52,32 @@ const PageEditorController: React.FC<RouteComponentProps<{ id?: string }>> = (
     setSubmitErrors(errors)
   }
 
+  const postPageWrapped = (
+    pageName: string,
+    pageSubtitle: string,
+    pageIcon: File | string,
+    pageIconWidth: string,
+    pageIconHeight: string,
+    pageCategory: Category,
+    pageURL: string,
+  ) => {
+    postPage(
+      pageName,
+      pageSubtitle,
+      pageIcon,
+      pageIconWidth,
+      pageIconHeight,
+      pageCategory,
+      pageURL,
+      props.match.params.id,
+    )
+  }
+
   return (
     <LoadablePageEditorView
       submitErrors={currentSubmitErrors}
       performDataCheck={performDataCheck}
-      submitData={postPage}
+      submitData={postPageWrapped}
       pageDefaults={page}
     />
   )

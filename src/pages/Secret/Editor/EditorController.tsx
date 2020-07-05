@@ -6,6 +6,7 @@ import editorErrors from 'consts/editorErrors'
 import { useArticlePostFacade } from 'facades/materialPostFacade'
 import { EditorError } from 'types/editor'
 import { useArticleProvider } from 'facades/articleFetchFacade'
+import { Category } from 'types/materials'
 
 const LoadableEditorView = Loadable({
   loader: () => import('./EditorView'),
@@ -17,7 +18,7 @@ const LoadableEditorView = Loadable({
 const EditorController: React.FC<RouteComponentProps<{ id?: string }>> = (
   props: RouteComponentProps<{ id?: string }>,
 ) => {
-  const [postArticle] = useArticlePostFacade()
+  const { postArticle } = useArticlePostFacade()
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
 
   const { article, fetchArticle } = useArticleProvider()
@@ -50,9 +51,30 @@ const EditorController: React.FC<RouteComponentProps<{ id?: string }>> = (
     setSubmitErrors(errors)
   }
 
+  const postArticleWrapped = (
+    articleName: string,
+    articleSubtitle: string,
+    articleText: string,
+    articleIcon: File | string,
+    articleIconWidth: string,
+    articleIconHeight: string,
+    category: Category,
+  ) => {
+    postArticle(
+      articleName,
+      articleSubtitle,
+      articleText,
+      articleIcon,
+      articleIconWidth,
+      articleIconHeight,
+      category,
+      props.match.params.id,
+    )
+  }
+
   return (
     <LoadableEditorView
-      submitData={postArticle}
+      submitData={postArticleWrapped}
       performDataCheck={performDataCheck}
       submitErrors={currentSubmitErrors}
       articleDefaults={article}

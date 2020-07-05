@@ -13,6 +13,7 @@ export interface IMaterialPostService {
     articleIconWidth: string,
     articleIconHeight: string,
     articleCategory: Category,
+    referenceId?: string,
   ) => Promise<void>
   postPage: (
     pageName: string,
@@ -22,6 +23,7 @@ export interface IMaterialPostService {
     pageIconHeight: string,
     pageCategory: Category,
     pageURL: string,
+    referenceId?: string,
   ) => Promise<void>
 }
 
@@ -51,6 +53,7 @@ export class MaterailPostService implements IMaterialPostService {
     pageIconHeight: string,
     pageCategory: Category,
     pageURL: string,
+    referenceId?: string,
   ): Promise<PageData> {
     let iconText = ''
     if (typeof pageIcon === 'string') {
@@ -61,6 +64,7 @@ export class MaterailPostService implements IMaterialPostService {
     }
     const [iconWidth, iconHeight] = this.processIconDimensions(pageIconWidth, pageIconHeight)
     return {
+      referenceId,
       name: pageName,
       subtitle: pageSubtitle,
       pageURL,
@@ -81,6 +85,7 @@ export class MaterailPostService implements IMaterialPostService {
     pageIconHeight: string,
     pageCategory: Category,
     pageURL: string,
+    referenceId?: string,
   ) {
     const pageData = await this.formPageData(
       pageName,
@@ -90,6 +95,7 @@ export class MaterailPostService implements IMaterialPostService {
       pageIconHeight,
       pageCategory,
       pageURL,
+      referenceId,
     )
 
     const request = {
@@ -116,6 +122,7 @@ export class MaterailPostService implements IMaterialPostService {
     articleIconWidth: string,
     articleIconHeight: string,
     articleCategory: Category,
+    referenceId?: string,
   ): Promise<ArticleData> {
     let iconText = ''
     if (typeof articleIcon === 'string') {
@@ -126,6 +133,7 @@ export class MaterailPostService implements IMaterialPostService {
     }
     const [iconWidth, iconHeight] = this.processIconDimensions(articleIconWidth, articleIconHeight)
     return {
+      referenceId,
       name: articleName,
       subtitle: articleSubtitle,
       articleText: articleText,
@@ -146,6 +154,7 @@ export class MaterailPostService implements IMaterialPostService {
     articleIconWidth: string,
     articleIconHeight: string,
     articleCategory: Category,
+    referenceId?: string,
   ) {
     const articleData = await this.formArticlData(
       articleName,
@@ -155,6 +164,7 @@ export class MaterailPostService implements IMaterialPostService {
       articleIconWidth,
       articleIconHeight,
       articleCategory,
+      referenceId,
     )
 
     const request: AxiosRequestConfig = {
