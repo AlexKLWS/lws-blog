@@ -18,7 +18,6 @@ import { isDesktopOrLaptopQuery } from 'consts/media'
 import BackgroundView from 'components/Background/BackgroundView'
 import { container } from 'services/container'
 import { ServiceProvider } from 'services/provider'
-import { Category } from 'types/materials'
 
 function App() {
   const isDesktopOrLaptop = useMediaQuery({
@@ -45,6 +44,7 @@ function App() {
               <Route path={routes.login} component={Login} />
               <Route path={routes.secret.addPage} component={PageEditor} />
               <Route path={routes.secret.fileUpload} component={FileUpload} />
+              <Route path={routes.secret.editorMaterial} component={Editor} />
               <Route path={routes.secret.editor} component={Editor} />
               <Route path={routes.secret.home} component={SecretHome} />
               <Route path={routes.miscArticle} component={ArticlesSection} />

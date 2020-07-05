@@ -13,6 +13,7 @@ const login = '/login'
 const secret = {
   home: '/secret',
   editor: '/secret/editor',
+  editorMaterial: '/secret/editor/:id',
   addPage: '/secret/add-page',
   fileUpload: '/secret/file-upload',
 }
