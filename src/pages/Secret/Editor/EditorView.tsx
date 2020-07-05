@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import SimpleMDE from 'react-simplemde-editor'
 import 'easymde/dist/easymde.min.css'
 import get from 'lodash/get'
@@ -40,6 +40,19 @@ const EditorView: React.FC<Props> = (props: Props) => {
   const [articleCategory, setArticleCategory] = useState(get(props.articleDefaults, 'category', Category.Misc))
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
+
+  useEffect(() => {
+    if (!props.articleDefaults) {
+      return
+    }
+    setArticleName(get(props.articleDefaults, 'name', ''))
+    setArticleSubtitle(get(props.articleDefaults, 'subtitle', ''))
+    setArticleText(get(props.articleDefaults, 'articleText', ''))
+    setArticleIcon(get(props.articleDefaults, 'icon.data', null))
+    setArticleIconWidth(get(props.articleDefaults, 'icon.width', ''))
+    setArticleIconHeight(get(props.articleDefaults, 'icon.height', ''))
+    setArticleCategory(get(props.articleDefaults, 'category', Category.Misc))
+  }, [props.articleDefaults])
 
   const onSubmit = () => {
     if (!articleIcon) {
