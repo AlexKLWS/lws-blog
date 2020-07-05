@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { RouteProps, RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router-dom'
 import Loadable from 'react-loadable'
 
 import editorErrors from 'consts/editorErrors'
