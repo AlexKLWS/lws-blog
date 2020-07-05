@@ -10,13 +10,13 @@ interface Props {
   submitData: (
     pageName: string,
     pageSubtitle: string,
-    pageIcon: File,
+    pageIcon: File | string,
     pageIconWidth: string,
     pageIconHeight: string,
     pageCategory: Category,
     pageURL: string,
   ) => void
-  performDataCheck: (pageName: string, pageSubtitle: string, pageIcon: File | null, pageURL: string) => void
+  performDataCheck: (pageName: string, pageSubtitle: string, pageIcon: File | string | null, pageURL: string) => void
   submitErrors: EditorError[]
 }
 
@@ -24,7 +24,7 @@ const PageEditorView = (props: Props) => {
   const [pageName, setPageName] = useState('')
   const [pageSubtitle, setPageSubtitle] = useState('')
   const [pageURL, setPageURL] = useState('')
-  const [pageIcon, setPageIcon] = useState<File | null>(null)
+  const [pageIcon, setPageIcon] = useState<File | string | null>(null)
   const [pageIconWidth, setPageIconWidth] = useState('')
   const [pageIconHeight, setPageIconHeight] = useState('')
   const [pageCategory, setPageCategory] = useState(Category.Misc)

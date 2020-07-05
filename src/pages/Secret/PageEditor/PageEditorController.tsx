@@ -18,7 +18,12 @@ const PageEditorController: React.FC<RouteProps> = (props: RouteProps) => {
 
   const [postPage] = usePagePostFacade()
 
-  const performDataCheck = (pageName: string, pageSubtitle: string, pageIcon: File | null, pageURL: string) => {
+  const performDataCheck = (
+    pageName: string,
+    pageSubtitle: string,
+    pageIcon: File | string | null,
+    pageURL: string,
+  ) => {
     const errors: EditorError[] = []
     if (!pageName) {
       errors.push(pageEditorErrors.noPageName)

@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
 import SimpleMDE from 'react-simplemde-editor'
 import 'easymde/dist/easymde.min.css'
+import get from 'lodash/get'
 
 import './Editor.scss'
 import { EditorError } from 'types/editor'
 import PagePreviewEditorWidget from 'components/PagePreviewEditorWidget'
 import SubmitModal from 'components/Secret/SubmitModal'
 import FileUploadWidget from 'components/FileUploadWidget'
-import { Category } from 'types/materials'
+import { Category, ArticleData } from 'types/materials'
 
 interface Props {
   submitData: (
     articleName: string,
     articleSubtitle: string,
     articleText: string,
-    articleIcon: File,
+    articleIcon: File | string,
     articleIconWidth: string,
     articleIconHeight: string,
     category: Category,
@@ -23,19 +24,20 @@ interface Props {
     articleName: string,
     articleSubtitle: string,
     articleText: string,
-    articleIcon: File | null,
+    articleIcon: File | string | null,
   ) => void
   submitErrors: EditorError[]
+  articleDefaults: ArticleData | null
 }
 
 const EditorView: React.FC<Props> = (props: Props) => {
-  const [articleName, setArticleName] = useState('')
-  const [articleSubtitle, setArticleSubtitle] = useState('')
-  const [articleText, setArticleText] = useState('')
-  const [articleIcon, setArticleIcon] = useState<File | null>(null)
-  const [articleIconWidth, setArticleIconWidth] = useState('')
-  const [articleIconHeight, setArticleIconHeight] = useState('')
-  const [articleCategory, setArticleCategory] = useState(Category.Misc)
+  const [articleName, setArticleName] = useState(get(props.articleDefaults, 'name', ''))
+  const [articleSubtitle, setArticleSubtitle] = useState(get(props.articleDefaults, 'subtitle', ''))
+  const [articleText, setArticleText] = useState(get(props.articleDefaults, 'articleText', ''))
+  const [articleIcon, setArticleIcon] = useState<File | string | null>(get(props.articleDefaults, 'icon.data', null))
+  const [articleIconWidth, setArticleIconWidth] = useState(get(props.articleDefaults, 'icon.width', ''))
+  const [articleIconHeight, setArticleIconHeight] = useState(get(props.articleDefaults, 'icon.height', ''))
+  const [articleCategory, setArticleCategory] = useState(get(props.articleDefaults, 'category', Category.Misc))
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
