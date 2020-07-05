@@ -14,7 +14,8 @@ const secret = {
   home: '/secret',
   editor: '/secret/editor',
   editorMaterial: '/secret/editor/:id',
-  addPage: '/secret/add-page',
+  pageEditor: '/secret/pageEditor',
+  pageEditorExistingMaterial: '/secret/pageEditor/:id',
   fileUpload: '/secret/file-upload',
 }
 

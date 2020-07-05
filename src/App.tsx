@@ -42,7 +42,8 @@ function App() {
               <Route path={routes.projects} component={Home} />
               <Route path={routes.contact} component={Contact} />
               <Route path={routes.login} component={Login} />
-              <Route path={routes.secret.addPage} component={PageEditor} />
+              <Route path={routes.secret.pageEditorExistingMaterial} component={PageEditor} />
+              <Route path={routes.secret.pageEditor} component={PageEditor} />
               <Route path={routes.secret.fileUpload} component={FileUpload} />
               <Route path={routes.secret.editorMaterial} component={Editor} />
               <Route path={routes.secret.editor} component={Editor} />
