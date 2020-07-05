@@ -8,7 +8,7 @@ import Dropdown from 'components/Dropdown/Dropdown'
 interface Props {
   name: string
   subtitle: string
-  icon: File | null
+  icon: File | string | null
   iconWidth: string
   iconHeight: string
   category: Category
