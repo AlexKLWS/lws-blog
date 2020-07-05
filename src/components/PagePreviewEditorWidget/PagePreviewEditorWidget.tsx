@@ -14,7 +14,7 @@ interface Props {
   category: Category
   setName: (value: string) => void
   setSubtitle: (value: string) => void
-  setIcon: (value: File | null) => void
+  setIcon: (value: File | string | null) => void
   setIconWidth: (value: string) => void
   setIconHeight: (value: string) => void
   setCategory: (value: Category) => void
@@ -61,6 +61,16 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
     return items
   }, [])
 
+  const getIconButtonText = () => {
+    if (!props.icon) {
+      return 'Add icon'
+    }
+    if (!props.icon.name) {
+      return 'Change icon'
+    }
+    return props.icon.name
+  }
+
   return (
     <div className='PPEW-input-container'>
       <input className='PPEW-input' placeholder='Title' value={props.name} onChange={onNameInputValueChange} />
@@ -72,7 +82,7 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
       />
       <input type='file' className='App-file-input' id='articleIcon' onChange={onIconFileChange} accept='.svg' />
       <label className='App-button' htmlFor='articleIcon'>
-        {props.icon?.name || 'Add icon'}
+        {getIconButtonText()}
       </label>
       {props.icon && (
         <div className='PPEW-icon-row'>
