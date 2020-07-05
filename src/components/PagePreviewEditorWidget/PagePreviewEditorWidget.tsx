@@ -65,10 +65,10 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
     if (!props.icon) {
       return 'Add icon'
     }
-    if (!props.icon.name) {
+    if (!(props.icon as File).name) {
       return 'Change icon'
     }
-    return props.icon.name
+    return (props.icon as File).name
   }
 
   return (
