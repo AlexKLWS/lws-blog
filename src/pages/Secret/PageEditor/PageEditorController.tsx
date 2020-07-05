@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Loadable from 'react-loadable'
 
 import { EditorError } from 'types/editor'
 import pageEditorErrors from 'consts/pageEditorErrors'
 import { usePagePostFacade } from 'facades/pagePostFacade'
-import { RouteProps } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router-dom'
+import { usePageMaterialProvider } from 'facades/pageFetchFacade'
 
 const LoadablePageEditorView = Loadable({
   loader: () => import('./PageEditorView'),
@@ -13,8 +14,18 @@ const LoadablePageEditorView = Loadable({
   },
 })
 
-const PageEditorController: React.FC<RouteProps> = (props: RouteProps) => {
+const PageEditorController: React.FC<RouteComponentProps<{ id?: string }>> = (
+  props: RouteComponentProps<{ id?: string }>,
+) => {
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
+
+  const { page, fetchPage } = usePageMaterialProvider()
+
+  useEffect(() => {
+    if (props.match.params.id) {
+      fetchPage(props.match.params.id)
+    }
+  }, [])
 
   const [postPage] = usePagePostFacade()
 
@@ -45,6 +56,7 @@ const PageEditorController: React.FC<RouteProps> = (props: RouteProps) => {
       submitErrors={currentSubmitErrors}
       performDataCheck={performDataCheck}
       submitData={postPage}
+      pageDefaults={page}
     />
   )
 }
