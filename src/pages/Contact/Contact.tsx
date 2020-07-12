@@ -24,10 +24,14 @@ const Contact: React.FC = () => {
       <a className='Contact-link' href='https://www.linkedin.com/in/aleksei-korzh-52952392'>
         LinkedIn
       </a>
-      <div className='Contact-separator' />
-      <Link to={routes.login} className='Contact-secret'>
-        Log in
-      </Link>
+      <div className='Bottom-section'>
+        <div className='Contact-separator' />
+        <div className='Contact-secret-container'>
+          <Link to={routes.login} className='Contact-secret'>
+            Log in
+          </Link>
+        </div>
+      </div>
     </div>
   )
 }
