@@ -21,14 +21,9 @@
     "prefer-conditional-expression": true,
     "no-implicit-dependencies": [true, "dev", ["~"]],
     "no-submodule-imports": false,
-    "variable-name": [
-      true,
-      "allow-leading-underscore",
-      "allow-pascal-case",
-      "ban-keywords",
-      "check-format"
-    ],
+    "variable-name": [true, "allow-leading-underscore", "allow-pascal-case", "ban-keywords", "check-format"],
     "object-literal-key-quotes": false,
-    "member-ordering": false
+    "member-ordering": false,
+    "interface-over-type-literal": false
   }
 }
