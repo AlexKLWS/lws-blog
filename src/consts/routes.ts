@@ -1,5 +1,5 @@
 const home = '/'
-const miscArticle = '/:id'
+const miscArticle = '/misc/:id'
 const life = '/life'
 const lifeArticle = '/life/:id'
 const code = '/code'
