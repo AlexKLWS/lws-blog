@@ -9,6 +9,7 @@ import Login from 'pages/Login'
 import FileUpload from 'pages/Secret/FileUpload'
 import PageEditor from 'pages/Secret/PageEditor'
 import Editor from 'pages/Secret/Editor'
+import EmptyPageController from 'pages/EmptyPage'
 import SecretHome from 'pages/Secret/Home'
 import routes from 'consts/routes'
 import { container } from 'services/container'
@@ -30,7 +31,7 @@ function App() {
               <ArticlesSection />
             </DefaultLayoutWrapper>
           </Route>
-          <Route path={routes.life}>
+          <Route exact path={routes.life}>
             <DefaultLayoutWrapper>
               <Home />
             </DefaultLayoutWrapper>
@@ -40,7 +41,7 @@ function App() {
               <ArticlesSection />
             </DefaultLayoutWrapper>
           </Route>
-          <Route path={routes.code}>
+          <Route exact path={routes.code}>
             <DefaultLayoutWrapper>
               <Home />
             </DefaultLayoutWrapper>
@@ -50,7 +51,7 @@ function App() {
               <ArticlesSection />
             </DefaultLayoutWrapper>
           </Route>
-          <Route path={routes.guides}>
+          <Route exact path={routes.guides}>
             <DefaultLayoutWrapper>
               <Home />
             </DefaultLayoutWrapper>
@@ -60,7 +61,7 @@ function App() {
               <ArticlesSection />
             </DefaultLayoutWrapper>
           </Route>
-          <Route path={routes.projects}>
+          <Route exact path={routes.projects}>
             <DefaultLayoutWrapper>
               <Home />
             </DefaultLayoutWrapper>
@@ -108,6 +109,11 @@ function App() {
           <Route path={routes.miscArticle}>
             <DefaultLayoutWrapper>
               <ArticlesSection />
+            </DefaultLayoutWrapper>
+          </Route>
+          <Route>
+            <DefaultLayoutWrapper>
+              <EmptyPageController />
             </DefaultLayoutWrapper>
           </Route>
         </Switch>
