@@ -1,17 +1,18 @@
 import React from 'react'
-import { RouteComponentProps } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import LoginView from './LoginView'
 import { useLoginFacade } from 'facades/loginFacade'
 import routes from 'consts/routes'
 
-const LoginController: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
+const LoginController: React.FC = () => {
   const [login] = useLoginFacade()
+  const history = useHistory()
 
   const handleLogin = async (password: string) => {
     const loginSuccessful = await login(password)
     if (loginSuccessful) {
-      props.history.push(routes.secret.home)
+      history.push(routes.secret.home)
     }
   }
 
