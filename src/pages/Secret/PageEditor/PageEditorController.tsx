@@ -4,7 +4,7 @@ import Loadable from 'react-loadable'
 import { EditorError } from 'types/editor'
 import pageEditorErrors from 'consts/pageEditorErrors'
 import { usePagePostFacade } from 'facades/pagePostFacade'
-import { RouteComponentProps } from 'react-router-dom'
+import { useRouteMatch } from 'react-router-dom'
 import { usePageMaterialProvider } from 'facades/pageFetchFacade'
 import { Category } from 'types/materials'
 
@@ -15,16 +15,15 @@ const LoadablePageEditorView = Loadable({
   },
 })
 
-const PageEditorController: React.FC<RouteComponentProps<{ id?: string }>> = (
-  props: RouteComponentProps<{ id?: string }>,
-) => {
+const PageEditorController: React.FC = () => {
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
 
   const { page, fetchPage } = usePageMaterialProvider()
+  const match = useRouteMatch<{ id: string }>()
 
   useEffect(() => {
-    if (props.match.params.id) {
-      fetchPage(props.match.params.id)
+    if (match.params.id) {
+      fetchPage(match.params.id)
     }
   }, [])
 
@@ -61,16 +60,7 @@ const PageEditorController: React.FC<RouteComponentProps<{ id?: string }>> = (
     pageCategory: Category,
     pageURL: string,
   ) => {
-    postPage(
-      pageName,
-      pageSubtitle,
-      pageIcon,
-      pageIconWidth,
-      pageIconHeight,
-      pageCategory,
-      pageURL,
-      props.match.params.id,
-    )
+    postPage(pageName, pageSubtitle, pageIcon, pageIconWidth, pageIconHeight, pageCategory, pageURL, match.params.id)
   }
 
   return (

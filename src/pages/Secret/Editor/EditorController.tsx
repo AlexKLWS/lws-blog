@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
+import { useRouteMatch } from 'react-router-dom'
 import Loadable from 'react-loadable'
 
 import editorErrors from 'consts/editorErrors'
@@ -15,17 +15,16 @@ const LoadableEditorView = Loadable({
   },
 })
 
-const EditorController: React.FC<RouteComponentProps<{ id?: string }>> = (
-  props: RouteComponentProps<{ id?: string }>,
-) => {
+const EditorController: React.FC = () => {
   const { postArticle } = useArticlePostFacade()
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
+  const match = useRouteMatch<{ id: string }>()
 
   const { article, fetchArticle } = useArticleProvider()
 
   useEffect(() => {
-    if (props.match.params.id) {
-      fetchArticle(props.match.params.id)
+    if (match.params.id) {
+      fetchArticle(match.params.id)
     }
   }, [])
 
@@ -68,7 +67,7 @@ const EditorController: React.FC<RouteComponentProps<{ id?: string }>> = (
       articleIconWidth,
       articleIconHeight,
       category,
-      props.match.params.id,
+      match.params.id,
     )
   }
 

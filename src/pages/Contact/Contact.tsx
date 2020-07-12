@@ -1,11 +1,10 @@
 import React from 'react'
-import { RouteProps } from 'react-router'
 
 import './Contact.scss'
 import { Link } from 'react-router-dom'
 import routes from 'consts/routes'
 
-const Contact: React.FC<RouteProps> = (props: RouteProps) => {
+const Contact: React.FC = () => {
   return (
     <div className='Contact-container'>
       <h1 className='Contact-title'>Contact</h1>

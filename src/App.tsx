@@ -30,17 +30,57 @@ function App() {
         {isDesktopOrLaptop && <BackgroundView />}
         <div className='App-flex-container'>
           <div className='App-container'>
-            <Header />
             <Switch>
-              <Route path={routes.lifeArticle} component={ArticlesSection} />
-              <Route path={routes.life} component={Home} />
-              <Route path={routes.codeArticle} component={ArticlesSection} />
-              <Route path={routes.code} component={Home} />
-              <Route path={routes.guidesArticle} component={ArticlesSection} />
-              <Route path={routes.guides} component={Home} />
-              <Route path={routes.projectsArticle} component={ArticlesSection} />
-              <Route path={routes.projects} component={Home} />
-              <Route path={routes.contact} component={Contact} />
+              <Route exact path={routes.home}>
+                <Header />
+                <Home />
+                <Footer />
+              </Route>
+              <Route path={routes.lifeArticle}>
+                <Header />
+                <ArticlesSection />
+                <Footer />
+              </Route>
+              <Route path={routes.life}>
+                <Header />
+                <Home />
+                <Footer />
+              </Route>
+              <Route path={routes.codeArticle}>
+                <Header />
+                <ArticlesSection />
+                <Footer />
+              </Route>
+              <Route path={routes.code}>
+                <Header />
+                <Home />
+                <Footer />
+              </Route>
+              <Route path={routes.guidesArticle}>
+                <Header />
+                <ArticlesSection />
+                <Footer />
+              </Route>
+              <Route path={routes.guides}>
+                <Header />
+                <Home />
+                <Footer />
+              </Route>
+              <Route path={routes.projectsArticle}>
+                <Header />
+                <ArticlesSection />
+                <Footer />
+              </Route>
+              <Route path={routes.projects}>
+                <Header />
+                <Home />
+                <Footer />
+              </Route>
+              <Route path={routes.contact}>
+                <Header />
+                <Contact />
+                <Footer />
+              </Route>
               <Route path={routes.login} component={Login} />
               <Route path={routes.secret.pageEditorExistingMaterial} component={PageEditor} />
               <Route path={routes.secret.pageEditor} component={PageEditor} />
@@ -49,9 +89,7 @@ function App() {
               <Route path={routes.secret.editor} component={Editor} />
               <Route path={routes.secret.home} component={SecretHome} />
               <Route path={routes.miscArticle} component={ArticlesSection} />
-              <Route path={routes.home} component={Home} />
             </Switch>
-            <Footer />
           </div>
         </div>
       </Router>

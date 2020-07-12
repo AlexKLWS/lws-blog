@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
+import { useRouteMatch } from 'react-router-dom'
 import { ArticleView } from './ArticleView'
 import { useArticleProvider } from 'facades/articleFetchFacade'
 
-const ArticlesSection: React.FC<RouteComponentProps<{ id: string }>> = (props: RouteComponentProps<{ id: string }>) => {
+const ArticlesSection: React.FC = () => {
   const { article, fetchArticle } = useArticleProvider()
+  const match = useRouteMatch<{ id: string }>()
 
   useEffect(() => {
-    fetchArticle(props.match.params.id)
+    fetchArticle(match.params.id)
   }, [])
 
   return <ArticleView article={article} />
