@@ -1,0 +1,56 @@
+@import '../../styles/config';
+@import '../../styles/hamburger';
+@import '../../styles/shared-mixins';
+
+.Guide-location-info {
+  position: absolute;
+  width: 100%;
+  background-color: $white-color;
+
+  @media (min-width: $breakpoint-desktop-or-laptop) {
+    width: 60%;
+    max-width: 864px;
+  }
+}
+
+.Guide-location-info-contents {
+  padding: 0px 40px 40px 40px;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $breakpoint-desktop-or-laptop) {
+    flex-direction: row;
+  }
+}
+
+.Guide-location-info-photo {
+  width: 100%;
+
+  @media (min-width: $breakpoint-desktop-or-laptop) {
+    width: 55%;
+  }
+}
+
+.Guide-location-info-text-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding-left: 0px;
+
+  @media (min-width: $breakpoint-desktop-or-laptop) {
+    padding-left: 40px;
+  }
+}
+
+.Guide-location-info-title {
+  @include normal-mono;
+  text-align: right;
+}
+
+.Guide-location-info-description {
+  text-align: left;
+  font-family: Muli;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+}
