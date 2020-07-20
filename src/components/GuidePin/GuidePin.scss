@@ -15,3 +15,22 @@
   width: 100%;
   height: 68%;
 }
+
+.Guide-pin-button {
+  @include transition-ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 35px;
+  background-color: $white-color;
+  border-width: 0px;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+  opacity: 0;
+
+  &:active {
+    opacity: 0.75;
+  }
+}
