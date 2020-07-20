@@ -5,10 +5,11 @@ export enum PinType {
   CAFE,
 }
 
-export type GuideItemData = {
+export type GuideLocationInfo = {
   type: PinType
   lat: number
   lng: number
   title: string
   description: string
+  imageUrl: string
 }
