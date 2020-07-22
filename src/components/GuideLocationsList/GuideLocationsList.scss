@@ -1,0 +1,71 @@
+@import '../../styles/config';
+@import '../../styles/hamburger';
+@import '../../styles/shared-mixins';
+
+.Guide-info-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Guide-info-button {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: all;
+  background-color: $white-color;
+
+  &.is-disabled {
+    background-color: $secondary-color-active;
+  }
+}
+
+.Guide-info-location-list {
+  overflow-y: scroll;
+  margin: 0px 40px 0px 40px;
+}
+
+.Guide-info-location-list-item {
+  @include button;
+  align-items: center;
+}
+
+.Guide-info-location-list-item-label {
+  @include normal-mono;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 21px;
+  padding-left: 10px;
+}
+
+.Guide-info-note {
+  @include normal;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-block-start: 0px;
+}
+
+.Guide-info-container,
+.Guide-info-location-list-container {
+  display: flex;
+  flex-direction: column;
+  pointer-events: all;
+}
+
+.Guide-info-container {
+  position: relative;
+  background-color: $white-color;
+  transition: all 0.4s ease-in-out;
+  overflow: hidden;
+}
+
+.Guide-info-location-list-container {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+  float: right;
+  padding-bottom: 40px;
+}
