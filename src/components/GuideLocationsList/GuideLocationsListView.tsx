@@ -10,6 +10,7 @@ type Props = {
   isDisabled: boolean
   guideInfo: string
   locations: GuideLocationInfo[]
+  onLocationClick: (location: GuideLocationInfo) => void
 }
 
 const GuideLocationsListView: React.FC<Props> = (props: Props) => {
@@ -20,7 +21,7 @@ const GuideLocationsListView: React.FC<Props> = (props: Props) => {
   }
 
   const buttonBackgroundStyle = () => {
-    return props.isDisabled ? 'Guide-info-button is-disabled' : 'Guide-info-button'
+    return props.isDisabled ? 'Guide-info-container is-disabled' : 'Guide-info-container'
   }
 
   const transitionStyles: any = {
@@ -40,9 +41,9 @@ const GuideLocationsListView: React.FC<Props> = (props: Props) => {
   return (
     <Transition in={menuIsOpen} timeout={300}>
       {(state) => (
-        <div className={'Guide-info-container'} style={{ ...transitionStyles[state] }}>
+        <div className={buttonBackgroundStyle()} style={{ ...transitionStyles[state] }}>
           <div className={'Guide-info-button-container'}>
-            <div className={buttonBackgroundStyle()}>
+            <div className={'Guide-info-button'}>
               <button
                 className={buttonStateStyle()}
                 type='button'
@@ -64,7 +65,14 @@ const GuideLocationsListView: React.FC<Props> = (props: Props) => {
             <div className={'Guide-info-location-list'}>
               {props.locations.map((location, index) => {
                 return (
-                  <div key={`${index}`} className='Guide-info-location-list-item'>
+                  <div
+                    key={`${index}`}
+                    className='Guide-info-location-list-item'
+                    onClick={() => {
+                      setMenuIsOpen(false)
+                      props.onLocationClick(location)
+                    }}
+                  >
                     <GuideItemIcon type={location.type} />
                     <h3 className='Guide-info-location-list-item-label'>{location.title}</h3>
                   </div>
@@ -72,7 +80,14 @@ const GuideLocationsListView: React.FC<Props> = (props: Props) => {
               })}
               {props.locations.map((location, index) => {
                 return (
-                  <div key={`${index + 4}`} className='Guide-info-location-list-item'>
+                  <div
+                    key={`${index + 4}`}
+                    className='Guide-info-location-list-item'
+                    onClick={() => {
+                      setMenuIsOpen(false)
+                      props.onLocationClick(location)
+                    }}
+                  >
                     <GuideItemIcon type={location.type} />
                     <h3 className='Guide-info-location-list-item-label'>{location.title}</h3>
                   </div>
@@ -80,7 +95,14 @@ const GuideLocationsListView: React.FC<Props> = (props: Props) => {
               })}
               {props.locations.map((location, index) => {
                 return (
-                  <div key={`${index + 8}`} className='Guide-info-location-list-item'>
+                  <div
+                    key={`${index + 8}`}
+                    className='Guide-info-location-list-item'
+                    onClick={() => {
+                      setMenuIsOpen(false)
+                      props.onLocationClick(location)
+                    }}
+                  >
                     <GuideItemIcon type={location.type} />
                     <h3 className='Guide-info-location-list-item-label'>{location.title}</h3>
                   </div>
