@@ -2,14 +2,29 @@
 @import '../../styles/hamburger';
 @import '../../styles/shared-mixins';
 
+.Guide-close-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Guide-close-button {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: all;
+  background-color: $white-color;
+}
+
 .Guide-location-info {
-  position: absolute;
+  margin: 40px 0px 40px 0px;
   width: 100%;
   background-color: $white-color;
 
   @media (min-width: $breakpoint-desktop-or-laptop) {
-    width: 60%;
-    max-width: 864px;
+    margin: 40px 0px 0px 0px;
   }
 }
 
@@ -48,9 +63,8 @@
 }
 
 .Guide-location-info-description {
+  @include normal;
   text-align: left;
-  font-family: Muli;
-  font-style: normal;
   font-weight: 300;
   font-size: 16px;
 }

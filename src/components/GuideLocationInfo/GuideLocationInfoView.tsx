@@ -26,7 +26,7 @@ const GuideLocationInfoView: React.FC<Props> = (props: Props) => {
     transform: 'scale(0.95)',
   }
 
-  const transitionStyles = {
+  const transitionStyles: any = {
     entering: { opacity: 1, transform: 'scale(1)', pointerEvents: 'all' },
     entered: { opacity: 1, transform: 'scale(1)', pointerEvents: 'all' },
     exiting: { opacity: 0, transform: 'scale(0.95)', pointerEvents: 'none' },
@@ -34,19 +34,18 @@ const GuideLocationInfoView: React.FC<Props> = (props: Props) => {
   }
 
   return (
-    <Transition in={props.isShown} timeout={DURATION}>
+    <Transition in={props.isShown} timeout={DURATION} unmountOnExit>
       {(state) => (
         <div
           className={'Guide-location-info'}
           style={{
             ...defaultStyle,
-            //@ts-ignore
             ...transitionStyles[state],
           }}
         >
           {props.isShown ? (
-            <div className={'Guide-info-button-container'}>
-              <div className={'Guide-info'}>
+            <div className={'Guide-close-button-container'}>
+              <div className={'Guide-close-button'}>
                 <button
                   className={'hamburger hamburger--spin is-active'}
                   type='button'
