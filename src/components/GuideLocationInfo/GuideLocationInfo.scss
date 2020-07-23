@@ -68,3 +68,8 @@
   font-weight: 300;
   font-size: 16px;
 }
+
+.Guide-location-info-address {
+  @include normal-mono;
+  font-size: 13px;
+}

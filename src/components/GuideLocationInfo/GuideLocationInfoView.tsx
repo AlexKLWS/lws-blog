@@ -67,6 +67,7 @@ const GuideLocationInfoView: React.FC<Props> = (props: Props) => {
             <div className='Guide-location-info-text-container'>
               <h2 className='Guide-location-info-title'>{props.locationInfo.title}</h2>
               <p className='Guide-location-info-description'>{props.locationInfo.description}</p>
+              <span className='Guide-location-info-address'>{props.locationInfo.address}</span>
             </div>
           </div>
         </div>

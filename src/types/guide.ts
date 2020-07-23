@@ -7,9 +7,14 @@ export enum PinType {
 
 export type GuideLocationInfo = {
   type: PinType
-  lat: number
-  lng: number
+  coordinates: LocationCoords
+  address: string
   title: string
   description: string
   imageUrl: string
+}
+
+export type LocationCoords = {
+  lat: number
+  lng: number
 }
