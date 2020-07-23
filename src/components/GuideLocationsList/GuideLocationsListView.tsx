@@ -11,14 +11,14 @@ type Props = {
   isDisabled: boolean
   guideInfo: string
   locations: GuideLocationInfo[]
+  locationsListIsOpen: boolean
+  setLocationsListIsOpen: (value: boolean) => void
   onLocationClick: (location: GuideLocationInfo) => void
 }
 
 const GuideLocationsListView: React.FC<Props> = (props: Props) => {
-  const [menuIsOpen, setMenuIsOpen] = useState(false)
-
   const buttonStateStyle = () => {
-    return menuIsOpen ? 'hamburger hamburger--spin is-active' : 'hamburger hamburger--spin'
+    return props.locationsListIsOpen ? 'hamburger hamburger--spin is-active' : 'hamburger hamburger--spin'
   }
 
   const buttonBackgroundStyle = () => {
@@ -42,7 +42,7 @@ const GuideLocationsListView: React.FC<Props> = (props: Props) => {
   const displayScrollIndicator = props.locations.length >= 6
 
   return (
-    <Transition in={menuIsOpen} timeout={300}>
+    <Transition in={props.locationsListIsOpen} timeout={300}>
       {(state) => (
         <div className={buttonBackgroundStyle()} style={{ ...transitionStyles[state] }}>
           <div className={'Guide-info-button-container'}>
@@ -53,7 +53,7 @@ const GuideLocationsListView: React.FC<Props> = (props: Props) => {
                 aria-label='Menu'
                 aria-controls='navigation'
                 onClick={() => {
-                  setMenuIsOpen(!menuIsOpen)
+                  props.setLocationsListIsOpen(!props.locationsListIsOpen)
                 }}
                 disabled={props.isDisabled}
               >
@@ -72,7 +72,7 @@ const GuideLocationsListView: React.FC<Props> = (props: Props) => {
                     key={`${index}`}
                     className='Guide-info-location-list-item'
                     onClick={() => {
-                      setMenuIsOpen(false)
+                      props.setLocationsListIsOpen(false)
                       props.onLocationClick(location)
                     }}
                   >
