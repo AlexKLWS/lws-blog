@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Transition } from 'react-transition-group'
+import { ReactComponent as Arrow } from 'assets/icons/Arrow.svg'
 
 import './GuideLocationsList.scss'
 
@@ -31,12 +32,14 @@ const GuideLocationsListView: React.FC<Props> = (props: Props) => {
     exited: { width: '40px', height: '40px' },
   }
 
-  const transitionStylesMenu: any = {
+  const transitionStylesOpacity: any = {
     entering: { opacity: 1, transitionDelay: '0.4s' },
     entered: { opacity: 1 },
     exiting: { opacity: 0 },
     exited: { opacity: 0 },
   }
+
+  const displayScrollIndicator = props.locations.length >= 6
 
   return (
     <Transition in={menuIsOpen} timeout={300}>
@@ -60,7 +63,7 @@ const GuideLocationsListView: React.FC<Props> = (props: Props) => {
               </button>
             </div>
           </div>
-          <div className={'Guide-info-location-list-container'} style={{ ...transitionStylesMenu[state] }}>
+          <div className={'Guide-info-location-list-container'} style={{ ...transitionStylesOpacity[state] }}>
             <p className={'Guide-info-note'}>{props.guideInfo}</p>
             <div className={'Guide-info-location-list'}>
               {props.locations.map((location, index) => {
@@ -78,36 +81,19 @@ const GuideLocationsListView: React.FC<Props> = (props: Props) => {
                   </div>
                 )
               })}
-              {props.locations.map((location, index) => {
-                return (
-                  <div
-                    key={`${index + 4}`}
-                    className='Guide-info-location-list-item'
-                    onClick={() => {
-                      setMenuIsOpen(false)
-                      props.onLocationClick(location)
-                    }}
-                  >
-                    <GuideItemIcon type={location.type} />
-                    <h3 className='Guide-info-location-list-item-label'>{location.title}</h3>
-                  </div>
-                )
-              })}
-              {props.locations.map((location, index) => {
-                return (
-                  <div
-                    key={`${index + 8}`}
-                    className='Guide-info-location-list-item'
-                    onClick={() => {
-                      setMenuIsOpen(false)
-                      props.onLocationClick(location)
-                    }}
-                  >
-                    <GuideItemIcon type={location.type} />
-                    <h3 className='Guide-info-location-list-item-label'>{location.title}</h3>
-                  </div>
-                )
-              })}
+            </div>
+          </div>
+          <div className={'Guide-info-bottom-container'}>
+            <div className={'Guide-info-bottom-container-center'}>
+              {displayScrollIndicator && (
+                <Arrow
+                  style={{
+                    transform: 'rotate(270deg)',
+                    transition: 'all 0.2s ease-in-out',
+                    ...transitionStylesOpacity[state],
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>
