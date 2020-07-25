@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Transition } from 'react-transition-group'
-import { useImage } from 'react-image'
 
 import './GuideLocationInfo.scss'
 
 import { GuideLocationInfo } from 'types/guide'
+import LoadableImage from 'components/LoadableImage/LoadableImage'
 
 const DURATION = 300
 
@@ -15,11 +15,6 @@ type Props = {
 }
 
 const GuideLocationInfoView: React.FC<Props> = (props: Props) => {
-  const { src } = useImage({
-    srcList: props.locationInfo.imageUrl,
-    useSuspense: false,
-  })
-
   const defaultStyle = {
     transition: `${DURATION}ms ease-in-out`,
     opacity: 0,
@@ -63,7 +58,9 @@ const GuideLocationInfoView: React.FC<Props> = (props: Props) => {
             <div style={{ height: '40px' }} />
           )}
           <div className='Guide-location-info-contents'>
-            <img src={src} className='Guide-location-info-photo' />
+            <Suspense fallback={<div className={'Guide-location-info-photo-placeholder'} />}>
+              <LoadableImage src={props.locationInfo.imageUrl} className='Guide-location-info-photo' />
+            </Suspense>
             <div className='Guide-location-info-text-container'>
               <h2 className='Guide-location-info-title'>{props.locationInfo.title}</h2>
               <p className='Guide-location-info-description'>{props.locationInfo.description}</p>

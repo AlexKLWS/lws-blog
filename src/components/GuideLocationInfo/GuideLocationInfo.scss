@@ -46,6 +46,15 @@
   }
 }
 
+.Guide-location-info-photo-placeholder {
+  width: 100%;
+  background-color: $secondary-color;
+
+  @media (min-width: $breakpoint-desktop-or-laptop) {
+    width: 55%;
+  }
+}
+
 .Guide-location-info-text-container {
   display: flex;
   flex: 1;
