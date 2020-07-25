@@ -40,6 +40,7 @@
 
 .Guide-location-info-photo {
   width: 100%;
+  object-fit: scale-down;
 
   @media (min-width: $breakpoint-desktop-or-laptop) {
     width: 55%;
