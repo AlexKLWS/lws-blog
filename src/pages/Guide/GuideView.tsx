@@ -10,6 +10,8 @@ import { GuideLocationInfo, LocationCoords } from 'types/guide'
 import GuideLocationInfoView from 'components/GuideLocationInfo/GuideLocationInfoView'
 import GuideLocationsListView from 'components/GuideLocationsList/GuideLocationsListView'
 
+const API_KEY = process.env.REACT_APP_GMAPS_API_KEY || ''
+
 type Props = {
   defaultZoom: number
   defaultCenter: LocationCoords
@@ -31,7 +33,7 @@ const GuideView: React.FC<Props> = (props: Props) => {
   return (
     <div style={{ height: '100vh', width: '100%' }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: '' }}
+        bootstrapURLKeys={{ key: API_KEY }}
         center={centerCoords}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
