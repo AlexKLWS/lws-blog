@@ -1,33 +1,33 @@
-export interface FolderData {
+export type FolderData = {
   id: string
   folder?: string
   files?: FileData[]
 }
 
-export interface FileData {
+export type FileData = {
   id: string
   file: File
   newName?: string
   referenceId?: string
 }
 
-export interface FileMetaData {
+export type FileMetaData = {
   id: string
   folder?: string
   newName?: string
   referenceId?: string
 }
 
-export interface FileUploadFormData {
+export type FileUploadFormData = {
   fileItemId: string
   data: FormData
 }
 
-export interface UploadMetaDataBody {
+export type UploadMetaDataBody = {
   metaData: FileMetaData[]
 }
 
-export interface FileUploadForm {
+export type FileUploadForm = {
   referenceId: string
   file: File
 }

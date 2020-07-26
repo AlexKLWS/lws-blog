@@ -1,17 +1,21 @@
-export interface ArticleData extends Material {
+import { GuideLocationInfo } from './guide'
+
+export type ArticleData = {
   articleText: string
-}
+} & Material
 
-export interface PageData extends Material {
+export type PageData = {
   pageURL: string
-}
+} & Material
 
-export interface PreviewMaterial extends Material {
+export type GuideData = GuideLocationInfo & Material
+
+export type PreviewMaterial = {
   createdAt: string
   pageURL?: string
-}
+} & Material
 
-export interface Material {
+export type Material = {
   referenceId?: string
   createdAt?: string
   name: string
@@ -20,7 +24,7 @@ export interface Material {
   category: Category
 }
 
-export interface IconData {
+export type IconData = {
   data: string
   height: string | null
   width: string | null

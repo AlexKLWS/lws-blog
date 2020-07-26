@@ -1,6 +1,6 @@
 import { PreviewMaterial } from './materials'
 
-export interface PagePreviewsData {
+export type PagePreviewsData = {
   materialPreviews: PreviewMaterial[]
   pagesCount: number
 }
