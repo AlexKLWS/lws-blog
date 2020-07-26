@@ -13,7 +13,7 @@ type Props = {
   locations: GuideLocationInfo[]
   locationsListIsOpen: boolean
   setLocationsListIsOpen: (value: boolean) => void
-  onLocationClick: (location: GuideLocationInfo) => void
+  onLocationPress: (location: GuideLocationInfo) => void
 }
 
 const GuideLocationsListView: React.FC<Props> = (props: Props) => {
@@ -73,7 +73,7 @@ const GuideLocationsListView: React.FC<Props> = (props: Props) => {
                     className='Guide-info-location-list-item'
                     onClick={() => {
                       props.setLocationsListIsOpen(false)
-                      props.onLocationClick(location)
+                      props.onLocationPress(location)
                     }}
                   >
                     <GuideItemIcon type={location.type} />

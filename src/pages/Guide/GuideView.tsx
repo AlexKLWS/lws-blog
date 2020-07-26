@@ -30,6 +30,27 @@ const GuideView: React.FC<Props> = (props: Props) => {
   const [locationInfoIsShown, setLocationInfoIsShown] = useState(false)
   const [locationsListIsOpen, setLocationsListIsOpen] = useState(false)
 
+  const onPinPress = (location: GuideLocationInfo) => {
+    setCurrentLocationInfo(location)
+    setCenterCoords(location.coordinates)
+    if (locationsListIsOpen) {
+      setLocationsListIsOpen(false)
+      setTimeout(() => {
+        setLocationInfoIsShown(true)
+      }, 400)
+    } else {
+      setLocationInfoIsShown(true)
+    }
+  }
+
+  const onLocationPress = (location: GuideLocationInfo) => {
+    setCurrentLocationInfo(location)
+    setCenterCoords(location.coordinates)
+    setTimeout(() => {
+      setLocationInfoIsShown(true)
+    }, 400)
+  }
+
   return (
     <div style={{ height: '100vh', width: '100%' }}>
       <GoogleMapReact
@@ -53,16 +74,7 @@ const GuideView: React.FC<Props> = (props: Props) => {
               lat={location.coordinates.lat}
               lng={location.coordinates.lng}
               onPinPress={() => {
-                setCurrentLocationInfo(location)
-                setCenterCoords(location.coordinates)
-                if (locationsListIsOpen) {
-                  setLocationsListIsOpen(false)
-                  setTimeout(() => {
-                    setLocationInfoIsShown(true)
-                  }, 400)
-                } else {
-                  setLocationInfoIsShown(true)
-                }
+                onPinPress(location)
               }}
             />
           )
@@ -77,13 +89,7 @@ const GuideView: React.FC<Props> = (props: Props) => {
               locationsListIsOpen={locationsListIsOpen}
               setLocationsListIsOpen={setLocationsListIsOpen}
               locations={props.locations}
-              onLocationClick={(location) => {
-                setCurrentLocationInfo(location)
-                setCenterCoords(location.coordinates)
-                setTimeout(() => {
-                  setLocationInfoIsShown(true)
-                }, 400)
-              }}
+              onLocationPress={onLocationPress}
             />
           </div>
 
