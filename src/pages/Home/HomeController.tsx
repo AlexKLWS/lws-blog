@@ -5,7 +5,7 @@ import HomeView from './HomeView'
 import { useMaterialPreviewsProvider } from 'facades/materialPreviewsFetchFacade'
 import { page } from 'consts/query'
 import { resolveCategoryFromPathname, getCategoryPathname } from 'helpers/resolveCategory'
-import { PreviewMaterial, Category } from 'types/materials'
+import { PreviewMaterial } from 'types/materials'
 
 const HomeController: React.FC = () => {
   const location = useLocation()
@@ -44,8 +44,6 @@ const HomeController: React.FC = () => {
   const onPreviewItemPress = (previewMaterial: PreviewMaterial) => {
     if (previewMaterial.pageURL) {
       history.push(previewMaterial.pageURL)
-    } else if (previewMaterial.category === Category.Misc) {
-      history.push(`/${previewMaterial.referenceId}`)
     } else {
       history.push(`/${getCategoryPathname(previewMaterial.category)}/${previewMaterial.referenceId}`)
     }

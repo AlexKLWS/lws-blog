@@ -26,6 +26,8 @@ export const getCategoryPathname = (category: Category) => {
       return 'projects'
     case Category.Guides:
       return 'guides'
+    case Category.Misc:
+      return 'misc'
     default:
       return ''
   }
