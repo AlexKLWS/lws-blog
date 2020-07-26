@@ -3,11 +3,11 @@ import React from 'react'
 import './GuidePin.scss'
 
 import { ReactComponent as MapPin } from 'assets/icons/MapPin.svg'
-import { PinType } from 'types/guide'
+import { LocationType } from 'types/guide'
 import GuideItemIcon from 'components/GuideItemIcon/GuideItemIcon'
 
 type Props = {
-  type: PinType
+  type: LocationType
   lat: number
   lng: number
   onPinPress: () => void

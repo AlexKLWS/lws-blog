@@ -1,4 +1,4 @@
-export enum PinType {
+export enum LocationType {
   MISC,
   BAR,
   RESTAURANT,
@@ -6,7 +6,7 @@ export enum PinType {
 }
 
 export type GuideLocationInfo = {
-  type: PinType
+  type: LocationType
   coordinates: LocationCoords
   address: string
   title: string
