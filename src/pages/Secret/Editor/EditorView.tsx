@@ -77,7 +77,7 @@ const EditorView: React.FC<Props> = (props: Props) => {
 
   return (
     <div>
-      <h1 className='Editor-title'>Editor</h1>
+      <h1 className='App-title'>Editor</h1>
       <PagePreviewEditorWidget
         name={articleName}
         subtitle={articleSubtitle}
