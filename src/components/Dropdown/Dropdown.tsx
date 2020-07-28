@@ -3,15 +3,19 @@ import React, { useState } from 'react'
 import './Dropdown.scss'
 import { DropdownItem } from 'types/dropdown'
 
-interface Props {
+type Props = {
   dropdownTriggerText: string
   items: DropdownItem[]
+  disabled?: boolean
 }
 
 const Dropdown: React.FC<Props> = (props: Props) => {
   const [dropdownIsOpen, setDropdownState] = useState(false)
 
   const onDropdownPress = () => {
+    if (!!props.disabled) {
+      return
+    }
     setDropdownState(!dropdownIsOpen)
   }
 

@@ -17,7 +17,7 @@ interface Props {
   setIcon: (value: File | string | null) => void
   setIconWidth: (value: string) => void
   setIconHeight: (value: string) => void
-  setCategory: (value: Category) => void
+  setCategory?: (value: Category) => void
 }
 
 const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
@@ -53,7 +53,9 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
         items.push({
           label: category,
           callback: () => {
-            props.setCategory(index)
+            if (props.setCategory) {
+              props.setCategory(index)
+            }
           },
         })
       }
@@ -102,7 +104,7 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
       )}
       <div className='PPEW-dropdown-container'>
         <span className='PPEW-dropdown-label'>Category:</span>
-        <Dropdown dropdownTriggerText={Category[props.category]} items={dropdownItems} />
+        <Dropdown dropdownTriggerText={Category[props.category]} items={dropdownItems} disabled={!props.setCategory} />
       </div>
     </div>
   )
