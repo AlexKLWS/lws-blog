@@ -93,7 +93,9 @@ const HomeView: React.FC<Props> = (props: Props) => {
 
   return (
     <div>
-      <Dropdown dropdownTriggerText={'Add'} items={props.dropdownItems} />
+      <div style={{ paddingBottom: '40px' }}>
+        <Dropdown dropdownTriggerText={'Add'} items={props.dropdownItems} />
+      </div>
       <div className='Home-container'>
         {renderPreviewsList()}
         {props.pagesCount > 1 && renderPageControls()}
