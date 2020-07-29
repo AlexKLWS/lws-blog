@@ -8,7 +8,9 @@ export type PageData = {
   pageURL: string
 } & Material
 
-export type GuideData = GuideLocationInfo & Material
+export type GuideData = {
+  locations: GuideLocationInfo[]
+} & Material
 
 export type PreviewMaterial = {
   createdAt: string
