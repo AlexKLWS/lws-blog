@@ -4,7 +4,7 @@ import './GuidePin.scss'
 
 import { ReactComponent as MapPin } from 'assets/icons/MapPin.svg'
 import { LocationType } from 'types/guide'
-import GuideItemIcon from 'components/GuideItemIcon/GuideItemIcon'
+import GuideItemIcon from 'pages/Guide/components/GuideItemIcon/GuideItemIcon'
 
 type Props = {
   type: LocationType

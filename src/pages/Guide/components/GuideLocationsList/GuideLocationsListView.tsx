@@ -5,7 +5,7 @@ import { ReactComponent as Arrow } from 'assets/icons/Arrow.svg'
 import './GuideLocationsList.scss'
 
 import { GuideLocationInfo } from 'types/guide'
-import GuideItemIcon from 'components/GuideItemIcon/GuideItemIcon'
+import GuideItemIcon from 'pages/Guide/components/GuideItemIcon/GuideItemIcon'
 
 type Props = {
   isDisabled: boolean

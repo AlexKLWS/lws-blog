@@ -5,10 +5,10 @@ import ReactMarkdown from 'react-markdown'
 
 import './Article.scss'
 
-import CodeRenderView from 'components/markdownNodes/CodeRenderer/CodeRendererView'
-import InlineCodeRenderer from 'components/markdownNodes/InlineCodeRenderer/InlineCodeRenderer'
-import TextRenderer from 'components/markdownNodes/TextRenderer/TextRenderer'
-import ImageRenderer from 'components/markdownNodes/ImageRenderer/ImageRenderer'
+import CodeRenderView from './markdownNodes/CodeRenderer/CodeRendererView'
+import InlineCodeRenderer from './markdownNodes/InlineCodeRenderer/InlineCodeRenderer'
+import TextRenderer from './markdownNodes/TextRenderer/TextRenderer'
+import ImageRenderer from './markdownNodes/ImageRenderer/ImageRenderer'
 
 interface Props {
   article: ArticleData | null
