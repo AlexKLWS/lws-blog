@@ -37,7 +37,7 @@ const EditorView: React.FC<Props> = (props: Props) => {
       <PagePreviewEditorWidget serviceInstance={props.serviceInstance} />
       <InputDataController
         serviceInstance={props.serviceInstance}
-        path={'text'}
+        path={'articleText'}
         render={({ value, setValue }) => {
           return <SimpleMDE value={value} onChange={setValue} />
         }}
