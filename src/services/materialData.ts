@@ -1,7 +1,14 @@
 import { injectable } from 'inversify'
+import { Subject } from 'rxjs'
+import get from 'lodash/get'
+
+import { constructArrayItemPath } from 'helpers/constructArrayItemPath'
 
 export interface IMaterialDataService {
   currentData: any
+  updateData: (newData: any) => void
+  getSubjectFor: (path: string) => Subject<any>
+  getArrayItemSubjectFor: (pathToArray: string, pathToItemValue: string, index: number) => Subject<any>
   addField: (path: string, value: any, isArray?: boolean) => void
   addFieldToArrayItem: (
     pathToArray: string,
@@ -15,6 +22,7 @@ export interface IMaterialDataService {
 @injectable()
 export class MaterialDataService implements IMaterialDataService {
   private _currentData: any = {}
+  private _subjects: { [path: string]: Subject<any> } = {}
 
   private _getHigherLevelObject(path: string, obj: any) {
     let variableNames = path.split('.')
@@ -44,13 +52,37 @@ export class MaterialDataService implements IMaterialDataService {
     return this._currentData
   }
 
-  public setDefaults(defaults: any) {
-    this._currentData = defaults
+  public updateData(newData: any) {
+    this._currentData = newData
+
+    for (const path in this._subjects) {
+      const newValue = get(newData, path)
+      this._subjects[path].next(newValue)
+    }
   }
 
-  public addField(value: any, path: string, addToArray?: boolean) {
+  public getSubjectFor(path: string) {
+    if (!this._subjects[path]) {
+      this._subjects[path] = new Subject<any>()
+    }
+    return this._subjects[path]
+  }
+
+  public getArrayItemSubjectFor(pathToArray: string, pathToItemValue: string, index: number) {
+    const path = constructArrayItemPath(pathToArray, pathToItemValue, index)
+    if (!this._subjects[path]) {
+      this._subjects[path] = new Subject<any>()
+    }
+    return this._subjects[path]
+  }
+
+  public addField(path: string, value: any, addToArray?: boolean) {
     const { higherLevelObject, fieldName } = this._getHigherLevelObject(path, this._currentData)
     this._addValueToField(value, fieldName, higherLevelObject, addToArray)
+    if (!this._subjects[path]) {
+      this._subjects[path] = new Subject<any>()
+    }
+    this._subjects[path].next(value)
   }
 
   public addFieldToArrayItem(
@@ -83,6 +115,11 @@ export class MaterialDataService implements IMaterialDataService {
     )
 
     this._addValueToField(value, itemFieldName, itemHigherLevelObject, addToArray)
+    const path = constructArrayItemPath(pathToArray, pathToItemValue, index)
+    if (!this._subjects[path]) {
+      this._subjects[path] = new Subject<any>()
+    }
+    this._subjects[path].next(value)
   }
 }
 

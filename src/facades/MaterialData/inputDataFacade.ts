@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-import { IMaterialDataService, MaterialDataServiceId } from 'services/materialData'
+import { IMaterialDataService } from 'services/materialData'
+import { Subscription } from 'rxjs'
+import { onEmit } from 'facades/helpers'
 
 export const useInputDataProvider = (
   serviceInstance: IMaterialDataService,
@@ -12,8 +14,18 @@ export const useInputDataProvider = (
 
   const setValue = (newValue: any) => {
     serviceInstance.addField(path, newValue, isArray)
-    setValueState(newValue)
   }
+
+  useEffect(() => {
+    const subscriptions: Subscription[] = [
+      onEmit<any>(serviceInstance.getSubjectFor(path), (v) => {
+        setValueState(v)
+      }),
+    ]
+    return () => {
+      subscriptions.forEach((it) => it.unsubscribe())
+    }
+  }, [])
 
   return { value, setValue }
 }
@@ -30,8 +42,18 @@ export const useArrayItemInputDataProvider = (
 
   const setValue = (newValue: any) => {
     serviceInstance.addFieldToArrayItem(pathToArray, pathToValue, newValue, index, isArray)
-    setValueState(newValue)
   }
+
+  useEffect(() => {
+    const subscriptions: Subscription[] = [
+      onEmit<any>(serviceInstance.getArrayItemSubjectFor(pathToArray, pathToValue, index), (v) => {
+        setValueState(v)
+      }),
+    ]
+    return () => {
+      subscriptions.forEach((it) => it.unsubscribe())
+    }
+  }, [])
 
   return { value, setValue }
 }
