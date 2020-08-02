@@ -2,7 +2,6 @@ import React from 'react'
 
 import { IMaterialDataService } from 'services/materialData'
 import { useInputDataProvider } from 'facades/MaterialData/inputDataFacade'
-import { useMaterialPreviewsProvider } from 'facades/materialPreviewsFetchFacade'
 
 type Props = {
   serviceInstance: IMaterialDataService
