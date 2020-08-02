@@ -5,10 +5,10 @@ import './Guide.scss'
 
 import { mapStyles } from 'consts/mapStyles'
 import Footer from 'components/Footer/Footer'
-import GuidePin from 'components/GuidePin/GuidePin'
+import GuidePin from './components/GuidePin/GuidePin'
 import { GuideLocationInfo, LocationCoords } from 'types/guide'
-import GuideLocationInfoView from 'components/GuideLocationInfo/GuideLocationInfoView'
-import GuideLocationsListView from 'components/GuideLocationsList/GuideLocationsListView'
+import GuideLocationInfoView from './components/GuideLocationInfo/GuideLocationInfoView'
+import GuideLocationsListView from './components/GuideLocationsList/GuideLocationsListView'
 
 const API_KEY = process.env.REACT_APP_GMAPS_API_KEY || ''
 
