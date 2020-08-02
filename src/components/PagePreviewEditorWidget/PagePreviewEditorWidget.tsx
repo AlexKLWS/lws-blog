@@ -58,7 +58,7 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
       />
       <InputDataController
         serviceInstance={props.serviceInstance}
-        path={'subtitle'}
+        path={'icon.data'}
         render={({ value, setValue }) => {
           const onIconFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             if (!event.target.files || !event.target.files[0]) {
