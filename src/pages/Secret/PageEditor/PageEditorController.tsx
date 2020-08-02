@@ -7,6 +7,7 @@ import { usePagePostFacade } from 'facades/pagePostFacade'
 import { useRouteMatch } from 'react-router-dom'
 import { usePageMaterialProvider } from 'facades/pageFetchFacade'
 import { useMaterialDataServiceProvider } from 'facades/MaterialData/materialDataServiceFacade'
+import { DEFAULT_PAGE_DATA } from 'consts/defaults'
 
 const LoadablePageEditorView = Loadable({
   loader: () => import('./PageEditorView'),
@@ -19,7 +20,7 @@ const PageEditorController: React.FC = () => {
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
 
   const { page, fetchPage } = usePageMaterialProvider()
-  const { service } = useMaterialDataServiceProvider()
+  const { service } = useMaterialDataServiceProvider(DEFAULT_PAGE_DATA)
   const match = useRouteMatch<{ id: string }>()
 
   useEffect(() => {

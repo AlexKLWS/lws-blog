@@ -6,6 +6,7 @@ import { constructArrayItemPath } from 'helpers/constructArrayItemPath'
 
 export interface IMaterialDataService {
   currentData: any
+  init: (defaultData: any) => void
   updateData: (newData: any) => void
   getSubjectFor: (path: string) => Subject<any>
   getValueFor: (path: string) => any
@@ -48,6 +49,10 @@ export class MaterialDataService implements IMaterialDataService {
     } else {
       obj[field] = value
     }
+  }
+
+  public init(defaultData: any) {
+    this._currentData = defaultData
   }
 
   public get currentData() {

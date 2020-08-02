@@ -7,6 +7,7 @@ import { useArticlePostFacade } from 'facades/materialPostFacade'
 import { EditorError } from 'types/editor'
 import { useArticleProvider } from 'facades/articleFetchFacade'
 import { useMaterialDataServiceProvider } from 'facades/MaterialData/materialDataServiceFacade'
+import { DEFAULT_ARTICLE_DATA } from 'consts/defaults'
 
 const LoadableEditorView = Loadable({
   loader: () => import('./EditorView'),
@@ -17,7 +18,7 @@ const LoadableEditorView = Loadable({
 
 const EditorController: React.FC = () => {
   const { postArticle } = useArticlePostFacade()
-  const { service } = useMaterialDataServiceProvider()
+  const { service } = useMaterialDataServiceProvider(DEFAULT_ARTICLE_DATA)
 
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
   const match = useRouteMatch<{ id: string }>()
