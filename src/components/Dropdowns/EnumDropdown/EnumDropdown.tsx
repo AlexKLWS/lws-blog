@@ -9,7 +9,7 @@ type Props = {
   disabled?: boolean
 }
 
-const EnumDropdown = (props: Props) => {
+const EnumDropdown: React.FC<Props> = (props: Props) => {
   const dropdownItems: DropdownItem[] = useMemo(() => {
     const items: DropdownItem[] = []
     for (let item in props.sourceEnum) {
