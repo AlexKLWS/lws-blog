@@ -6,6 +6,7 @@ import { FileUploadService, IFileUploadService, FileUploadServiceId } from './fi
 import { IMaterialFetchService, MaterialFetchServiceId, MaterailFetchService } from './materialPreviewsFetch'
 import { IArticleFetchService, ArticleFetchServiceId, ArticleFetchService } from './articleFetch'
 import { IPageFetchService, PageFetchServiceId, PageFetchService } from './pageFetch'
+import { IMaterialDataService, MaterialDataServiceId, MaterialDataService } from './materialData'
 
 export const containerModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<IAuthenticationService>(AuthenticationServiceId).to(AuthenticationService)
@@ -14,6 +15,7 @@ export const containerModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<IMaterialFetchService>(MaterialFetchServiceId).to(MaterailFetchService)
   bind<IArticleFetchService>(ArticleFetchServiceId).to(ArticleFetchService)
   bind<IPageFetchService>(PageFetchServiceId).to(PageFetchService)
+  bind<IMaterialDataService>(MaterialDataServiceId).to(MaterialDataService)
 })
 
 export const container = new Container()
