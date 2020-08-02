@@ -6,7 +6,7 @@ import editorErrors from 'consts/editorErrors'
 import { useArticlePostFacade } from 'facades/materialPostFacade'
 import { EditorError } from 'types/editor'
 import { useArticleProvider } from 'facades/articleFetchFacade'
-import { Category } from 'types/materials'
+import { useMaterialDataServiceProvider } from 'facades/MaterialData/materialDataServiceFacade'
 
 const LoadableEditorView = Loadable({
   loader: () => import('./EditorView'),
@@ -17,6 +17,8 @@ const LoadableEditorView = Loadable({
 
 const EditorController: React.FC = () => {
   const { postArticle } = useArticlePostFacade()
+  const { service } = useMaterialDataServiceProvider()
+
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
   const match = useRouteMatch<{ id: string }>()
 
@@ -28,55 +30,48 @@ const EditorController: React.FC = () => {
     }
   }, [])
 
-  const performDataCheck = (
-    articleName: string,
-    articleSubtitle: string,
-    articleText: string,
-    articleIcon: File | string | null,
-  ) => {
+  useEffect(() => {
+    service.updateData(article)
+  }, [article])
+
+  const performDataCheck = () => {
     const errors: EditorError[] = []
-    if (!articleName) {
+    const currentData = service.currentData
+    if (!currentData.name) {
       errors.push(editorErrors.noArticleName)
     }
-    if (!articleSubtitle) {
+    if (!currentData.subtitle) {
       errors.push(editorErrors.noArticleSubtitle)
     }
-    if (!articleText) {
+    if (!currentData.text) {
       errors.push(editorErrors.noArticleText)
     }
-    if (!articleIcon) {
+    if (!currentData.icon || !currentData.icon.data) {
       errors.push(editorErrors.noArticleIcon)
     }
     setSubmitErrors(errors)
   }
 
-  const postArticleWrapped = (
-    articleName: string,
-    articleSubtitle: string,
-    articleText: string,
-    articleIcon: File | string,
-    articleIconWidth: string,
-    articleIconHeight: string,
-    category: Category,
-  ) => {
+  const postArticleWrapped = () => {
+    const currentData = service.currentData
     postArticle(
-      articleName,
-      articleSubtitle,
-      articleText,
-      articleIcon,
-      articleIconWidth,
-      articleIconHeight,
-      category,
+      currentData.name,
+      currentData.subtitle,
+      currentData.text,
+      currentData.icon.data,
+      currentData.icon.width,
+      currentData.icon.height,
+      currentData.category,
       match.params.id,
     )
   }
 
   return (
     <LoadableEditorView
+      serviceInstance={service}
       submitData={postArticleWrapped}
       performDataCheck={performDataCheck}
       submitErrors={currentSubmitErrors}
-      articleDefaults={article}
     />
   )
 }
