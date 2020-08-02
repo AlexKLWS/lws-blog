@@ -129,7 +129,7 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
                 sourceEnum={Category as any}
                 value={value}
                 setValue={setValue}
-                disabled={!props.categoryToggleDisabled}
+                disabled={props.categoryToggleDisabled}
               />
             )
           }}

@@ -28,7 +28,11 @@ const EnumDropdown: React.FC<Props> = (props: Props) => {
   }, [])
 
   return (
-    <Dropdown dropdownTriggerText={props.sourceEnum[props.value]} items={dropdownItems} disabled={props.disabled} />
+    <Dropdown
+      dropdownTriggerText={props.sourceEnum[props.value || 0]}
+      items={dropdownItems}
+      disabled={props.disabled}
+    />
   )
 }
 
