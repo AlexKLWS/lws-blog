@@ -6,7 +6,7 @@ import pageEditorErrors from 'consts/pageEditorErrors'
 import { usePagePostFacade } from 'facades/pagePostFacade'
 import { useRouteMatch } from 'react-router-dom'
 import { usePageMaterialProvider } from 'facades/pageFetchFacade'
-import { Category } from 'types/materials'
+import { useMaterialDataServiceProvider } from 'facades/MaterialData/materialDataServiceFacade'
 
 const LoadablePageEditorView = Loadable({
   loader: () => import('./PageEditorView'),
@@ -19,6 +19,7 @@ const PageEditorController: React.FC = () => {
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
 
   const { page, fetchPage } = usePageMaterialProvider()
+  const { service } = useMaterialDataServiceProvider()
   const match = useRouteMatch<{ id: string }>()
 
   useEffect(() => {
@@ -27,48 +28,50 @@ const PageEditorController: React.FC = () => {
     }
   }, [])
 
+  useEffect(() => {
+    service.updateData(page)
+  }, [page])
+
   const { postPage } = usePagePostFacade()
 
-  const performDataCheck = (
-    pageName: string,
-    pageSubtitle: string,
-    pageIcon: File | string | null,
-    pageURL: string,
-  ) => {
+  const performDataCheck = () => {
     const errors: EditorError[] = []
-    if (!pageName) {
+    const currentData = service.currentData
+    if (!currentData.name) {
       errors.push(pageEditorErrors.noPageName)
     }
-    if (!pageSubtitle) {
+    if (!currentData.subtitle) {
       errors.push(pageEditorErrors.noPageSubtitle)
     }
-    if (!pageIcon) {
+    if (!currentData.icon || !currentData.icon.data) {
       errors.push(pageEditorErrors.noPageIcon)
     }
-    if (!pageURL) {
+    if (!currentData.pageURL) {
       errors.push(pageEditorErrors.noPageURL)
     }
     setSubmitErrors(errors)
   }
 
-  const postPageWrapped = (
-    pageName: string,
-    pageSubtitle: string,
-    pageIcon: File | string,
-    pageIconWidth: string,
-    pageIconHeight: string,
-    pageCategory: Category,
-    pageURL: string,
-  ) => {
-    postPage(pageName, pageSubtitle, pageIcon, pageIconWidth, pageIconHeight, pageCategory, pageURL, match.params.id)
+  const postPageWrapped = () => {
+    const currentData = service.currentData
+    postPage(
+      currentData.name,
+      currentData.subtitle,
+      currentData.icon.data,
+      currentData.icon.width,
+      currentData.icon.height,
+      currentData.category,
+      currentData.pageURL,
+      match.params.id,
+    )
   }
 
   return (
     <LoadablePageEditorView
+      serviceInstance={service}
       submitErrors={currentSubmitErrors}
       performDataCheck={performDataCheck}
       submitData={postPageWrapped}
-      pageDefaults={page}
     />
   )
 }
