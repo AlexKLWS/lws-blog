@@ -1,4 +1,4 @@
-import { GuideLocationInfo } from './guide'
+import { GuideLocationInfo, LocationCoords } from './guide'
 
 export type ArticleData = {
   articleText: string
@@ -10,6 +10,8 @@ export type PageData = {
 
 export type GuideData = {
   locations: GuideLocationInfo[]
+  defaultZoom: number
+  defaultCenter: LocationCoords
 } & Material
 
 export type PreviewMaterial = {
