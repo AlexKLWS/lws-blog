@@ -7,12 +7,11 @@ type Props = {
   serviceInstance: IMaterialDataService
   path: string
   isArray?: boolean
-  defaults?: any
   render: ({ value, setValue }: { value: any; setValue: (newValue: any) => void }) => JSX.Element
 }
 
 const InputDataController: React.FC<Props> = (props: Props) => {
-  const dataUpdater = useInputDataProvider(props.serviceInstance, props.path, props.isArray, props.defaults)
+  const dataUpdater = useInputDataProvider(props.serviceInstance, props.path, props.isArray)
 
   return <>{props.render(dataUpdater)}</>
 }

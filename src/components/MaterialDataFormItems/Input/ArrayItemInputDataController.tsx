@@ -9,7 +9,6 @@ type Props = {
   pathToValue: string
   index: number
   isArray?: boolean
-  defaults?: any
   render: ({ value, setValue }: { value: any; setValue: (newValue: any) => void }) => JSX.Element
 }
 
@@ -20,7 +19,6 @@ const ArrayItemInputDataController: React.FC<Props> = (props: Props) => {
     props.pathToValue,
     props.index,
     props.isArray,
-    props.defaults,
   )
 
   return <>{props.render(dataUpdater)}</>

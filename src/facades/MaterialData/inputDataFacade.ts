@@ -4,13 +4,8 @@ import { IMaterialDataService } from 'services/materialData'
 import { Subscription } from 'rxjs'
 import { onEmit } from 'facades/helpers'
 
-export const useInputDataProvider = (
-  serviceInstance: IMaterialDataService,
-  path: string,
-  isArray?: boolean,
-  defaults?: any,
-) => {
-  const [value, setValueState] = useState(defaults)
+export const useInputDataProvider = (serviceInstance: IMaterialDataService, path: string, isArray?: boolean) => {
+  const [value, setValueState] = useState(serviceInstance.getValueFor(path))
 
   const setValue = (newValue: any) => {
     serviceInstance.addField(path, newValue, isArray)
@@ -36,9 +31,8 @@ export const useArrayItemInputDataProvider = (
   pathToValue: string,
   index: number,
   isArray?: boolean,
-  defaults?: any,
 ) => {
-  const [value, setValueState] = useState(defaults)
+  const [value, setValueState] = useState(serviceInstance.getArrayItemValueFor(pathToArray, pathToValue, index))
 
   const setValue = (newValue: any) => {
     serviceInstance.addFieldToArrayItem(pathToArray, pathToValue, newValue, index, isArray)

@@ -8,7 +8,9 @@ export interface IMaterialDataService {
   currentData: any
   updateData: (newData: any) => void
   getSubjectFor: (path: string) => Subject<any>
+  getValueFor: (path: string) => any
   getArrayItemSubjectFor: (pathToArray: string, pathToItemValue: string, index: number) => Subject<any>
+  getArrayItemValueFor: (pathToArray: string, pathToItemValue: string, index: number) => any
   addField: (path: string, value: any, isArray?: boolean) => void
   addFieldToArrayItem: (
     pathToArray: string,
@@ -68,12 +70,21 @@ export class MaterialDataService implements IMaterialDataService {
     return this._subjects[path]
   }
 
+  public getValueFor(path: string) {
+    return get(this._currentData, path)
+  }
+
   public getArrayItemSubjectFor(pathToArray: string, pathToItemValue: string, index: number) {
     const path = constructArrayItemPath(pathToArray, pathToItemValue, index)
     if (!this._subjects[path]) {
       this._subjects[path] = new Subject<any>()
     }
     return this._subjects[path]
+  }
+
+  public getArrayItemValueFor(pathToArray: string, pathToItemValue: string, index: number) {
+    const path = constructArrayItemPath(pathToArray, pathToItemValue, index)
+    return get(this._currentData, path)
   }
 
   public addField(path: string, value: any, addToArray?: boolean) {
