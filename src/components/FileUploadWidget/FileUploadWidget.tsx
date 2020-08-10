@@ -45,7 +45,7 @@ const FileUploadWidget: React.FC<Props> = (props: Props) => {
               </label>
             </div>
             <input
-              className='FUW-remove-button'
+              className='App-button'
               onClick={() => {
                 props.removeFolder(data.id)
               }}
@@ -80,7 +80,7 @@ const FileUploadWidget: React.FC<Props> = (props: Props) => {
     <div className='FUW-container'>
       <div>
         <span className='FUW-label'>Folders: </span>
-        <input className='FUW-add-button' onClick={props.addFolder} type='submit' value='+' />
+        <input className='App-button' onClick={props.addFolder} type='submit' value='+' />
       </div>
       <ul className='FUW-folder-selector-list'>{renderFolderSelectors()}</ul>
       <div className='FUW-file-list-item-row'>
