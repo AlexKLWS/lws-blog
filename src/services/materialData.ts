@@ -20,6 +20,8 @@ export interface IMaterialDataService {
     index: number,
     addToArray?: boolean,
   ) => void
+  addArrayItem: (pathToArray: string, item?: any) => void
+  removeArrayItem: (pathToArray: string, index: number) => void
 }
 
 @injectable()
@@ -136,6 +138,23 @@ export class MaterialDataService implements IMaterialDataService {
       this._subjects[path] = new Subject<any>()
     }
     this._subjects[path].next(value)
+  }
+
+  public addArrayItem(pathToArray: string, item: any = {}) {
+    if (!this._currentData[pathToArray]) {
+      this._currentData[pathToArray] = []
+    }
+    this._currentData[pathToArray].push(item)
+  }
+
+  public removeArrayItem(pathToArray: string, index: number) {
+    if (!this._currentData[pathToArray] || this._currentData[pathToArray].length <= index) {
+      return
+    }
+    console.log('ARRAY-BEFORE: ', JSON.stringify(this._currentData))
+    this._currentData[pathToArray].splice(index, 1)
+    console.log('ARRAY-AFTER: ', JSON.stringify(this._currentData))
+    this.updateData(this._currentData)
   }
 }
 
