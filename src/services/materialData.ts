@@ -151,9 +151,7 @@ export class MaterialDataService implements IMaterialDataService {
     if (!this._currentData[pathToArray] || this._currentData[pathToArray].length <= index) {
       return
     }
-    console.log('ARRAY-BEFORE: ', JSON.stringify(this._currentData))
     this._currentData[pathToArray].splice(index, 1)
-    console.log('ARRAY-AFTER: ', JSON.stringify(this._currentData))
     this.updateData(this._currentData)
   }
 }
