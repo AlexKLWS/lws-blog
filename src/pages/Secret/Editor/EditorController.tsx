@@ -55,16 +55,7 @@ const EditorController: React.FC = () => {
 
   const postArticleWrapped = () => {
     const currentData = service.currentData
-    postArticle(
-      currentData.name,
-      currentData.subtitle,
-      currentData.text,
-      currentData.icon.data,
-      currentData.icon.width,
-      currentData.icon.height,
-      currentData.category,
-      match.params.id,
-    )
+    postArticle(currentData, match.params.id)
   }
 
   return (

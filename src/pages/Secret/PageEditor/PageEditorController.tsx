@@ -55,16 +55,7 @@ const PageEditorController: React.FC = () => {
 
   const postPageWrapped = () => {
     const currentData = service.currentData
-    postPage(
-      currentData.name,
-      currentData.subtitle,
-      currentData.icon.data,
-      currentData.icon.width,
-      currentData.icon.height,
-      currentData.category,
-      currentData.pageURL,
-      match.params.id,
-    )
+    postPage(currentData, match.params.id)
   }
 
   return (

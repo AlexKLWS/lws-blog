@@ -1,102 +1,49 @@
 import { injectable } from 'inversify'
 import axios, { AxiosRequestConfig } from 'axios'
 
-import { ArticleData, PageData, Category } from 'types/materials'
+import { ArticleData, PageData, Material } from 'types/materials'
 import { apiEndpoint } from 'consts/endpoints'
 
 export interface IMaterialPostService {
-  postArticle: (
-    articleName: string,
-    articleSubtitle: string,
-    articleText: string,
-    articleIcon: File | string,
-    articleIconWidth: string,
-    articleIconHeight: string,
-    articleCategory: Category,
-    referenceId?: string,
-  ) => Promise<void>
-  postPage: (
-    pageName: string,
-    pageSubtitle: string,
-    pageIcon: File | string,
-    pageIconWidth: string,
-    pageIconHeight: string,
-    pageCategory: Category,
-    pageURL: string,
-    referenceId?: string,
-  ) => Promise<void>
+  postArticle: (article: ArticleData, referenceId?: string) => Promise<void>
+  postPage: (page: PageData, referenceId?: string) => Promise<void>
 }
 
 @injectable()
 export class MaterailPostService implements IMaterialPostService {
-  private processIconDimensions(iconWidth: string, iconHeight: string) {
+  private _processIconDimensions(iconWidth: string | null, iconHeight: string | null) {
     let width
-    if (iconWidth.length > 0) {
+    if (iconWidth && iconWidth.length > 0) {
       width = iconWidth
     } else {
-      width = iconHeight.length > 0 ? iconHeight : null
+      width = iconHeight && iconHeight.length > 0 ? iconHeight : null
     }
     let height
-    if (iconHeight.length > 0) {
+    if (iconHeight && iconHeight.length > 0) {
       height = iconHeight
     } else {
-      height = iconWidth.length > 0 ? iconWidth : null
+      height = iconWidth && iconWidth.length > 0 ? iconWidth : null
     }
     return [width, height]
   }
 
-  private async formPageData(
-    pageName: string,
-    pageSubtitle: string,
-    pageIcon: File | string,
-    pageIconWidth: string,
-    pageIconHeight: string,
-    pageCategory: Category,
-    pageURL: string,
-    referenceId?: string,
-  ): Promise<PageData> {
+  private async _prepareMaterialForPost<T extends Material>(data: Material, referenceId?: string): Promise<T> {
+    let transformedData = { referenceId, ...data } as T
     let iconText = ''
-    if (typeof pageIcon === 'string') {
-      iconText = pageIcon
+    if (typeof transformedData.icon.data === 'string') {
+      iconText = transformedData.icon.data
     } else {
       // @ts-ignore
-      iconText = await pageIcon.text()
+      iconText = await transformedData.icon.data.text()
     }
-    const [iconWidth, iconHeight] = this.processIconDimensions(pageIconWidth, pageIconHeight)
-    return {
-      referenceId,
-      name: pageName,
-      subtitle: pageSubtitle,
-      pageURL,
-      category: pageCategory,
-      icon: {
-        data: iconText,
-        height: iconHeight,
-        width: iconWidth,
-      },
-    }
+    const [iconWidth, iconHeight] = this._processIconDimensions(transformedData.icon.width, transformedData.icon.height)
+    transformedData.icon.width = iconWidth
+    transformedData.icon.height = iconHeight
+    return transformedData
   }
 
-  public async postPage(
-    pageName: string,
-    pageSubtitle: string,
-    pageIcon: File | string,
-    pageIconWidth: string,
-    pageIconHeight: string,
-    pageCategory: Category,
-    pageURL: string,
-    referenceId?: string,
-  ) {
-    const pageData = await this.formPageData(
-      pageName,
-      pageSubtitle,
-      pageIcon,
-      pageIconWidth,
-      pageIconHeight,
-      pageCategory,
-      pageURL,
-      referenceId,
-    )
+  public async postPage(page: PageData, referenceId?: string) {
+    const pageData = await this._prepareMaterialForPost<PageData>(page, referenceId)
 
     const request = {
       method: 'PUT',
@@ -114,58 +61,8 @@ export class MaterailPostService implements IMaterialPostService {
     }
   }
 
-  private async formArticlData(
-    articleName: string,
-    articleSubtitle: string,
-    articleText: string,
-    articleIcon: File | string,
-    articleIconWidth: string,
-    articleIconHeight: string,
-    articleCategory: Category,
-    referenceId?: string,
-  ): Promise<ArticleData> {
-    let iconText = ''
-    if (typeof articleIcon === 'string') {
-      iconText = articleIcon
-    } else {
-      // @ts-ignore
-      iconText = await articleIcon.text()
-    }
-    const [iconWidth, iconHeight] = this.processIconDimensions(articleIconWidth, articleIconHeight)
-    return {
-      referenceId,
-      name: articleName,
-      subtitle: articleSubtitle,
-      articleText: articleText,
-      category: articleCategory,
-      icon: {
-        data: iconText,
-        height: iconHeight,
-        width: iconWidth,
-      },
-    }
-  }
-
-  public async postArticle(
-    articleName: string,
-    articleSubtitle: string,
-    articleText: string,
-    articleIcon: File | string,
-    articleIconWidth: string,
-    articleIconHeight: string,
-    articleCategory: Category,
-    referenceId?: string,
-  ) {
-    const articleData = await this.formArticlData(
-      articleName,
-      articleSubtitle,
-      articleText,
-      articleIcon,
-      articleIconWidth,
-      articleIconHeight,
-      articleCategory,
-      referenceId,
-    )
+  public async postArticle(article: ArticleData, referenceId?: string) {
+    const articleData = await this._prepareMaterialForPost<ArticleData>(article, referenceId)
 
     const request: AxiosRequestConfig = {
       method: 'PUT',
