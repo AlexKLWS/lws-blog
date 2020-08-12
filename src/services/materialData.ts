@@ -53,6 +53,13 @@ export class MaterialDataService implements IMaterialDataService {
     }
   }
 
+  private _updateAllSubjectsWithCurrentData() {
+    for (const path in this._subjects) {
+      const newValue = get(this._currentData, path)
+      this._subjects[path].next(newValue)
+    }
+  }
+
   public init(defaultData: any) {
     this._currentData = defaultData
   }
@@ -63,11 +70,7 @@ export class MaterialDataService implements IMaterialDataService {
 
   public updateData(newData: any) {
     this._currentData = newData
-
-    for (const path in this._subjects) {
-      const newValue = get(newData, path)
-      this._subjects[path].next(newValue)
-    }
+    this._updateAllSubjectsWithCurrentData()
   }
 
   public getSubjectFor(path: string) {
@@ -152,7 +155,7 @@ export class MaterialDataService implements IMaterialDataService {
       return
     }
     this._currentData[pathToArray].splice(index, 1)
-    this.updateData(this._currentData)
+    this._updateAllSubjectsWithCurrentData()
   }
 }
 
