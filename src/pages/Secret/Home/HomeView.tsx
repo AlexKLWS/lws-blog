@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Dropdown from 'components/Dropdown/Dropdown'
+import Dropdown from 'components/Dropdowns/Dropdown/Dropdown'
 import { DropdownItem } from 'types/dropdown'
 import { PreviewMaterial } from 'types/materials'
 import { ReactComponent as Arrow } from 'assets/icons/Arrow.svg'

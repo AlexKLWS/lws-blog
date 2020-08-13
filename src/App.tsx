@@ -6,6 +6,7 @@ import Home from 'pages/Home'
 import ArticlesSection from 'pages/Article'
 import Contact from 'pages/Contact/Contact'
 import Login from 'pages/Login'
+import Guide from 'pages/Guide'
 import FileUpload from 'pages/Secret/FileUpload'
 import PageEditor from 'pages/Secret/PageEditor'
 import Editor from 'pages/Secret/Editor'
@@ -15,6 +16,7 @@ import routes from 'consts/routes'
 import { container } from 'services/container'
 import { ServiceProvider } from 'services/provider'
 import DefaultLayoutWrapper from 'components/DefaultLayoutWrapper/DefaultLayoutWrapper'
+import GuideEditor from 'pages/Secret/GuideEditor'
 
 function App() {
   return (
@@ -47,9 +49,7 @@ function App() {
             </DefaultLayoutWrapper>
           </Route>
           <Route path={routes.guidesArticle}>
-            <DefaultLayoutWrapper>
-              <ArticlesSection />
-            </DefaultLayoutWrapper>
+            <Guide />
           </Route>
           <Route exact path={routes.guides}>
             <DefaultLayoutWrapper>
@@ -84,6 +84,16 @@ function App() {
           <Route path={routes.secret.pageEditor}>
             <DefaultLayoutWrapper>
               <PageEditor />
+            </DefaultLayoutWrapper>
+          </Route>
+          <Route path={routes.secret.guideEditorExistingMaterial}>
+            <DefaultLayoutWrapper>
+              <GuideEditor />
+            </DefaultLayoutWrapper>
+          </Route>
+          <Route path={routes.secret.guideEditor}>
+            <DefaultLayoutWrapper>
+              <GuideEditor />
             </DefaultLayoutWrapper>
           </Route>
           <Route path={routes.secret.fileUpload}>

@@ -6,7 +6,7 @@ import routes from 'consts/routes'
 import { useMaterialPreviewsProvider } from 'facades/materialPreviewsFetchFacade'
 import { resolveCategoryFromPathname } from 'helpers/resolveCategory'
 import { page } from 'consts/query'
-import { PreviewMaterial } from 'types/materials'
+import { PreviewMaterial, Category } from 'types/materials'
 
 const HomeController: React.FC = () => {
   const location = useLocation()
@@ -45,6 +45,8 @@ const HomeController: React.FC = () => {
   const onPreviewItemPress = (previewMaterial: PreviewMaterial) => {
     if (previewMaterial.pageURL) {
       history.push(`${routes.secret.pageEditor}/${previewMaterial.referenceId}`)
+    } else if (previewMaterial.category === Category.Guides) {
+      history.push(`${routes.secret.guideEditor}/${previewMaterial.referenceId}`)
     } else {
       history.push(`${routes.secret.editor}/${previewMaterial.referenceId}`)
     }
@@ -55,6 +57,12 @@ const HomeController: React.FC = () => {
         label: 'Add article',
         callback: () => {
           history.push(routes.secret.editor)
+        },
+      },
+      {
+        label: 'Add guides',
+        callback: () => {
+          history.push(routes.secret.guideEditor)
         },
       },
       {
