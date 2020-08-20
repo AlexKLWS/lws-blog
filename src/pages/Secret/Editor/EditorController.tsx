@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useRouteMatch } from 'react-router-dom'
 import Loadable from 'react-loadable'
 
-import editorErrors from 'consts/editorErrors'
 import { useArticlePostFacade } from 'facades/materialPostFacade'
 import { EditorError } from 'types/verifier'
 import { useArticleProvider } from 'facades/articleFetchFacade'
 import { useMaterialDataServiceProvider } from 'facades/MaterialData/materialDataServiceFacade'
-import { DEFAULT_ARTICLE_DATA } from 'consts/defaults'
+import { DEFAULT_ARTICLE_DATA, ARTICLE_DATA_VERIFIER } from 'consts/defaults'
 
 const LoadableEditorView = Loadable({
   loader: () => import('./EditorView'),
@@ -18,7 +17,7 @@ const LoadableEditorView = Loadable({
 
 const EditorController: React.FC = () => {
   const { postArticle } = useArticlePostFacade()
-  const { service } = useMaterialDataServiceProvider(DEFAULT_ARTICLE_DATA)
+  const { service } = useMaterialDataServiceProvider(ARTICLE_DATA_VERIFIER, DEFAULT_ARTICLE_DATA)
 
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
   const match = useRouteMatch<{ id: string }>()
@@ -32,24 +31,13 @@ const EditorController: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    service.updateData(article)
+    if (article) {
+      service.updateData(article)
+    }
   }, [article])
 
   const performDataCheck = () => {
-    const errors: EditorError[] = []
-    const currentData = service.currentData
-    if (!currentData.name) {
-      errors.push(editorErrors.noArticleName)
-    }
-    if (!currentData.subtitle) {
-      errors.push(editorErrors.noArticleSubtitle)
-    }
-    if (!currentData.text) {
-      errors.push(editorErrors.noArticleText)
-    }
-    if (!currentData.icon || !currentData.icon.data) {
-      errors.push(editorErrors.noArticleIcon)
-    }
+    const errors = service.verifyData()
     setSubmitErrors(errors)
   }
 

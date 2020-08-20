@@ -20,7 +20,7 @@ const PageEditorController: React.FC = () => {
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
 
   const { page, fetchPage } = usePageMaterialProvider()
-  const { service } = useMaterialDataServiceProvider(DEFAULT_PAGE_DATA)
+  const { service } = useMaterialDataServiceProvider({}, DEFAULT_PAGE_DATA)
   const match = useRouteMatch<{ id: string }>()
 
   useEffect(() => {

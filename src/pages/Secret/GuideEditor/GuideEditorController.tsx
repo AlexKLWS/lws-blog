@@ -6,7 +6,7 @@ import { useMaterialDataServiceProvider } from 'facades/MaterialData/materialDat
 
 const GuideEditorController = () => {
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
-  const { service } = useMaterialDataServiceProvider()
+  const { service } = useMaterialDataServiceProvider({})
 
   const onSubmitButtonClick = () => {
     console.log('CURRENT-DATA-SO-FAR: ', service.currentData)
