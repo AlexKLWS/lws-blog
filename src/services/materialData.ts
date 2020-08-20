@@ -71,8 +71,6 @@ export class MaterialDataService implements IMaterialDataService {
   public setup(verifier: MaterialDataObjectVerifier, defaultData?: any) {
     this._verifier = verifier
     this._currentData = defaultData || {}
-    console.log('CURRENT-DATA: ', this._currentData)
-    console.log('VERIFIER: ', this._verifier)
   }
 
   public get currentData() {
@@ -195,8 +193,6 @@ export class MaterialDataService implements IMaterialDataService {
 
   public verifyData() {
     const errors: EditorError[] = []
-    console.log('CURRENT-DATA: ', this._currentData)
-    console.log('VERIFIER: ', this._verifier)
     this._verifyObject(this._currentData, this._verifier, errors)
     return errors
   }
