@@ -18,6 +18,7 @@ const ArticleSubmitModal: React.FC<Props> = (props: Props) => {
 
   return (
     <Modal
+      ariaHideApp={false}
       isOpen={props.modalIsOpen}
       contentLabel='Example Modal'
       className='ArticleSubmitModal-modal'
