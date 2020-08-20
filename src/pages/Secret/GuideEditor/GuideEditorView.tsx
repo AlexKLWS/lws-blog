@@ -9,6 +9,7 @@ import { EditorError } from 'types/verifier'
 import GuideLocationItem from './GuideLocationItem'
 import { IMaterialDataService } from 'services/materialData'
 import InputDataController from 'components/MaterialDataFormItems/Input/InputDataController'
+import { LocationType } from 'types/guide'
 
 type Props = {
   serviceInstance: IMaterialDataService
@@ -33,7 +34,7 @@ const GuideEditorView: React.FC<Props> = (props: Props) => {
   }
 
   const onAddButtonPress = () => {
-    props.serviceInstance.addArrayItem('locations')
+    props.serviceInstance.addArrayItem('locations', { type: LocationType.MISC })
     setLocationsCount(locationsCount + 1)
   }
 
