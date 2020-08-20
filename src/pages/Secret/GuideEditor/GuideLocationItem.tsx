@@ -25,7 +25,7 @@ const GuideLocationItem: React.FC<Props> = (props: Props) => {
           index={props.index}
           serviceInstance={props.serviceInstance}
           pathToArray={props.pathToArray}
-          pathToValue={'locationType'}
+          pathToValue={'type'}
           render={({ value, setValue }) => {
             return <EnumDropdown sourceEnum={LocationType as any} value={value} setValue={setValue} />
           }}

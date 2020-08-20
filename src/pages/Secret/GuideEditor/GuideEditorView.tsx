@@ -3,7 +3,6 @@ import React, { useState, useMemo } from 'react'
 import './GuideEditor.scss'
 
 import PagePreviewEditorWidget from 'components/PagePreviewEditorWidget'
-import { GuideData } from 'types/materials'
 import FileUploadWidget from 'components/FileUploadWidget'
 import SubmitModal from 'components/Secret/SubmitModal'
 import { EditorError } from 'types/verifier'
@@ -14,8 +13,8 @@ import InputDataController from 'components/MaterialDataFormItems/Input/InputDat
 type Props = {
   serviceInstance: IMaterialDataService
   submitErrors: EditorError[]
-  guideDefaults: GuideData | null
-  onSubmitButtonClick: () => void
+  submitData: () => void
+  performDataCheck: () => void
 }
 
 const GuideEditorView: React.FC<Props> = (props: Props) => {
@@ -23,7 +22,15 @@ const GuideEditorView: React.FC<Props> = (props: Props) => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
-  const onSubmit = () => {}
+  const onSubmit = () => {
+    props.submitData()
+    setModalIsOpen(false)
+  }
+
+  const onSubmitButtonClick = () => {
+    props.performDataCheck()
+    setModalIsOpen(true)
+  }
 
   const onAddButtonPress = () => {
     props.serviceInstance.addArrayItem('locations')
@@ -74,7 +81,7 @@ const GuideEditorView: React.FC<Props> = (props: Props) => {
       />
       <InputDataController
         serviceInstance={props.serviceInstance}
-        path={'icon.height'}
+        path={'defaultCenter'}
         render={({ value, setValue }) => {
           return (
             <div className='GE-coordinates-input-container'>
@@ -103,7 +110,7 @@ const GuideEditorView: React.FC<Props> = (props: Props) => {
       </div>
       <ul style={{ listStyleType: 'none' }}>{renderLocationItems}</ul>
       <div className='GE-button-container'>
-        <input className='App-button' onClick={props.onSubmitButtonClick} type={'submit'} value={'Submit'} />
+        <input className='App-button' onClick={onSubmitButtonClick} type={'submit'} value={'Submit'} />
       </div>
       <FileUploadWidget />
       <SubmitModal

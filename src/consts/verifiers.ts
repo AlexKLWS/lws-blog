@@ -46,7 +46,6 @@ export const GUIDE_DATA_VERIFIER: MaterialDataObjectVerifier = {
     error: guideEditorErrors.noLocations,
     type: VerifiedPropertyType.OBJECTARRAY,
     innerObject: {
-      type: { error: guideEditorErrors.noLocationType, type: VerifiedPropertyType.PRIMITIVE },
       coordinates: {
         error: guideEditorErrors.noLocationCoordinates,
         type: VerifiedPropertyType.OBJECT,
