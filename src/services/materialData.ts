@@ -12,7 +12,7 @@ import {
 
 export interface IMaterialDataService {
   currentData: any
-  setup: (defaultData: any) => void
+  setup: (verifier: MaterialDataObjectVerifier, defaultData?: any) => void
   updateData: (newData: any) => void
   getSubjectFor: (path: string) => Subject<any>
   getValueFor: (path: string) => any
@@ -28,7 +28,7 @@ export interface IMaterialDataService {
   ) => void
   addArrayItem: (pathToArray: string, item?: any) => void
   removeArrayItem: (pathToArray: string, index: number) => void
-  verifyData: () => void
+  verifyData: () => EditorError[]
 }
 
 @injectable()
@@ -71,6 +71,8 @@ export class MaterialDataService implements IMaterialDataService {
   public setup(verifier: MaterialDataObjectVerifier, defaultData?: any) {
     this._verifier = verifier
     this._currentData = defaultData || {}
+    console.log('CURRENT-DATA: ', this._currentData)
+    console.log('VERIFIER: ', this._verifier)
   }
 
   public get currentData() {
@@ -178,14 +180,14 @@ export class MaterialDataService implements IMaterialDataService {
       errors.push(propertyVerifier.error)
     } else {
       if (propertyVerifier.type === VerifiedPropertyType.OBJECT) {
-        this._verifyObject(data, propertyVerifier.innerMap!, errors)
+        this._verifyObject(data, propertyVerifier.innerObject!, errors)
       } else if (propertyVerifier.type === VerifiedPropertyType.OBJECTARRAY) {
         for (const index in data) {
-          this._verifyObject(data[index], propertyVerifier.innerMap!, errors)
+          this._verifyObject(data[index], propertyVerifier.innerObject!, errors)
         }
       } else if (propertyVerifier.type === VerifiedPropertyType.ARRAY) {
         for (const index in data) {
-          this._verifyProperty(data[index], propertyVerifier.innerValue!, errors)
+          this._verifyProperty(data[index], propertyVerifier.innerProperty!, errors)
         }
       }
     }
@@ -193,6 +195,8 @@ export class MaterialDataService implements IMaterialDataService {
 
   public verifyData() {
     const errors: EditorError[] = []
+    console.log('CURRENT-DATA: ', this._currentData)
+    console.log('VERIFIER: ', this._verifier)
     this._verifyObject(this._currentData, this._verifier, errors)
     return errors
   }

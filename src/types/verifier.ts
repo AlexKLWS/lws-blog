@@ -3,8 +3,8 @@ export type MaterialDataObjectVerifier = { [key: string]: MaterialDataPropertyVe
 export type MaterialDataPropertyVerifier = {
   error: EditorError
   type: VerifiedPropertyType
-  innerValue?: MaterialDataPropertyVerifier
-  innerMap?: MaterialDataObjectVerifier
+  innerProperty?: MaterialDataPropertyVerifier
+  innerObject?: MaterialDataObjectVerifier
 }
 
 export type EditorError = {
