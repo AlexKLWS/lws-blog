@@ -3,10 +3,16 @@ import { Subject } from 'rxjs'
 import get from 'lodash/get'
 
 import { constructArrayItemPath } from 'helpers/constructArrayItemPath'
+import {
+  MaterialDataObjectVerifier,
+  EditorError,
+  MaterialDataPropertyVerifier,
+  VerifiedPropertyType,
+} from 'types/verifier'
 
 export interface IMaterialDataService {
   currentData: any
-  init: (defaultData: any) => void
+  setup: (defaultData: any) => void
   updateData: (newData: any) => void
   getSubjectFor: (path: string) => Subject<any>
   getValueFor: (path: string) => any
@@ -22,11 +28,13 @@ export interface IMaterialDataService {
   ) => void
   addArrayItem: (pathToArray: string, item?: any) => void
   removeArrayItem: (pathToArray: string, index: number) => void
+  verifyData: () => void
 }
 
 @injectable()
 export class MaterialDataService implements IMaterialDataService {
   private _currentData: any = {}
+  private _verifier: MaterialDataObjectVerifier = {}
   private _subjects: { [path: string]: Subject<any> } = {}
 
   private _getHigherLevelObject(path: string, obj: any) {
@@ -60,8 +68,9 @@ export class MaterialDataService implements IMaterialDataService {
     }
   }
 
-  public init(defaultData: any) {
-    this._currentData = defaultData
+  public setup(verifier: MaterialDataObjectVerifier, defaultData?: any) {
+    this._verifier = verifier
+    this._currentData = defaultData || {}
   }
 
   public get currentData() {
@@ -156,6 +165,36 @@ export class MaterialDataService implements IMaterialDataService {
     }
     this._currentData[pathToArray].splice(index, 1)
     this._updateAllSubjectsWithCurrentData()
+  }
+
+  private _verifyObject(data: any, mapVerifier: MaterialDataObjectVerifier, errors: EditorError[]) {
+    for (const key in mapVerifier) {
+      this._verifyProperty(data[key], mapVerifier[key], errors)
+    }
+  }
+
+  private _verifyProperty(data: any, propertyVerifier: MaterialDataPropertyVerifier, errors: EditorError[]) {
+    if (!data) {
+      errors.push(propertyVerifier.error)
+    } else {
+      if (propertyVerifier.type === VerifiedPropertyType.OBJECT) {
+        this._verifyObject(data, propertyVerifier.innerMap!, errors)
+      } else if (propertyVerifier.type === VerifiedPropertyType.OBJECTARRAY) {
+        for (const index in data) {
+          this._verifyObject(data[index], propertyVerifier.innerMap!, errors)
+        }
+      } else if (propertyVerifier.type === VerifiedPropertyType.ARRAY) {
+        for (const index in data) {
+          this._verifyProperty(data[index], propertyVerifier.innerValue!, errors)
+        }
+      }
+    }
+  }
+
+  public verifyData() {
+    const errors: EditorError[] = []
+    this._verifyObject(this._currentData, this._verifier, errors)
+    return errors
   }
 }
 
