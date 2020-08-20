@@ -1,12 +1,13 @@
 import { injectable } from 'inversify'
 import axios, { AxiosRequestConfig } from 'axios'
 
-import { ArticleData, PageData, Material } from 'types/materials'
+import { ArticleData, PageData, Material, GuideData } from 'types/materials'
 import { apiEndpoint } from 'consts/endpoints'
 
 export interface IMaterialPostService {
   postArticle: (article: ArticleData, referenceId?: string) => Promise<void>
   postPage: (page: PageData, referenceId?: string) => Promise<void>
+  postGuide: (guide: GuideData, referenceId?: string) => Promise<void>
 }
 
 @injectable()
@@ -69,6 +70,24 @@ export class MaterailPostService implements IMaterialPostService {
       url: `${apiEndpoint}/articles`,
       withCredentials: true,
       data: articleData,
+    }
+
+    try {
+      const response = await axios(request)
+      const responseData = await response.data
+    } catch (e) {
+      console.log('ERROR: ', e)
+    }
+  }
+
+  public async postGuide(guide: GuideData, referenceId?: string) {
+    const guideData = await this._prepareMaterialForPost<GuideData>(guide, referenceId)
+
+    const request: AxiosRequestConfig = {
+      method: 'PUT',
+      url: `${apiEndpoint}/guides`,
+      withCredentials: true,
+      data: guideData,
     }
 
     try {
