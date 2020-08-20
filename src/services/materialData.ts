@@ -2,6 +2,7 @@ import { injectable } from 'inversify'
 import { Subject } from 'rxjs'
 import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
+import uniqBy from 'lodash/uniqBy'
 
 import { constructArrayItemPath } from 'helpers/constructArrayItemPath'
 import {
@@ -205,8 +206,9 @@ export class MaterialDataService implements IMaterialDataService {
   }
 
   public verifyData() {
-    const errors: EditorError[] = []
+    let errors: EditorError[] = []
     this._verifyObject(this._currentData, this._verifier, errors)
+    errors = uniqBy(errors, (error) => error.id)
     return errors
   }
 }
