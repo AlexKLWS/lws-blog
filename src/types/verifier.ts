@@ -5,6 +5,7 @@ export type MaterialDataPropertyVerifier = {
   type: VerifiedPropertyType
   innerProperty?: MaterialDataPropertyVerifier
   innerObject?: MaterialDataObjectVerifier
+  couldBeEmpty?: boolean
 }
 
 export type EditorError = {

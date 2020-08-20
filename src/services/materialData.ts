@@ -1,6 +1,7 @@
 import { injectable } from 'inversify'
 import { Subject } from 'rxjs'
 import get from 'lodash/get'
+import isEmpty from 'lodash/isEmpty'
 
 import { constructArrayItemPath } from 'helpers/constructArrayItemPath'
 import {
@@ -178,14 +179,26 @@ export class MaterialDataService implements IMaterialDataService {
       errors.push(propertyVerifier.error)
     } else {
       if (propertyVerifier.type === VerifiedPropertyType.OBJECT) {
-        this._verifyObject(data, propertyVerifier.innerObject!, errors)
+        if (isEmpty(data) && !propertyVerifier.couldBeEmpty) {
+          errors.push(propertyVerifier.error)
+        } else {
+          this._verifyObject(data, propertyVerifier.innerObject!, errors)
+        }
       } else if (propertyVerifier.type === VerifiedPropertyType.OBJECTARRAY) {
-        for (const index in data) {
-          this._verifyObject(data[index], propertyVerifier.innerObject!, errors)
+        if (isEmpty(data) && !propertyVerifier.couldBeEmpty) {
+          errors.push(propertyVerifier.error)
+        } else {
+          for (const index in data) {
+            this._verifyObject(data[index], propertyVerifier.innerObject!, errors)
+          }
         }
       } else if (propertyVerifier.type === VerifiedPropertyType.ARRAY) {
-        for (const index in data) {
-          this._verifyProperty(data[index], propertyVerifier.innerProperty!, errors)
+        if (isEmpty(data) && !propertyVerifier.couldBeEmpty) {
+          errors.push(propertyVerifier.error)
+        } else {
+          for (const index in data) {
+            this._verifyProperty(data[index], propertyVerifier.innerProperty!, errors)
+          }
         }
       }
     }
