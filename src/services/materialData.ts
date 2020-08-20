@@ -176,16 +176,15 @@ export class MaterialDataService implements IMaterialDataService {
   }
 
   private _verifyProperty(data: any, propertyVerifier: MaterialDataPropertyVerifier, errors: EditorError[]) {
-    if (!data) {
-      errors.push(propertyVerifier.error)
-    } else {
-      if (propertyVerifier.type === VerifiedPropertyType.OBJECT) {
+    switch (propertyVerifier.type) {
+      case VerifiedPropertyType.OBJECT:
         if (isEmpty(data) && !propertyVerifier.couldBeEmpty) {
           errors.push(propertyVerifier.error)
         } else {
           this._verifyObject(data, propertyVerifier.innerObject!, errors)
         }
-      } else if (propertyVerifier.type === VerifiedPropertyType.OBJECTARRAY) {
+        break
+      case VerifiedPropertyType.OBJECTARRAY:
         if (isEmpty(data) && !propertyVerifier.couldBeEmpty) {
           errors.push(propertyVerifier.error)
         } else {
@@ -193,7 +192,8 @@ export class MaterialDataService implements IMaterialDataService {
             this._verifyObject(data[index], propertyVerifier.innerObject!, errors)
           }
         }
-      } else if (propertyVerifier.type === VerifiedPropertyType.ARRAY) {
+        break
+      case VerifiedPropertyType.ARRAY:
         if (isEmpty(data) && !propertyVerifier.couldBeEmpty) {
           errors.push(propertyVerifier.error)
         } else {
@@ -201,7 +201,12 @@ export class MaterialDataService implements IMaterialDataService {
             this._verifyProperty(data[index], propertyVerifier.innerProperty!, errors)
           }
         }
-      }
+        break
+      default:
+        if (!data && !propertyVerifier.couldBeEmpty) {
+          errors.push(propertyVerifier.error)
+        }
+        break
     }
   }
 
