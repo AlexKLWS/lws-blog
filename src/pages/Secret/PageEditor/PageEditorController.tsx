@@ -31,26 +31,15 @@ const PageEditorController: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    service.updateData(page)
+    if (page) {
+      service.updateData(page)
+    }
   }, [page])
 
   const { postPage } = usePagePostFacade()
 
   const performDataCheck = () => {
-    const errors: EditorError[] = []
-    const currentData = service.currentData
-    if (!currentData.name) {
-      errors.push(pageEditorErrors.noPageName)
-    }
-    if (!currentData.subtitle) {
-      errors.push(pageEditorErrors.noPageSubtitle)
-    }
-    if (!currentData.icon || !currentData.icon.data) {
-      errors.push(pageEditorErrors.noPageIcon)
-    }
-    if (!currentData.pageURL) {
-      errors.push(pageEditorErrors.noPageURL)
-    }
+    const errors = service.verifyData()
     setSubmitErrors(errors)
   }
 
