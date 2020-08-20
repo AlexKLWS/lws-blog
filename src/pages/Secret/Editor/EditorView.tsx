@@ -4,7 +4,7 @@ import 'easymde/dist/easymde.min.css'
 
 import './Editor.scss'
 
-import { EditorError } from 'types/editor'
+import { EditorError } from 'types/verifier'
 import PagePreviewEditorWidget from 'components/PagePreviewEditorWidget'
 import SubmitModal from 'components/Secret/SubmitModal'
 import FileUploadWidget from 'components/FileUploadWidget'

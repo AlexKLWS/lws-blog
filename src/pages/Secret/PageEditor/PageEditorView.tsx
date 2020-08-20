@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import './PageEditor.scss'
 import PagePreviewEditorWidget from 'components/PagePreviewEditorWidget'
-import { EditorError } from 'types/editor'
+import { EditorError } from 'types/verifier'
 import SubmitModal from 'components/Secret/SubmitModal'
 import { IMaterialDataService } from 'services/materialData'
 import InputDataController from 'components/MaterialDataFormItems/Input/InputDataController'

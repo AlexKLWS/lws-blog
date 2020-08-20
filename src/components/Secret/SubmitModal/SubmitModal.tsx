@@ -2,7 +2,7 @@ import React from 'react'
 import Modal from 'react-modal'
 
 import './SubmitModal.scss'
-import { EditorError } from 'types/editor'
+import { EditorError } from 'types/verifier'
 
 interface Props {
   modalIsOpen: boolean

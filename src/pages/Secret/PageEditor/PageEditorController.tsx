@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Loadable from 'react-loadable'
 
-import { EditorError } from 'types/editor'
+import { EditorError } from 'types/verifier'
 import pageEditorErrors from 'consts/pageEditorErrors'
 import { usePagePostFacade } from 'facades/pagePostFacade'
 import { useRouteMatch } from 'react-router-dom'

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import GuideEditorView from './GuideEditorView'
-import { EditorError } from 'types/editor'
+import { EditorError } from 'types/verifier'
 import { useMaterialDataServiceProvider } from 'facades/MaterialData/materialDataServiceFacade'
 
 const GuideEditorController = () => {
