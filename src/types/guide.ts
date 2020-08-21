@@ -6,6 +6,8 @@ export enum LocationType {
 }
 
 export type GuideLocationInfo = {
+  referenceId?: string
+  createdAt?: string
   type: LocationType
   coordinates: LocationCoords
   address: string
