@@ -38,6 +38,7 @@ export class MaterailPostService implements IMaterialPostService {
       iconText = await transformedData.icon.data.text()
     }
     const [iconWidth, iconHeight] = this._processIconDimensions(transformedData.icon.width, transformedData.icon.height)
+    transformedData.icon.data = iconText
     transformedData.icon.width = iconWidth
     transformedData.icon.height = iconHeight
     return transformedData
