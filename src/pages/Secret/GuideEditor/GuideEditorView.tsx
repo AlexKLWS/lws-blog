@@ -72,9 +72,10 @@ const GuideEditorView: React.FC<Props> = (props: Props) => {
             <input
               className='GE-input'
               placeholder='Default Zoom'
+              type='number'
               value={value}
               onChange={(event) => {
-                setValue(event.target.value)
+                setValue(Number(event.target.value))
               }}
             />
           )
@@ -89,17 +90,19 @@ const GuideEditorView: React.FC<Props> = (props: Props) => {
               <input
                 className='GE-input'
                 placeholder='Latitude'
+                type='number'
                 value={value ? value.lat : ''}
                 onChange={(event) => {
-                  setValue({ lat: event.target.value, lng: (!!value && value.lng) || '' })
+                  setValue({ lat: Number(event.target.value), lng: (!!value && value.lng) || '' })
                 }}
               />
               <input
                 className='GE-input'
                 placeholder='Longitude'
+                type='number'
                 value={value ? value.lng : ''}
                 onChange={(event) => {
-                  setValue({ lng: event.target.value, lat: (!!value && value.lat) || '' })
+                  setValue({ lng: Number(event.target.value), lat: (!!value && value.lat) || '' })
                 }}
               />
             </div>

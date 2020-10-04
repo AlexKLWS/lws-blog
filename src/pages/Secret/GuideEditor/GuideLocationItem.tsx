@@ -84,16 +84,18 @@ const GuideLocationItem: React.FC<Props> = (props: Props) => {
                   className='GE-input'
                   placeholder='Latitude'
                   value={value ? value.lat : ''}
+                  type='number'
                   onChange={(event) => {
-                    setValue({ lat: event.target.value, lng: (!!value && value.lng) || '' })
+                    setValue({ lat: Number(event.target.value), lng: (!!value && value.lng) || '' })
                   }}
                 />
                 <input
                   className='GE-input'
                   placeholder='Longitude'
                   value={value ? value.lng : ''}
+                  type='number'
                   onChange={(event) => {
-                    setValue({ lng: event.target.value, lat: (!!value && value.lat) || '' })
+                    setValue({ lng: Number(event.target.value), lat: (!!value && value.lat) || '' })
                   }}
                 />
               </>

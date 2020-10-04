@@ -88,9 +88,10 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
                         <input
                           className='PPEW-icon-dimensions-input'
                           placeholder='Width'
+                          type='number'
                           value={value}
                           onChange={(event) => {
-                            setValue(event.target.value)
+                            setValue(Number(event.target.value))
                           }}
                         />
                       )
@@ -104,9 +105,10 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
                         <input
                           className='PPEW-icon-dimensions-input'
                           placeholder='Height'
+                          type='number'
                           value={value}
                           onChange={(event) => {
-                            setValue(event.target.value)
+                            setValue(Number(event.target.value))
                           }}
                         />
                       )
