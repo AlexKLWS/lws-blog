@@ -1,5 +1,5 @@
 import { MaterialDataObjectVerifier, VerifiedPropertyType } from 'types/verifier'
-import { materialErrors, editorErrors, pageEditorErrors, guideEditorErrors } from './errors'
+import { materialErrors, editorErrors, extMaterialEditorErrors, guideEditorErrors } from './errors'
 
 export const ARTICLE_DATA_VERIFIER: MaterialDataObjectVerifier = {
   name: { error: materialErrors.noName, type: VerifiedPropertyType.PRIMITIVE },
@@ -20,7 +20,7 @@ export const PAGE_DATA_VERIFIER: MaterialDataObjectVerifier = {
     type: VerifiedPropertyType.OBJECT,
     innerObject: { data: { error: materialErrors.noIcon, type: VerifiedPropertyType.PRIMITIVE } },
   },
-  pageURL: { error: pageEditorErrors.noPageURL, type: VerifiedPropertyType.PRIMITIVE },
+  url: { error: extMaterialEditorErrors.noURL, type: VerifiedPropertyType.PRIMITIVE },
 }
 
 export const LOCATION_DATA_VERIFIER: MaterialDataObjectVerifier = {

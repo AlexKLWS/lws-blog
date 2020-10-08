@@ -34,7 +34,7 @@ const ExtMaterialEditorView = (props: Props) => {
       <div className='PE-URL-container'>
         <InputDataController
           serviceInstance={props.serviceInstance}
-          path={'pageURL'}
+          path={'url'}
           render={({ value, setValue }) => {
             return (
               <input

@@ -42,8 +42,8 @@ const HomeController: React.FC = () => {
   }
 
   const onPreviewItemPress = (previewMaterial: PreviewMaterial) => {
-    if (previewMaterial.pageURL) {
-      history.push(previewMaterial.pageURL)
+    if (previewMaterial.url) {
+      history.push(previewMaterial.url)
     } else {
       history.push(`/${getCategoryPathname(previewMaterial.category)}/${previewMaterial.referenceId}`)
     }

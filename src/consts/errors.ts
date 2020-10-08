@@ -19,13 +19,13 @@ export const materialErrors = {
   noIcon,
 }
 
-const noPageURL = {
-  id: 'no-page-url',
-  description: 'No page URL!',
+const noURL = {
+  id: 'no-ext-material-url',
+  description: 'No URL to external material!',
 }
 
-export const pageEditorErrors = {
-  noPageURL,
+export const extMaterialEditorErrors = {
+  noURL,
 }
 
 const noArticleText = {
