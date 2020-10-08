@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import { ArticleData } from 'types/materials'
+import { Article } from 'types/materials'
 import ReactMarkdown from 'react-markdown'
 
 import './Article.scss'
@@ -11,7 +11,7 @@ import TextRenderer from './markdownNodes/TextRenderer/TextRenderer'
 import ImageRenderer from './markdownNodes/ImageRenderer/ImageRenderer'
 
 interface Props {
-  article: ArticleData | null
+  article: Article | null
 }
 
 export const ArticleView: React.FC<Props> = ({ article }: Props) => {

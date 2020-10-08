@@ -1,19 +1,19 @@
 import { injectable } from 'inversify'
 import axios, { AxiosRequestConfig } from 'axios'
 
-import { Category, ArticleData } from 'types/materials'
+import { Article } from 'types/materials'
 import { apiEndpoint } from 'consts/endpoints'
 import { BehaviorSubject } from 'rxjs'
 import { PagePreviewsData } from 'types/pagePreviewData'
 
 export interface IArticleFetchService {
-  article: BehaviorSubject<ArticleData | null>
+  article: BehaviorSubject<Article | null>
   fetchArticle: (id: string) => Promise<void>
 }
 
 @injectable()
 export class ArticleFetchService implements IArticleFetchService {
-  private readonly _article: BehaviorSubject<ArticleData | null> = new BehaviorSubject<ArticleData | null>(null)
+  private readonly _article: BehaviorSubject<Article | null> = new BehaviorSubject<Article | null>(null)
 
   public get article() {
     return this._article

@@ -1,6 +1,6 @@
-import { ArticleData, Category, ExtMaterial, GuideData } from 'types/materials'
+import { Article, Category, ExtMaterial, GuideData } from 'types/materials'
 
-export const DEFAULT_ARTICLE_DATA: ArticleData = {
+export const DEFAULT_ARTICLE_DATA: Article = {
   name: '',
   subtitle: '',
   icon: { data: '', height: null, width: null },

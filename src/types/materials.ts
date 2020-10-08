@@ -1,6 +1,6 @@
 import { GuideLocationInfo, LocationCoords } from './guide'
 
-export type ArticleData = {
+export type Article = {
   articleText: string
 } & Material
 
