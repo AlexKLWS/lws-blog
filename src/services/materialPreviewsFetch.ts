@@ -40,7 +40,7 @@ export class MaterailFetchService implements IMaterialFetchService {
     const request: AxiosRequestConfig = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      url: `${apiEndpoint}/materials`,
+      url: `${apiEndpoint}/previews`,
       params,
     }
 
