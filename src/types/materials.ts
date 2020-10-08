@@ -24,11 +24,11 @@ export type Material = {
   createdAt?: string
   name: string
   subtitle: string
-  icon: IconData
+  icon: Icon
   category: Category
 }
 
-export type IconData = {
+export type Icon = {
   data: string
   height: string | null
   width: string | null
