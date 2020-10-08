@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react'
 import Loadable from 'react-loadable'
 
 import { EditorError } from 'types/verifier'
-import { usePagePostFacade } from 'facades/pagePostFacade'
+import { useExtMaterialPostFacade } from 'facades/pagePostFacade'
 import { useRouteMatch } from 'react-router-dom'
-import { usePageMaterialProvider } from 'facades/pageFetchFacade'
+import { useExtMaterialProvider } from 'facades/pageFetchFacade'
 import { useMaterialDataServiceProvider } from 'facades/MaterialData/materialDataServiceFacade'
-import { DEFAULT_PAGE_DATA } from 'consts/defaults'
+import { DEFAULT_EXT_MATERIAL_DATA } from 'consts/defaults'
 import { PAGE_DATA_VERIFIER } from 'consts/verifiers'
 
-const LoadablePageEditorView = Loadable({
-  loader: () => import('./PageEditorView'),
+const LoadableExtMaterialEditorView = Loadable({
+  loader: () => import('./ExtMaterialEditorView'),
   loading: () => {
     return <div>LOADING</div>
   },
@@ -19,40 +19,40 @@ const LoadablePageEditorView = Loadable({
 const PageEditorController: React.FC = () => {
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
 
-  const { page, fetchPage } = usePageMaterialProvider()
-  const { service } = useMaterialDataServiceProvider(PAGE_DATA_VERIFIER, DEFAULT_PAGE_DATA)
+  const { extMaterial, fetchExtMaterial } = useExtMaterialProvider()
+  const { service } = useMaterialDataServiceProvider(PAGE_DATA_VERIFIER, DEFAULT_EXT_MATERIAL_DATA)
   const match = useRouteMatch<{ id: string }>()
 
   useEffect(() => {
     if (match.params.id) {
-      fetchPage(match.params.id)
+      fetchExtMaterial(match.params.id)
     }
   }, [])
 
   useEffect(() => {
-    if (page) {
-      service.updateData(page)
+    if (extMaterial) {
+      service.updateData(extMaterial)
     }
-  }, [page])
+  }, [extMaterial])
 
-  const { postPage } = usePagePostFacade()
+  const { postExtMaterial } = useExtMaterialPostFacade()
 
   const performDataCheck = () => {
     const errors = service.verifyData()
     setSubmitErrors(errors)
   }
 
-  const postPageWrapped = () => {
+  const postWrapped = () => {
     const currentData = service.currentData
-    postPage(currentData, match.params.id)
+    postExtMaterial(currentData, match.params.id)
   }
 
   return (
-    <LoadablePageEditorView
+    <LoadableExtMaterialEditorView
       serviceInstance={service}
       submitErrors={currentSubmitErrors}
       performDataCheck={performDataCheck}
-      submitData={postPageWrapped}
+      submitData={postWrapped}
     />
   )
 }

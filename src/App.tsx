@@ -8,7 +8,7 @@ import Contact from 'pages/Contact/Contact'
 import Login from 'pages/Login'
 import Guide from 'pages/Guide'
 import FileUpload from 'pages/Secret/FileUpload'
-import PageEditor from 'pages/Secret/PageEditor'
+import ExtMaterialEditor from 'pages/Secret/ExtMaterialEditor'
 import Editor from 'pages/Secret/Editor'
 import EmptyPageController from 'pages/EmptyPage'
 import SecretHome from 'pages/Secret/Home'
@@ -78,12 +78,12 @@ function App() {
           </Route>
           <Route path={routes.secret.pageEditorExistingMaterial}>
             <DefaultLayoutWrapper>
-              <PageEditor />
+              <ExtMaterialEditor />
             </DefaultLayoutWrapper>
           </Route>
           <Route path={routes.secret.pageEditor}>
             <DefaultLayoutWrapper>
-              <PageEditor />
+              <ExtMaterialEditor />
             </DefaultLayoutWrapper>
           </Route>
           <Route path={routes.secret.guideEditorExistingMaterial}>

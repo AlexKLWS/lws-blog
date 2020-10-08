@@ -1,22 +1,22 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { useInjection } from 'services/provider'
 import { Subscription } from 'rxjs'
-import { PageData } from 'types/materials'
-import { IPageFetchService, PageFetchServiceId } from 'services/pageFetch'
+import { ExtMaterial } from 'types/materials'
+import { IExtMaterialFetchService, PageFetchServiceId } from 'services/pageFetch'
 
-export const usePageMaterialProvider = () => {
-  const service = useRef(useInjection<IPageFetchService>(PageFetchServiceId))
+export const useExtMaterialProvider = () => {
+  const service = useRef(useInjection<IExtMaterialFetchService>(PageFetchServiceId))
 
-  const fetchPage = (id: string) => {
-    service.current.fetchPage(id)
+  const fetchExtMaterial = (id: string) => {
+    service.current.fetchExtMaterail(id)
   }
 
-  const [page, setPage] = useState<PageData | null>(null)
+  const [extMaterial, setExtMaterial] = useState<ExtMaterial | null>(null)
 
   useEffect(() => {
     const subscriptions: Subscription[] = [
-      service.current.page.subscribe((a) => {
-        setPage(a)
+      service.current.extMaterial.subscribe((a) => {
+        setExtMaterial(a)
       }),
     ]
     return () => {
@@ -24,5 +24,5 @@ export const usePageMaterialProvider = () => {
     }
   }, [])
 
-  return { page, fetchPage }
+  return { extMaterial, fetchExtMaterial }
 }

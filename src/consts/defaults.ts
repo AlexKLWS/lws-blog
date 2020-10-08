@@ -1,4 +1,4 @@
-import { ArticleData, Category, PageData, GuideData } from 'types/materials'
+import { ArticleData, Category, ExtMaterial, GuideData } from 'types/materials'
 
 export const DEFAULT_ARTICLE_DATA: ArticleData = {
   name: '',
@@ -8,12 +8,12 @@ export const DEFAULT_ARTICLE_DATA: ArticleData = {
   articleText: '',
 }
 
-export const DEFAULT_PAGE_DATA: PageData = {
+export const DEFAULT_EXT_MATERIAL_DATA: ExtMaterial = {
   name: '',
   subtitle: '',
   icon: { data: '', height: null, width: null },
   category: Category.Misc,
-  pageURL: '',
+  url: '',
 }
 
 export const DEFAULT_GUIDE_DATA: GuideData = {

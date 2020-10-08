@@ -4,8 +4,8 @@ export type ArticleData = {
   articleText: string
 } & Material
 
-export type PageData = {
-  pageURL: string
+export type ExtMaterial = {
+  url: string
 } & Material
 
 export type GuideData = {
@@ -16,7 +16,7 @@ export type GuideData = {
 
 export type PreviewMaterial = {
   createdAt: string
-  pageURL?: string
+  url?: string
 } & Material
 
 export type Material = {

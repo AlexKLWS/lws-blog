@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import './PageEditor.scss'
+import './ExtMaterialEditor.scss'
 import PagePreviewEditorWidget from 'components/PagePreviewEditorWidget'
 import { EditorError } from 'types/verifier'
 import SubmitModal from 'components/Secret/SubmitModal'
@@ -14,7 +14,7 @@ interface Props {
   submitErrors: EditorError[]
 }
 
-const PageEditorView = (props: Props) => {
+const ExtMaterialEditorView = (props: Props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const onSubmit = () => {
@@ -62,4 +62,4 @@ const PageEditorView = (props: Props) => {
   )
 }
 
-export default PageEditorView
+export default ExtMaterialEditorView

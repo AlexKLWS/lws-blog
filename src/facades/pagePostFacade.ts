@@ -2,13 +2,13 @@ import { useRef } from 'react'
 
 import { useInjection } from 'services/provider'
 import { MaterialPostServiceId, IMaterialPostService } from 'services/materialPost'
-import { PageData } from 'types/materials'
+import { ExtMaterial } from 'types/materials'
 
-export const usePagePostFacade = () => {
+export const useExtMaterialPostFacade = () => {
   const service = useRef(useInjection<IMaterialPostService>(MaterialPostServiceId))
-  const postPage = (page: PageData, referenceId?: string) => {
-    service.current.postPage(page, referenceId)
+  const postExtMaterial = (extMaterial: ExtMaterial, referenceId?: string) => {
+    service.current.postExtMaterial(extMaterial, referenceId)
   }
 
-  return { postPage }
+  return { postExtMaterial }
 }

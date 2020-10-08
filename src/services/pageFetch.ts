@@ -2,23 +2,23 @@ import { injectable } from 'inversify'
 import axios, { AxiosRequestConfig } from 'axios'
 import { BehaviorSubject } from 'rxjs'
 
-import { PageData } from 'types/materials'
+import { ExtMaterial } from 'types/materials'
 import { apiEndpoint } from 'consts/endpoints'
 
-export interface IPageFetchService {
-  page: BehaviorSubject<PageData | null>
-  fetchPage: (id: string) => Promise<void>
+export interface IExtMaterialFetchService {
+  extMaterial: BehaviorSubject<ExtMaterial | null>
+  fetchExtMaterail: (id: string) => Promise<void>
 }
 
 @injectable()
-export class PageFetchService implements IPageFetchService {
-  private readonly _page: BehaviorSubject<PageData | null> = new BehaviorSubject<PageData | null>(null)
+export class ExtMaterialFetchService implements IExtMaterialFetchService {
+  private readonly _extMaterial: BehaviorSubject<ExtMaterial | null> = new BehaviorSubject<ExtMaterial | null>(null)
 
-  public get page() {
-    return this._page
+  public get extMaterial() {
+    return this._extMaterial
   }
 
-  public async fetchPage(id: string) {
+  public async fetchExtMaterail(id: string) {
     const params = {
       id,
     }
@@ -31,7 +31,7 @@ export class PageFetchService implements IPageFetchService {
 
     try {
       const response = await axios(request)
-      this._page.next(response.data)
+      this._extMaterial.next(response.data)
     } catch (e) {
       console.log('ERROR: ', e)
     }
