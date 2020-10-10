@@ -47,7 +47,7 @@ export class MaterailFetchService implements IMaterialFetchService {
     try {
       const response = await axios(request)
       const responseData = response.data
-        ? { materialPreviews: response.data.materials, pagesCount: response.data.pageCount }
+        ? { materialPreviews: response.data.previews, pagesCount: response.data.page_count }
         : PAGE_PREVIEW_DATA_DEFAULTS
       this._pagePreviewsData.next(responseData)
     } catch (e) {
