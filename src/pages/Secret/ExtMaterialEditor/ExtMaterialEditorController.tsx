@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import Loadable from 'react-loadable'
 
 import { EditorError } from 'types/verifier'
-import { useExtMaterialPostFacade } from 'facades/pagePostFacade'
+import { useExtMaterialPostFacade } from 'facades/extMaterialPostFacade'
 import { useRouteMatch } from 'react-router-dom'
-import { useExtMaterialProvider } from 'facades/pageFetchFacade'
+import { useExtMaterialProvider } from 'facades/extMaterialFetchFacade'
 import { useMaterialDataServiceProvider } from 'facades/MaterialData/materialDataServiceFacade'
 import { DEFAULT_EXT_MATERIAL_DATA } from 'consts/defaults'
 import { PAGE_DATA_VERIFIER } from 'consts/verifiers'
@@ -16,7 +16,7 @@ const LoadableExtMaterialEditorView = Loadable({
   },
 })
 
-const PageEditorController: React.FC = () => {
+const ExtMaterialEditorController: React.FC = () => {
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
 
   const { extMaterial, fetchExtMaterial } = useExtMaterialProvider()
@@ -57,4 +57,4 @@ const PageEditorController: React.FC = () => {
   )
 }
 
-export default PageEditorController
+export default ExtMaterialEditorController

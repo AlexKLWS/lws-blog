@@ -5,7 +5,7 @@ import { MaterailPostService, MaterialPostServiceId, IMaterialPostService } from
 import { FileUploadService, IFileUploadService, FileUploadServiceId } from './fileUpload'
 import { IMaterialFetchService, MaterialFetchServiceId, MaterailFetchService } from './materialPreviewsFetch'
 import { IArticleFetchService, ArticleFetchServiceId, ArticleFetchService } from './articleFetch'
-import { IExtMaterialFetchService, PageFetchServiceId, ExtMaterialFetchService } from './pageFetch'
+import { IExtMaterialFetchService, PageFetchServiceId, ExtMaterialFetchService } from './extMaterialFetchService'
 import { IMaterialDataService, MaterialDataServiceId, MaterialDataService } from './materialData'
 
 export const containerModule = new ContainerModule((bind: interfaces.Bind) => {
