@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { useInjection } from 'services/provider'
 import { Subscription } from 'rxjs'
 import { ExtMaterial } from 'types/materials'
-import { IExtMaterialFetchService, PageFetchServiceId } from 'services/extMaterialFetchService'
+import { IExtMaterialFetchService, PageFetchServiceId } from 'services/extMaterialFetch'
 
 export const useExtMaterialProvider = () => {
   const service = useRef(useInjection<IExtMaterialFetchService>(PageFetchServiceId))
