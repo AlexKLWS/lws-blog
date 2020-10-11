@@ -25,7 +25,7 @@ export class ExtMaterialFetchService implements IExtMaterialFetchService {
 
     const request: AxiosRequestConfig = {
       method: 'GET',
-      url: `${apiEndpoint}/pages`,
+      url: `${apiEndpoint}/ext-materials`,
       params,
     }
 
