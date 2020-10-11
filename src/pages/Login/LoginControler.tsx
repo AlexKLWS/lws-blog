@@ -9,8 +9,8 @@ const LoginController: React.FC = () => {
   const [login] = useLoginFacade()
   const history = useHistory()
 
-  const handleLogin = async (password: string) => {
-    const loginSuccessful = await login(password)
+  const handleLogin = async (username: string, password: string) => {
+    const loginSuccessful = await login(username, password)
     if (loginSuccessful) {
       history.push(routes.secret.home)
     }
@@ -18,8 +18,8 @@ const LoginController: React.FC = () => {
 
   return (
     <LoginView
-      onLoginPress={(password: string) => {
-        handleLogin(password)
+      onLoginPress={(username: string, password: string) => {
+        handleLogin(username, password)
       }}
     />
   )

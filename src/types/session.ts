@@ -1,3 +1,4 @@
 export type Session = {
-  token: string
+  access_token: string
+  token_type: string
 }
