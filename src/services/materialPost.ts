@@ -3,6 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 
 import { Article, ExtMaterial, Material, Guide } from 'types/materials'
 import { apiEndpoint } from 'consts/endpoints'
+import { getCookie } from 'helpers/cookies'
 
 export interface IMaterialPostService {
   postArticle: (article: Article, referenceId?: string) => Promise<void>
@@ -48,9 +49,12 @@ export class MaterailPostService implements IMaterialPostService {
     const data = await this._prepareMaterialForPost<ExtMaterial>(extMaterial, referenceId)
 
     const request = {
-      method: 'PUT',
-      url: `${apiEndpoint}/pages`,
-      withCredentials: true,
+      method: 'POST',
+      url: `${apiEndpoint}/ext-materials`,
+      headers: {
+        Authorization: `Bearer ${getCookie('token')}`,
+        'Content-Type': 'application/json',
+      },
       data,
     }
 
@@ -67,9 +71,12 @@ export class MaterailPostService implements IMaterialPostService {
     const data = await this._prepareMaterialForPost<Article>(article, referenceId)
 
     const request: AxiosRequestConfig = {
-      method: 'PUT',
+      method: 'POST',
       url: `${apiEndpoint}/articles`,
-      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${getCookie('token')}`,
+        'Content-Type': 'application/json',
+      },
       data,
     }
 
