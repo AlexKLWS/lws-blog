@@ -4,6 +4,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { apiEndpoint } from 'consts/endpoints'
 import { FolderData, FileMetaData, UploadMetaDataBody, FileUploadFormData } from 'types/file'
 import { BehaviorSubject } from 'rxjs'
+import { getCookie } from 'helpers/cookies'
 
 export interface IFileUploadService {
   metadataUploadError: BehaviorSubject<boolean>
@@ -48,13 +49,16 @@ export class FileUploadService implements IFileUploadService {
   public async uploadFiles(folderData: FolderData[]) {
     // Not very efficient, but the code is cleaner
     // TODO: Think how to refactor
-    const data = this.createMetadata(folderData)
+    const metadata = this.createMetadata(folderData)
 
     const metaDataRequest: AxiosRequestConfig = {
+      headers: {
+        Authorization: `Bearer ${getCookie('token')}`,
+      },
       method: 'PUT',
       url: `${apiEndpoint}/files/metadata`,
       withCredentials: true,
-      data,
+      data: metadata,
     }
 
     let metaDataWithReferenceIds = []
@@ -73,6 +77,7 @@ export class FileUploadService implements IFileUploadService {
     formData.forEach(async ({ fileItemId, data }) => {
       const fileDataRequest: AxiosRequestConfig = {
         headers: {
+          Authorization: `Bearer ${getCookie('token')}`,
           'Content-Type': 'multipart/form-data',
         },
         method: 'PUT',
@@ -99,8 +104,7 @@ export class FileUploadService implements IFileUploadService {
 
   private addReferenceIdToFolderData(folderData: FolderData[], metaData: FileMetaData[]): FolderData[] {
     const result = folderData
-      .map((data) => {
-        const folder = data
+      .map((folder) => {
         if (!folder.files) {
           return null
         }
