@@ -11,6 +11,32 @@ export interface IMaterialPostService {
   postGuide: (guide: Guide, referenceId?: string) => Promise<void>
 }
 
+// Add a request interceptor
+axios.interceptors.request.use(
+  function(config) {
+    // Do something before request is sent
+    console.log('REQUEST: ', config)
+    return config
+  },
+  function(error) {
+    // Do something with request error
+    return Promise.reject(error)
+  },
+)
+
+// Add a response interceptor
+axios.interceptors.response.use(
+  function(response) {
+    // Do something with response data
+    console.log('RESPONSE: ', response)
+    return response
+  },
+  function(error) {
+    // Do something with response error
+    return Promise.reject(error)
+  },
+)
+
 @injectable()
 export class MaterailPostService implements IMaterialPostService {
   private _processIconDimensions(iconWidth: string | null, iconHeight: string | null) {
@@ -92,9 +118,12 @@ export class MaterailPostService implements IMaterialPostService {
     const data = await this._prepareMaterialForPost<Guide>(guide, referenceId)
 
     const request: AxiosRequestConfig = {
-      method: 'PUT',
+      method: 'POST',
       url: `${apiEndpoint}/guides`,
-      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${getCookie('token')}`,
+        'Content-Type': 'application/json',
+      },
       data,
     }
 
