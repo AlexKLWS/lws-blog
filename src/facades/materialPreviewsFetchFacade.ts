@@ -1,11 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { IMaterialFetchService, MaterialFetchServiceId } from 'services/materialPreviewsFetch'
+import { IMaterialPreviewFetchService, MaterialPreviewFetchServiceId } from 'services/materialPreviewsFetch'
 import { useInjection } from 'services/provider'
 import { Subscription } from 'rxjs'
 import { Category, PreviewMaterial } from 'types/materials'
 
 export const useMaterialPreviewsProvider = () => {
-  const service = useRef(useInjection<IMaterialFetchService>(MaterialFetchServiceId))
+  const service = useRef(useInjection<IMaterialPreviewFetchService>(MaterialPreviewFetchServiceId))
 
   const fetchMaterialPreviews = (category: Category, page: string | number) => {
     service.current.fetchMaterialPreviews(category, page)

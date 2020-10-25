@@ -6,7 +6,7 @@ import { apiEndpoint } from 'consts/endpoints'
 import { BehaviorSubject } from 'rxjs'
 import { PagePreviewsData } from 'types/pagePreviewData'
 
-export interface IMaterialFetchService {
+export interface IMaterialPreviewFetchService {
   materialPreviews: BehaviorSubject<PagePreviewsData>
   fetchMaterialPreviews: (category: Category, page: string | number) => Promise<void>
 }
@@ -22,7 +22,7 @@ const PAGE_PREVIEW_DATA_DEFAULTS = {
 }
 
 @injectable()
-export class MaterailFetchService implements IMaterialFetchService {
+export class MaterailPreviewFetchService implements IMaterialPreviewFetchService {
   private readonly _pagePreviewsData: BehaviorSubject<PagePreviewsData> = new BehaviorSubject<PagePreviewsData>(
     PAGE_PREVIEW_DATA_DEFAULTS,
   )
@@ -47,7 +47,7 @@ export class MaterailFetchService implements IMaterialFetchService {
     try {
       const response = await axios(request)
       const responseData = response.data
-        ? { materialPreviews: response.data.previews, pagesCount: response.data.page_count }
+        ? { materialPreviews: response.data.previews, pagesCount: response.data.pageCount }
         : PAGE_PREVIEW_DATA_DEFAULTS
       this._pagePreviewsData.next(responseData)
     } catch (e) {
@@ -60,4 +60,4 @@ export class MaterailFetchService implements IMaterialFetchService {
   }
 }
 
-export const MaterialFetchServiceId = Symbol('MaterialFetchService')
+export const MaterialPreviewFetchServiceId = Symbol('MaterialPreviewFetchService')
