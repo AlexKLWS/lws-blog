@@ -4,7 +4,6 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { Article } from 'types/materials'
 import { apiEndpoint } from 'consts/endpoints'
 import { BehaviorSubject } from 'rxjs'
-import { PagePreviewsData } from 'types/pagePreviewData'
 
 export interface IArticleFetchService {
   article: BehaviorSubject<Article | null>
