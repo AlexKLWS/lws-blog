@@ -8,19 +8,17 @@ import {
   MaterialPreviewFetchServiceId,
   MaterailPreviewFetchService,
 } from './materialPreviewsFetch'
-import { IArticleFetchService, ArticleFetchServiceId, ArticleFetchService } from './articleFetch'
-import { IExtMaterialFetchService, PageFetchServiceId, ExtMaterialFetchService } from './extMaterialFetch'
 import { IMaterialDataService, MaterialDataServiceId, MaterialDataService } from './materialData'
+import { IMaterialFetchService, MaterialFetchService, MaterialFetchServiceId } from './materialFetch'
+import { Material } from 'types/materials'
 
 export const containerModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<IAuthenticationService>(AuthenticationServiceId).to(AuthenticationService)
   bind<IMaterialPostService>(MaterialPostServiceId).to(MaterailPostService)
   bind<IFileUploadService>(FileUploadServiceId).to(FileUploadService)
-  bind<IMaterialFetchService>(MaterialFetchServiceId).to(MaterailFetchService)
   bind<IMaterialPreviewFetchService>(MaterialPreviewFetchServiceId).to(MaterailPreviewFetchService)
-  bind<IArticleFetchService>(ArticleFetchServiceId).to(ArticleFetchService)
-  bind<IExtMaterialFetchService>(PageFetchServiceId).to(ExtMaterialFetchService)
   bind<IMaterialDataService>(MaterialDataServiceId).to(MaterialDataService)
+  bind<IMaterialFetchService<Material>>(MaterialFetchServiceId).to(MaterialFetchService)
 })
 
 export const container = new Container()
