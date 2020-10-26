@@ -11,6 +11,7 @@ import GuideLocationInfoView from './components/GuideLocationInfo/GuideLocationI
 import GuideLocationsListView from './components/GuideLocationsList/GuideLocationsListView'
 
 const API_KEY = process.env.REACT_APP_GMAPS_API_KEY || ''
+const LOCATION_INFO_ANIMATION_SYNC_DELAY = 400
 
 type Props = {
   defaultZoom: number
@@ -37,7 +38,7 @@ const GuideView: React.FC<Props> = (props: Props) => {
       setLocationsListIsOpen(false)
       setTimeout(() => {
         setLocationInfoIsShown(true)
-      }, 400)
+      }, LOCATION_INFO_ANIMATION_SYNC_DELAY)
     } else {
       setLocationInfoIsShown(true)
     }
@@ -48,7 +49,7 @@ const GuideView: React.FC<Props> = (props: Props) => {
     setCenterCoords(location.coordinates)
     setTimeout(() => {
       setLocationInfoIsShown(true)
-    }, 400)
+    }, LOCATION_INFO_ANIMATION_SYNC_DELAY)
   }
 
   return (
