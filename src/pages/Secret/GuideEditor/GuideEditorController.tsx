@@ -6,7 +6,7 @@ import { EditorError } from 'types/verifier'
 import { useMaterialDataServiceProvider } from 'facades/MaterialData/materialDataServiceFacade'
 import { GUIDE_DATA_VERIFIER } from 'consts/verifiers'
 import { DEFAULT_GUIDE_DATA } from 'consts/defaults'
-import { useGuidePostFacade } from 'facades/guidePostFacade'
+import { useGuidePostFacade } from 'facades/materialPostFacade'
 
 const GuideEditorController = () => {
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])

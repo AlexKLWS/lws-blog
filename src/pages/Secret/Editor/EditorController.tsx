@@ -4,7 +4,7 @@ import Loadable from 'react-loadable'
 
 import { useArticlePostFacade } from 'facades/materialPostFacade'
 import { EditorError } from 'types/verifier'
-import { useArticleProvider } from 'facades/articleFetchFacade'
+import { useArticleProvider } from 'facades/materialFetchFacade'
 import { useMaterialDataServiceProvider } from 'facades/MaterialData/materialDataServiceFacade'
 import { DEFAULT_ARTICLE_DATA } from 'consts/defaults'
 import { ARTICLE_DATA_VERIFIER } from 'consts/verifiers'

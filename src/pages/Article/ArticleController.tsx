@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useRouteMatch } from 'react-router-dom'
 import { ArticleView } from './ArticleView'
-import { useArticleProvider } from 'facades/articleFetchFacade'
+import { useArticleProvider } from 'facades/materialFetchFacade'
 
 const ArticlesSection: React.FC = () => {
   const { article, fetchArticle } = useArticleProvider()
