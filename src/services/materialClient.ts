@@ -49,7 +49,10 @@ export class MaterailClientService<T extends Material> implements IMaterialClien
       // @ts-ignore
       iconText = await transformedData.icon.data.text()
     }
-    const [iconWidth, iconHeight] = this._processIconDimensions(transformedData.icon.width, transformedData.icon.height)
+    const [iconWidth, iconHeight] = this._processIconDimensions(
+      String(transformedData.icon.width),
+      String(transformedData.icon.height),
+    )
     transformedData.icon.data = iconText
     transformedData.icon.width = iconWidth
     transformedData.icon.height = iconHeight
