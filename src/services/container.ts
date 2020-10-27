@@ -9,16 +9,14 @@ import {
   MaterailPreviewFetchService,
 } from './materialPreviewsFetch'
 import { IMaterialDataService, MaterialDataServiceId, MaterialDataService } from './materialData'
-import { IMaterialFetchService, MaterialFetchService, MaterialFetchServiceId } from './materialFetch'
 import { Material } from 'types/materials'
 
 export const containerModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<IAuthenticationService>(AuthenticationServiceId).to(AuthenticationService)
-  bind<IMaterialClientService>(MaterialClientServiceId).to(MaterailClientService)
+  bind<IMaterialClientService<Material>>(MaterialClientServiceId).to(MaterailClientService)
   bind<IFileUploadService>(FileUploadServiceId).to(FileUploadService)
   bind<IMaterialPreviewFetchService>(MaterialPreviewFetchServiceId).to(MaterailPreviewFetchService)
   bind<IMaterialDataService>(MaterialDataServiceId).to(MaterialDataService)
-  bind<IMaterialFetchService<Material>>(MaterialFetchServiceId).to(MaterialFetchService)
 })
 
 export const container = new Container()

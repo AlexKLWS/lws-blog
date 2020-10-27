@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useRouteMatch } from 'react-router-dom'
 import Loadable from 'react-loadable'
 
-import { useArticlePostFacade } from 'facades/materialPostFacade'
+import { useArticleClient } from 'facades/materialClientFacade'
 import { EditorError } from 'types/verifier'
-import { useArticleProvider } from 'facades/materialFetchFacade'
 import { useMaterialDataServiceProvider } from 'facades/MaterialData/materialDataServiceFacade'
 import { DEFAULT_ARTICLE_DATA } from 'consts/defaults'
 import { ARTICLE_DATA_VERIFIER } from 'consts/verifiers'
@@ -17,13 +16,11 @@ const LoadableEditorView = Loadable({
 })
 
 const EditorController: React.FC = () => {
-  const { postArticle } = useArticlePostFacade()
+  const { article, fetchArticle, postArticle } = useArticleClient()
   const { service } = useMaterialDataServiceProvider(ARTICLE_DATA_VERIFIER, DEFAULT_ARTICLE_DATA)
 
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
   const match = useRouteMatch<{ id: string }>()
-
-  const { article, fetchArticle } = useArticleProvider()
 
   useEffect(() => {
     if (match.params.id) {

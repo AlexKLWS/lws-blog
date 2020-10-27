@@ -4,15 +4,26 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { Article, ExtMaterial, Material, Guide } from 'types/materials'
 import { apiEndpoint } from 'consts/endpoints'
 import { getCookie } from 'helpers/cookies'
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject'
 
-export interface IMaterialClientService {
+export interface IMaterialClientService<T extends Material> {
+  material: BehaviorSubject<T | null>
   postArticle: (article: Article, referenceId?: string) => Promise<void>
   postExtMaterial: (page: ExtMaterial, referenceId?: string) => Promise<void>
   postGuide: (guide: Guide, referenceId?: string) => Promise<void>
+  fetchArticle: (id: string) => Promise<void>
+  fetchExtMaterial: (id: string) => Promise<void>
+  fetchGuide: (id: string) => Promise<void>
 }
 
 @injectable()
-export class MaterailClientService implements IMaterialClientService {
+export class MaterailClientService<T extends Material> implements IMaterialClientService<T> {
+  private readonly _material: BehaviorSubject<T | null> = new BehaviorSubject<T | null>(null)
+
+  public get material() {
+    return this._material
+  }
+
   private _processIconDimensions(iconWidth: string | null, iconHeight: string | null) {
     let width
     if (iconWidth && iconWidth.length > 0) {
@@ -60,7 +71,7 @@ export class MaterailClientService implements IMaterialClientService {
 
     try {
       const response = await axios(request)
-      const responseData = await response.data
+      this._material.next(response.data)
     } catch (e) {
       console.log('ERROR: ', e)
     }
@@ -76,6 +87,37 @@ export class MaterailClientService implements IMaterialClientService {
 
   public async postGuide(guide: Guide, referenceId?: string) {
     await this._postMaterial(`${apiEndpoint}/guides`, guide, referenceId)
+  }
+
+  private async _fetchMaterial(url: string, id: string) {
+    const params = {
+      id,
+    }
+
+    const request: AxiosRequestConfig = {
+      method: 'GET',
+      url,
+      params,
+    }
+
+    try {
+      const response = await axios(request)
+      this._material.next(response.data)
+    } catch (e) {
+      console.log('ERROR: ', e)
+    }
+  }
+
+  public async fetchArticle(id: string) {
+    await this._fetchMaterial(`${apiEndpoint}/articles`, id)
+  }
+
+  public async fetchExtMaterial(id: string) {
+    await this._fetchMaterial(`${apiEndpoint}/ext-materials`, id)
+  }
+
+  public async fetchGuide(id: string) {
+    await this._fetchMaterial(`${apiEndpoint}/guides`, id)
   }
 }
 

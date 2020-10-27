@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouteMatch } from 'react-router-dom'
 
 import GuideEditorView from './GuideEditorView'
@@ -6,15 +6,26 @@ import { EditorError } from 'types/verifier'
 import { useMaterialDataServiceProvider } from 'facades/MaterialData/materialDataServiceFacade'
 import { GUIDE_DATA_VERIFIER } from 'consts/verifiers'
 import { DEFAULT_GUIDE_DATA } from 'consts/defaults'
-import { useGuidePostFacade } from 'facades/materialPostFacade'
+import { useGuideClient } from 'facades/materialClientFacade'
 
 const GuideEditorController = () => {
+  const { guide, fetchGuide, postGuide } = useGuideClient()
   const [currentSubmitErrors, setSubmitErrors] = useState<EditorError[]>([])
   const { service } = useMaterialDataServiceProvider(GUIDE_DATA_VERIFIER, DEFAULT_GUIDE_DATA)
 
-  const { postGuide } = useGuidePostFacade()
-
   const match = useRouteMatch<{ id: string }>()
+
+  useEffect(() => {
+    if (match.params.id) {
+      fetchGuide(match.params.id)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (guide) {
+      service.updateData(guide)
+    }
+  }, [guide])
 
   const performDataCheck = () => {
     const errors = service.verifyData()
