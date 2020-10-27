@@ -1,11 +1,11 @@
 import { useRef } from 'react'
 
 import { useInjection } from 'services/provider'
-import { MaterialPostServiceId, IMaterialPostService } from 'services/materialPost'
+import { MaterialClientServiceId, IMaterialClientService } from 'services/materialClient'
 import { Article, ExtMaterial, Guide } from 'types/materials'
 
 export const useArticlePostFacade = () => {
-  const service = useRef(useInjection<IMaterialPostService>(MaterialPostServiceId))
+  const service = useRef(useInjection<IMaterialClientService>(MaterialClientServiceId))
   const postArticle = (article: Article, referenceId?: string) => {
     service.current.postArticle(article, referenceId)
   }
@@ -14,7 +14,7 @@ export const useArticlePostFacade = () => {
 }
 
 export const useGuidePostFacade = () => {
-  const service = useRef(useInjection<IMaterialPostService>(MaterialPostServiceId))
+  const service = useRef(useInjection<IMaterialClientService>(MaterialClientServiceId))
   const postGuide = (guide: Guide, referenceId?: string) => {
     service.current.postGuide(guide, referenceId)
   }
@@ -23,7 +23,7 @@ export const useGuidePostFacade = () => {
 }
 
 export const useExtMaterialPostFacade = () => {
-  const service = useRef(useInjection<IMaterialPostService>(MaterialPostServiceId))
+  const service = useRef(useInjection<IMaterialClientService>(MaterialClientServiceId))
   const postExtMaterial = (extMaterial: ExtMaterial, referenceId?: string) => {
     service.current.postExtMaterial(extMaterial, referenceId)
   }
