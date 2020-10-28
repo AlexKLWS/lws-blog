@@ -2,15 +2,25 @@ import { injectable } from 'inversify'
 import axios, { AxiosRequestConfig } from 'axios'
 
 import { apiEndpoint } from 'consts/endpoints'
-import { setCookie } from 'helpers/cookies'
+import { getCookie, setCookie } from 'helpers/cookies'
 import { Session } from 'types/session'
 
-export interface IAuthenticationService {
+export interface ISessionService {
+  isTokenPresent: boolean
+  getToken: () => string
   login: (username: string, password: string) => Promise<boolean>
 }
 
 @injectable()
-export class AuthenticationService implements IAuthenticationService {
+export class SessionService implements ISessionService {
+  public get isTokenPresent() {
+    return !!getCookie('token')
+  }
+
+  public getToken() {
+    return getCookie('token')
+  }
+
   public async login(username: string, password: string) {
     const data = new FormData()
     data.append('username', username)
@@ -36,4 +46,4 @@ export class AuthenticationService implements IAuthenticationService {
   }
 }
 
-export const AuthenticationServiceId = Symbol('AuthenticationService')
+export const SessionServiceId = Symbol('SessionService')

@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { Container, interfaces, ContainerModule } from 'inversify'
-import { AuthenticationService, AuthenticationServiceId, IAuthenticationService } from './authentication'
+import { SessionService, SessionServiceId, ISessionService } from './authentication'
 import { MaterailClientService, MaterialClientServiceId, IMaterialClientService } from './materialClient'
 import { FileUploadService, IFileUploadService, FileUploadServiceId } from './fileUpload'
 import {
@@ -12,7 +12,7 @@ import { IMaterialDataService, MaterialDataServiceId, MaterialDataService } from
 import { Material } from 'types/materials'
 
 export const containerModule = new ContainerModule((bind: interfaces.Bind) => {
-  bind<IAuthenticationService>(AuthenticationServiceId).to(AuthenticationService)
+  bind<ISessionService>(SessionServiceId).to(SessionService)
   bind<IMaterialClientService<Material>>(MaterialClientServiceId).to(MaterailClientService)
   bind<IFileUploadService>(FileUploadServiceId).to(FileUploadService)
   bind<IMaterialPreviewFetchService>(MaterialPreviewFetchServiceId).to(MaterailPreviewFetchService)
