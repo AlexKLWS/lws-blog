@@ -4,8 +4,6 @@ import GuideView from './GuideView'
 import { useRouteMatch } from 'react-router-dom'
 import { useGuideClient } from 'facades/materialClientFacade'
 
-const GUIDE_PAGE_INFO = 'Here is my personal short list of places I find to be really worthy of a visit.'
-
 const GuideController: React.FC = () => {
   const { guide, fetchGuide } = useGuideClient()
   const match = useRouteMatch<{ id: string }>()
