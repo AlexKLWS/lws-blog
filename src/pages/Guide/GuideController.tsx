@@ -20,7 +20,7 @@ const GuideController: React.FC = () => {
 
   return (
     <GuideView
-      guideInfo={GUIDE_PAGE_INFO}
+      guideInfo={guide.info}
       locations={guide.locations}
       defaultZoom={guide.defaultZoom}
       defaultCenter={guide.defaultCenter}

@@ -24,4 +24,5 @@ export const DEFAULT_GUIDE_DATA: Guide = {
   defaultCenter: { lat: 0.0, lng: 0.0 },
   defaultZoom: 0,
   locations: [],
+  info: '',
 }

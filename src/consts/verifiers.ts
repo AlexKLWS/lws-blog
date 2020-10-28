@@ -37,6 +37,7 @@ export const GUIDE_DATA_VERIFIER: MaterialDataObjectVerifier = {
     innerObject: { data: { error: materialErrors.noIcon, type: VerifiedPropertyType.PRIMITIVE } },
   },
   defaultZoom: { error: guideEditorErrors.noDefaultZoom, type: VerifiedPropertyType.PRIMITIVE },
+  info: { error: guideEditorErrors.noInfo, type: VerifiedPropertyType.PRIMITIVE },
   defaultCenter: {
     error: guideEditorErrors.noDefaultCenter,
     type: VerifiedPropertyType.OBJECT,

@@ -66,6 +66,25 @@ const GuideEditorView: React.FC<Props> = (props: Props) => {
       <PagePreviewEditorWidget serviceInstance={props.serviceInstance} categoryToggleDisabled />
       <InputDataController
         serviceInstance={props.serviceInstance}
+        path={'info'}
+        render={({ value, setValue }) => {
+          return (
+            <div className='GE-full-width-input-container'>
+              <textarea
+                className='GE-full-width-input'
+                placeholder='Guide Info'
+                rows={2}
+                value={value}
+                onChange={(event) => {
+                  setValue(event.target.value)
+                }}
+              />
+            </div>
+          )
+        }}
+      />
+      <InputDataController
+        serviceInstance={props.serviceInstance}
         path={'defaultZoom'}
         render={({ value, setValue }) => {
           return (

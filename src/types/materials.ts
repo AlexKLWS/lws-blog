@@ -10,6 +10,7 @@ export type ExtMaterial = {
 
 export type Guide = {
   locations: GuideLocationInfo[]
+  info: string
   defaultZoom: number
   defaultCenter: LocationCoords
 } & Material

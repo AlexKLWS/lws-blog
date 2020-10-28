@@ -42,6 +42,11 @@ const noDefaultZoom = {
   description: 'No default zoom specified!',
 }
 
+const noInfo = {
+  id: 'no-info',
+  description: 'No info specified!',
+}
+
 const noDefaultCenter = {
   id: 'no-default-center',
   description: 'No default center coordinates specified!',
@@ -94,6 +99,7 @@ const noLongitude = {
 
 export const guideEditorErrors = {
   noDefaultZoom,
+  noInfo,
   noDefaultCenter,
   noLocations,
   noLocationType,
