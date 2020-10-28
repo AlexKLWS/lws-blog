@@ -1,5 +1,5 @@
 import React from 'react'
-import moment from 'moment'
+import { DateTime } from 'luxon'
 import { Article } from 'types/materials'
 import ReactMarkdown from 'react-markdown'
 
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const ArticleView: React.FC<Props> = ({ article }: Props) => {
-  const date = !!article && moment(article.createdAt!).format('DD/MM/YYYY')
+  const formattedDate = !!article && DateTime.fromISO(article.createdAt!).toLocaleString(DateTime.DATE_SHORT)
   return (
     <div className={'ArticleContainer'}>
       <div className={'ArticleTitleContainer'}>
@@ -28,7 +28,7 @@ export const ArticleView: React.FC<Props> = ({ article }: Props) => {
           renderers={{ code: CodeRenderView, inlineCode: InlineCodeRenderer, text: TextRenderer, image: ImageRenderer }}
         />
       )}
-      <p className={'ArticleDate'}>{date}</p>
+      <p className={'ArticleDate'}>{formattedDate}</p>
     </div>
   )
 }
