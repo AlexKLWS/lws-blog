@@ -18,6 +18,13 @@ const LoginView: React.FC<Props> = (props: Props) => {
     setPassword(event.target.value)
   }
 
+  const onKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      props.onLoginPress(username, password)
+    }
+  }
+
   return (
     <div className='Login-container'>
       <input className='Login-input' placeholder='username' value={username} onChange={onUsernameInputValueChange} />
@@ -27,6 +34,7 @@ const LoginView: React.FC<Props> = (props: Props) => {
         placeholder='password'
         value={password}
         onChange={onPasswordInputValueChange}
+        onKeyDown={onKeyDown}
       />
       <input
         className='App-button'
