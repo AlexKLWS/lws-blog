@@ -51,26 +51,6 @@ const GuideLocationItem: React.FC<Props> = (props: Props) => {
           }}
         />
       </div>
-      <div className='GE-location-item-input-container'>
-        <ArrayItemInputDataController
-          index={props.index}
-          serviceInstance={props.serviceInstance}
-          pathToArray={props.pathToArray}
-          pathToValue={'description'}
-          render={({ value, setValue }) => {
-            return (
-              <input
-                placeholder='Description'
-                className='GE-input'
-                onChange={(event) => {
-                  setValue(event.target.value)
-                }}
-                value={value}
-              />
-            )
-          }}
-        />
-      </div>
       <div className='GE-coordinates-input-container'>
         <ArrayItemInputDataController
           index={props.index}
@@ -139,6 +119,29 @@ const GuideLocationItem: React.FC<Props> = (props: Props) => {
                 }}
                 value={value}
               />
+            )
+          }}
+        />
+      </div>
+      <div className='GE-location-item-input-container'>
+        <ArrayItemInputDataController
+          index={props.index}
+          serviceInstance={props.serviceInstance}
+          pathToArray={props.pathToArray}
+          pathToValue={'description'}
+          render={({ value, setValue }) => {
+            return (
+              <div className='GE-full-width-input-container'>
+                <textarea
+                  placeholder='Description'
+                  className='GE-full-width-input'
+                  rows={3}
+                  onChange={(event) => {
+                    setValue(event.target.value)
+                  }}
+                  value={value}
+                />
+              </div>
             )
           }}
         />
