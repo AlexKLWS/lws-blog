@@ -1,6 +1,6 @@
 import React from 'react'
 import { PreviewMaterial } from 'types/materials'
-import { ReactComponent as Arrow } from 'assets/icons/Arrow.svg'
+import { default as arrow } from 'assets/icons/Arrow.svg'
 
 import './Home.scss'
 import InlineIcon from 'components/InlineIcon'
@@ -78,11 +78,11 @@ const HomeView: React.FC<Props> = (props: Props) => {
       <div className='Pagination-controls-container'>
         <div style={{ display: 'flex' }}>
           <button className='Arrow-container' onClick={props.navigateToPrevPage}>
-            <Arrow />
+            <img src={arrow} />
           </button>
           <p className='Page-index'>{`${props.currentPage}/${props.pagesCount}`}</p>
           <button className='Arrow-container' onClick={props.navigateToNextPage}>
-            <Arrow className={'Arrow-right'} />
+            <img className={'Arrow-right'} src={arrow} />
           </button>
         </div>
       </div>
@@ -92,7 +92,7 @@ const HomeView: React.FC<Props> = (props: Props) => {
   return (
     <div className='Home-container'>
       {renderPreviewsList()}
-      {props.pagesCount > 1 && renderPageControls()}
+      {props.pagesCount > 1 ? renderPageControls() : null}
     </div>
   )
 }

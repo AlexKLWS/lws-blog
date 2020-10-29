@@ -2,7 +2,7 @@ import React from 'react'
 
 import './GuidePin.scss'
 
-import { ReactComponent as MapPin } from 'assets/icons/MapPin.svg'
+import { default as mapPin } from 'assets/icons/MapPin.svg'
 import { LocationType } from 'types/guide'
 import GuideItemIcon from 'pages/Guide/components/GuideItemIcon/GuideItemIcon'
 
@@ -19,7 +19,7 @@ const GuidePin: React.FC<Props> = (props: Props) => {
       <div className={'Guide-pin-icon-container'}>
         <GuideItemIcon type={props.type} />
       </div>
-      <MapPin style={{ width: '35px', height: '50px' }} />
+      <img style={{ width: '35px', height: '50px' }} src={mapPin} />
       <input
         className={'Guide-pin-button'}
         type={'button'}
