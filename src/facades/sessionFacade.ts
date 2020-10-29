@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { useInjection } from 'services/provider'
 import { SessionServiceId, ISessionService } from 'services/session'
@@ -19,8 +19,16 @@ export function useTokenProvider() {
     return service.current.getToken()
   }
 
+  const [isLoggedIn, setIsLoggedIn] = useState(service.current.isTokenPresent)
+
+  useEffect(() => {
+    service.current.addOnManualUpdateCallback(() => {
+      setIsLoggedIn(service.current.isTokenPresent)
+    })
+  }, [])
+
   return {
-    isLoggedIn: service.current.isTokenPresent,
+    isLoggedIn,
     getToken,
   }
 }
