@@ -1,9 +1,12 @@
 import { injectable } from 'inversify'
 import axios, { AxiosRequestConfig } from 'axios'
+import jwt_decode from 'jwt-decode'
 
 import { apiEndpoint } from 'consts/endpoints'
 import { getCookie, setCookie } from 'helpers/cookies'
-import { Session } from 'types/session'
+import { Session, Token } from 'types/session'
+
+const TOKEN_COOKIE_KEY = 'token'
 
 export interface ISessionService {
   isTokenPresent: boolean
@@ -14,11 +17,11 @@ export interface ISessionService {
 @injectable()
 export class SessionService implements ISessionService {
   public get isTokenPresent() {
-    return !!getCookie('token')
+    return !!getCookie(TOKEN_COOKIE_KEY)
   }
 
   public getToken() {
-    return getCookie('token')
+    return getCookie(TOKEN_COOKIE_KEY)
   }
 
   public async login(username: string, password: string) {
@@ -34,11 +37,10 @@ export class SessionService implements ISessionService {
 
     try {
       const response = await axios(request)
-      const session: Session | null = await response.data
-      if (session) {
-        setCookie('token', session.access_token, 1)
-        return true
-      }
+      const session: Session = response.data
+      const decoded = jwt_decode<Token>(session.access_token)
+      setCookie(TOKEN_COOKIE_KEY, session.access_token, decoded.exp)
+      return true
     } catch (e) {
       console.log('ERROR: ', e)
     }
