@@ -47,7 +47,6 @@ export class SessionService implements ISessionService {
       const session: Session = response.data
       const decoded = jwt_decode<Token>(session.access_token)
       setCookie(TOKEN_COOKIE_KEY, session.access_token, decoded.exp)
-      console.log()
       this._manualUpdateCallbacks.forEach((callback) => {
         callback()
       })
