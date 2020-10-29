@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 
 import LoginView from './LoginView'
-import { useLoginFacade } from 'facades/loginFacade'
+import { useLoginFacade } from 'facades/sessionFacade'
 import routes from 'consts/routes'
 
 const LoginController: React.FC = () => {

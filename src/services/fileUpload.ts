@@ -4,7 +4,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { apiEndpoint } from 'consts/endpoints'
 import { FolderData, FileMetaData, UploadMetaDataBody, FileUploadFormData } from 'types/file'
 import { BehaviorSubject } from 'rxjs'
-import { ISessionService, SessionServiceId } from './authentication'
+import { ISessionService, SessionServiceId } from './session'
 
 export interface IFileUploadService {
   metadataUploadError: BehaviorSubject<boolean>

@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 
 import { useInjection } from 'services/provider'
-import { SessionServiceId, ISessionService } from 'services/authentication'
+import { SessionServiceId, ISessionService } from 'services/session'
 
 export function useLoginFacade(): [(username: string, password: string) => Promise<boolean>] {
   const service = useRef(useInjection<ISessionService>(SessionServiceId))

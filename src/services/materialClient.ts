@@ -4,7 +4,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { Article, ExtMaterial, Material, Guide } from 'types/materials'
 import { apiEndpoint } from 'consts/endpoints'
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject'
-import { ISessionService, SessionServiceId } from './authentication'
+import { ISessionService, SessionServiceId } from './session'
 
 export interface IMaterialClientService<T extends Material> {
   material: BehaviorSubject<T | null>

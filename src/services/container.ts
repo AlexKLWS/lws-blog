@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { Container, interfaces, ContainerModule } from 'inversify'
-import { SessionService, SessionServiceId, ISessionService } from './authentication'
+import { SessionService, SessionServiceId, ISessionService } from './session'
 import { MaterailClientService, MaterialClientServiceId, IMaterialClientService } from './materialClient'
 import { FileUploadService, IFileUploadService, FileUploadServiceId } from './fileUpload'
 import {
