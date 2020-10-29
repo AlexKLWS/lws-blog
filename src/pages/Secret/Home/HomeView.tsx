@@ -3,7 +3,7 @@ import React from 'react'
 import Dropdown from 'components/Dropdowns/Dropdown/Dropdown'
 import { DropdownItem } from 'types/dropdown'
 import { PreviewMaterial } from 'types/materials'
-import { ReactComponent as Arrow } from 'assets/icons/Arrow.svg'
+import { default as arrow } from 'assets/icons/Arrow.svg'
 import InlineIcon from 'components/InlineIcon'
 
 interface Props {
@@ -80,11 +80,11 @@ const HomeView: React.FC<Props> = (props: Props) => {
       <div className='Pagination-controls-container'>
         <div style={{ display: 'flex' }}>
           <button className='Arrow-container' onClick={props.navigateToPrevPage}>
-            <Arrow />
+            <img src={arrow} />
           </button>
           <p className='Page-index'>{`${props.currentPage}/${props.pagesCount}`}</p>
           <button className='Arrow-container' onClick={props.navigateToNextPage}>
-            <Arrow className={'Arrow-right'} />
+            <img className={'Arrow-right'} src={arrow} />
           </button>
         </div>
       </div>
