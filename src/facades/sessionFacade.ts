@@ -11,3 +11,16 @@ export function useLoginFacade(): [(username: string, password: string) => Promi
 
   return [login]
 }
+
+export function useTokenProvider() {
+  const service = useRef(useInjection<ISessionService>(SessionServiceId))
+
+  const getToken = () => {
+    return service.current.getToken()
+  }
+
+  return {
+    isTokenPresent: service.current.isTokenPresent,
+    getToken,
+  }
+}

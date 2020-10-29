@@ -9,11 +9,12 @@ import Guide from 'pages/Guide'
 import EmptyPageController from 'pages/EmptyPage'
 import routes from 'consts/routes'
 import DefaultLayoutWrapper from 'components/DefaultLayoutWrapper/DefaultLayoutWrapper'
-import { getCookie } from 'helpers/cookies'
 import SecretRouter from './secret'
+import { useTokenProvider } from 'facades/sessionFacade'
 
 const MainRouter = () => {
-  const isLoggedIn = !!getCookie('token')
+  const { isTokenPresent } = useTokenProvider()
+
   return (
     <Switch>
       <Route exact path={routes.home}>
@@ -69,7 +70,7 @@ const MainRouter = () => {
           <Login />
         </DefaultLayoutWrapper>
       </Route>
-      <Route path={routes.secret.home}>{isLoggedIn ? <SecretRouter /> : <Redirect to={routes.home} />}</Route>
+      <Route path={routes.secret.home}>{isTokenPresent ? <SecretRouter /> : <Redirect to={routes.home} />}</Route>
       <Route path={routes.miscArticle}>
         <DefaultLayoutWrapper>
           <ArticlesSection />
