@@ -1,10 +1,10 @@
-import { injectable } from 'inversify'
+import { inject, injectable } from 'inversify'
 import axios, { AxiosRequestConfig } from 'axios'
 
 import { apiEndpoint } from 'consts/endpoints'
 import { FolderData, FileMetaData, UploadMetaDataBody, FileUploadFormData } from 'types/file'
 import { BehaviorSubject } from 'rxjs'
-import { getCookie } from 'helpers/cookies'
+import { ISessionService, SessionServiceId } from './authentication'
 
 export interface IFileUploadService {
   metadataUploadError: BehaviorSubject<boolean>
@@ -20,6 +20,11 @@ export class FileUploadService implements IFileUploadService {
   private readonly _fileURLs: { [fileItemId: string]: BehaviorSubject<string> } = {}
   private readonly _fileUploadErrors: { [fileItemId: string]: BehaviorSubject<boolean> } = {}
   private readonly _metadataUploadError: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  private readonly _sessionService: ISessionService
+
+  public constructor(@inject(SessionServiceId) sessionService: ISessionService) {
+    this._sessionService = sessionService
+  }
 
   get metadataUploadError(): BehaviorSubject<boolean> {
     return this._metadataUploadError
@@ -50,10 +55,12 @@ export class FileUploadService implements IFileUploadService {
     // Not very efficient, but the code is cleaner
     // TODO: Think how to refactor
     const metadata = this.createMetadata(folderData)
+    const authToken = `Bearer ${this._sessionService.getToken()}`
 
     const metaDataRequest: AxiosRequestConfig = {
       headers: {
-        Authorization: `Bearer ${getCookie('token')}`,
+        Authorization: authToken,
+        'Content-Type': 'application/json',
       },
       method: 'PUT',
       url: `${apiEndpoint}/files/metadata`,
@@ -77,7 +84,7 @@ export class FileUploadService implements IFileUploadService {
     formData.forEach(async ({ fileItemId, data }) => {
       const fileDataRequest: AxiosRequestConfig = {
         headers: {
-          Authorization: `Bearer ${getCookie('token')}`,
+          Authorization: authToken,
           'Content-Type': 'multipart/form-data',
         },
         method: 'PUT',

@@ -1,10 +1,10 @@
-import { injectable } from 'inversify'
+import { inject, injectable } from 'inversify'
 import axios, { AxiosRequestConfig } from 'axios'
 
 import { Article, ExtMaterial, Material, Guide } from 'types/materials'
 import { apiEndpoint } from 'consts/endpoints'
-import { getCookie } from 'helpers/cookies'
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject'
+import { ISessionService, SessionServiceId } from './authentication'
 
 export interface IMaterialClientService<T extends Material> {
   material: BehaviorSubject<T | null>
@@ -19,6 +19,11 @@ export interface IMaterialClientService<T extends Material> {
 @injectable()
 export class MaterailClientService<T extends Material> implements IMaterialClientService<T> {
   private readonly _material: BehaviorSubject<T | null> = new BehaviorSubject<T | null>(null)
+  private readonly _sessionService: ISessionService
+
+  public constructor(@inject(SessionServiceId) sessionService: ISessionService) {
+    this._sessionService = sessionService
+  }
 
   public get material() {
     return this._material
@@ -61,12 +66,13 @@ export class MaterailClientService<T extends Material> implements IMaterialClien
 
   private async _postMaterial<T extends Material>(url: string, material: T, referenceId?: string) {
     const data = await this._prepareMaterialForPost<T>(material, referenceId)
+    const authToken = `Bearer ${this._sessionService.getToken()}`
 
     const request: AxiosRequestConfig = {
       method: 'POST',
       url,
       headers: {
-        Authorization: `Bearer ${getCookie('token')}`,
+        Authorization: authToken,
         'Content-Type': 'application/json',
       },
       data,
