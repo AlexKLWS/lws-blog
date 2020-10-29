@@ -13,7 +13,7 @@ import SecretRouter from './secret'
 import { useTokenProvider } from 'facades/sessionFacade'
 
 const MainRouter = () => {
-  const { isTokenPresent } = useTokenProvider()
+  const { isLoggedIn } = useTokenProvider()
 
   return (
     <Switch>
@@ -70,7 +70,7 @@ const MainRouter = () => {
           <Login />
         </DefaultLayoutWrapper>
       </Route>
-      <Route path={routes.secret.home}>{isTokenPresent ? <SecretRouter /> : <Redirect to={routes.home} />}</Route>
+      <Route path={routes.secret.home}>{isLoggedIn ? <SecretRouter /> : <Redirect to={routes.home} />}</Route>
       <Route path={routes.miscArticle}>
         <DefaultLayoutWrapper>
           <ArticlesSection />

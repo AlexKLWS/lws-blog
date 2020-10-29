@@ -20,7 +20,7 @@ export function useTokenProvider() {
   }
 
   return {
-    isTokenPresent: service.current.isTokenPresent,
+    isLoggedIn: service.current.isTokenPresent,
     getToken,
   }
 }
