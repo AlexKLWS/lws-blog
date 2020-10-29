@@ -12,8 +12,10 @@ import DefaultLayoutWrapper from 'components/DefaultLayoutWrapper/DefaultLayoutW
 import SecretRouter from './secret'
 import { useTokenProvider } from 'facades/sessionFacade'
 
+const TOKEN_UPDATE_CALLBACK_KEY = 'main_router'
+
 const MainRouter = () => {
-  const { isLoggedIn } = useTokenProvider()
+  const { isLoggedIn } = useTokenProvider(TOKEN_UPDATE_CALLBACK_KEY)
 
   return (
     <Switch>

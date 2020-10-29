@@ -11,13 +11,13 @@ const TOKEN_COOKIE_KEY = 'token'
 export interface ISessionService {
   isTokenPresent: boolean
   getToken: () => string
-  addOnManualUpdateCallback: (callback: () => void) => void
+  addOnManualUpdateCallback: (key: string, callback: () => void) => void
   login: (username: string, password: string) => Promise<boolean>
 }
 
 @injectable()
 export class SessionService implements ISessionService {
-  private readonly _manualUpdateCallbacks: Array<() => void> = []
+  private readonly _manualUpdateCallbacks: Map<string, () => void> = new Map()
 
   public get isTokenPresent() {
     return !!getCookie(TOKEN_COOKIE_KEY)
@@ -27,8 +27,8 @@ export class SessionService implements ISessionService {
     return getCookie(TOKEN_COOKIE_KEY)
   }
 
-  public addOnManualUpdateCallback(callback: () => void) {
-    this._manualUpdateCallbacks.push(callback)
+  public addOnManualUpdateCallback(key: string, callback: () => void) {
+    this._manualUpdateCallbacks.set(key, callback)
   }
 
   public async login(username: string, password: string) {

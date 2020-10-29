@@ -12,7 +12,7 @@ export function useLoginFacade(): [(username: string, password: string) => Promi
   return [login]
 }
 
-export function useTokenProvider() {
+export function useTokenProvider(tokenUpdateCallbackKey: string) {
   const service = useRef(useInjection<ISessionService>(SessionServiceId))
 
   const getToken = () => {
@@ -22,7 +22,7 @@ export function useTokenProvider() {
   const [isLoggedIn, setIsLoggedIn] = useState(service.current.isTokenPresent)
 
   useEffect(() => {
-    service.current.addOnManualUpdateCallback(() => {
+    service.current.addOnManualUpdateCallback(tokenUpdateCallbackKey, () => {
       setIsLoggedIn(service.current.isTokenPresent)
     })
   }, [])
