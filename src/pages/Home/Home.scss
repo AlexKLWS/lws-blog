@@ -4,11 +4,15 @@
 
 .Home-container {
   min-height: 720px;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
 }
 
 .Material-preview-item-container {
   padding-bottom: 8px;
   width: 100%;
+  max-height: 150px;
 }
 
 .Material-preview-item {
@@ -72,8 +76,9 @@
 .Pagination-controls-container {
   display: flex;
   flex: 1 1 100%;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  justify-self: flex-end;
   padding: 24px 0px;
 }
 
