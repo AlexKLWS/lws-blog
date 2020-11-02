@@ -9,8 +9,13 @@
   flex-direction: column;
 }
 
+.Previews-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 8px;
+}
+
 .Material-preview-item-container {
-  padding-bottom: 8px;
   width: 100%;
   max-height: 150px;
 }
@@ -34,6 +39,7 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  padding-bottom: 8px;
 
   @media (min-width: $breakpoint-desktop-or-laptop) {
     flex-direction: row;

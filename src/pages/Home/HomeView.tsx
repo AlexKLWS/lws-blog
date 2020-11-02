@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { useTrail, animated, useSpring, useChain, config } from 'react-spring'
+
 import { PreviewMaterial } from 'types/materials'
 import { default as arrow } from 'assets/icons/Arrow.svg'
 
@@ -40,39 +42,6 @@ const HomeView: React.FC<Props> = (props: Props) => {
     )
   }
 
-  const renderPreviewsList = () => {
-    let index = 0
-    const previewItemsRows = []
-
-    while (index < props.materialPreviews.length) {
-      const rowItems = []
-      rowItems.push(props.materialPreviews[index])
-      index++
-      if (index < props.materialPreviews.length) {
-        rowItems.push(props.materialPreviews[index])
-        index++
-      }
-      const row = (
-        <div key={`${index}`} className={'Material-preview-items-row'}>
-          {renderPreviewsItems(rowItems[0])}
-          {!!rowItems[1] ? (
-            <>
-              <div style={{ width: '16px' }} />
-              {renderPreviewsItems(rowItems[1])}
-            </>
-          ) : (
-            <>
-              <div style={{ width: '16px' }} />
-              <div style={{ display: 'flex', flex: '1 1 100%' }} />
-            </>
-          )}
-        </div>
-      )
-      previewItemsRows.push(row)
-    }
-    return previewItemsRows
-  }
-
   const renderPageControls = () => {
     return (
       <div className='Pagination-controls-container'>
@@ -89,9 +58,22 @@ const HomeView: React.FC<Props> = (props: Props) => {
     )
   }
 
+  const transitions = useTrail(props.materialPreviews.length, {
+    config: { mass: 5, tension: 1700, friction: 200 },
+    from: { opacity: 0, backgroundColor: 'rgba(220, 220, 220, 1)' },
+    opacity: 1,
+    backgroundColor: 'rgba(220, 220, 220, 0)',
+  })
+
   return (
     <div className='Home-container'>
-      {renderPreviewsList()}
+      <div className='Previews-grid'>
+        {transitions.map((p, index) => (
+          <animated.div key={`${index}`} style={p}>
+            {renderPreviewsItems(props.materialPreviews[index])}
+          </animated.div>
+        ))}
+      </div>
       {props.pagesCount > 1 ? renderPageControls() : null}
     </div>
   )
