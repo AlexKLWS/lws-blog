@@ -6,12 +6,13 @@ import { useMaterialPreviewsProvider } from 'facades/materialPreviewsFetchFacade
 import { page } from 'consts/query'
 import { resolveCategoryFromPathname, getCategoryPathname } from 'helpers/resolveCategory'
 import { PreviewMaterial } from 'types/materials'
+import FullscreenMessageView from 'components/FullscreenMessageView/FullscreenMessageView'
 
 const HomeController: React.FC = () => {
   const location = useLocation()
   const history = useHistory()
 
-  const { materialPreviews, pagesCount, fetchMaterialPreviews } = useMaterialPreviewsProvider()
+  const { materialPreviews, pagesCount, fetchInProgress, fetchMaterialPreviews } = useMaterialPreviewsProvider()
   const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
@@ -47,6 +48,10 @@ const HomeController: React.FC = () => {
     } else {
       history.push(`/${getCategoryPathname(previewMaterial.category)}/${previewMaterial.referenceId}`)
     }
+  }
+
+  if (!materialPreviews.length && !fetchInProgress) {
+    return <FullscreenMessageView title={`Sorry!`} subtitle={`There's nothing here yet!`} />
   }
 
   return (

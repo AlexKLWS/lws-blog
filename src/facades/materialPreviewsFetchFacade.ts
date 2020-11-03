@@ -13,12 +13,14 @@ export const useMaterialPreviewsProvider = () => {
 
   const [materialPreviews, setMaterialPreviews] = useState<PreviewMaterial[]>([])
   const [pagesCount, setPagesCount] = useState<number>(1)
+  const [fetchInProgress, setFetchInProgress] = useState(true)
 
   useEffect(() => {
     const subscriptions: Subscription[] = [
       service.current.materialPreviews.subscribe((m) => {
         setMaterialPreviews(m.materialPreviews)
         setPagesCount(m.pagesCount)
+        setFetchInProgress(m.fetchInProgress)
       }),
     ]
     return () => {
@@ -26,5 +28,5 @@ export const useMaterialPreviewsProvider = () => {
     }
   }, [])
 
-  return { materialPreviews, pagesCount, fetchMaterialPreviews }
+  return { materialPreviews, pagesCount, fetchInProgress, fetchMaterialPreviews }
 }
