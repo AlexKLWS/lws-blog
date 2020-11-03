@@ -19,6 +19,7 @@ interface RequestParams {
 const PAGE_PREVIEW_DATA_DEFAULTS = {
   materialPreviews: [],
   pagesCount: 1,
+  fetchInProgress: true,
 }
 
 @injectable()
@@ -45,9 +46,14 @@ export class MaterailPreviewFetchService implements IMaterialPreviewFetchService
     }
 
     try {
+      this._pagePreviewsData.next({
+        materialPreviews: [],
+        pagesCount: this._pagePreviewsData.value.pagesCount,
+        fetchInProgress: true,
+      })
       const response = await axios(request)
       const responseData = response.data
-        ? { materialPreviews: response.data.previews, pagesCount: response.data.pageCount }
+        ? { materialPreviews: response.data.previews, pagesCount: response.data.pageCount, fetchInProgress: false }
         : PAGE_PREVIEW_DATA_DEFAULTS
       this._pagePreviewsData.next(responseData)
     } catch (e) {
