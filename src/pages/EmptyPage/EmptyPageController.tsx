@@ -1,9 +1,11 @@
 import React from 'react'
 
-import EmptyPageView from './EmptyPageView'
+import FullscreenMessageView from 'components/FullscreenMessageView/FullscreenMessageView'
 
 const EmptyPageController: React.FC = () => {
-  return <EmptyPageView />
+  return (
+    <FullscreenMessageView title={`Sorry!`} subtitle={`It looks like the page you're looking for doesn't exist!`} />
+  )
 }
 
 export default EmptyPageController
