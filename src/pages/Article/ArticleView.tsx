@@ -14,7 +14,7 @@ interface Props {
 const LoadableArticleTextView = Loadable({
   loader: () => import('../../components/ArticleText/ArticleTextView'),
   loading: () => {
-    return <div style={{ backgroundColor: 'rgba(240, 240, 240, 1)', height: '600px', marginTop: '18px' }} />
+    return <div className={'ArticleTextSkeletonLoader'} />
   },
 })
 
@@ -33,17 +33,10 @@ export const ArticleView: React.FC<Props> = ({ article }: Props) => {
         !item ? (
           <animated.div style={{ ...props, padding: '20px 42px', position: 'absolute', right: 0, left: 0 }}>
             <div className={'ArticleTitleContainer'}>
-              <div style={{ backgroundColor: 'rgba(240, 240, 240, 1)', height: '36px', width: '45ex' }} />
-              <div
-                style={{
-                  backgroundColor: 'rgba(240, 240, 240, 1)',
-                  margin: '20px 0px',
-                  height: '18px',
-                  width: '40ex',
-                }}
-              />
+              <div className={'ArticleTitleSkeletonLoader'} />
+              <div className={'ArticleSubtitleSkeletonLoader'} />
             </div>
-            <div style={{ backgroundColor: 'rgba(240, 240, 240, 1)', height: '600px', marginTop: '18px' }} />
+            <div className={'ArticleTextSkeletonLoader'} />
           </animated.div>
         ) : (
           <animated.div style={{ ...props, padding: '20px 42px', minHeight: '720px', position: 'relative' }}>
