@@ -46,7 +46,7 @@ const HomeController: React.FC = () => {
     if (previewMaterial.url) {
       history.push(previewMaterial.url)
     } else {
-      history.push(`/${getCategoryPathname(previewMaterial.category)}/${previewMaterial.referenceId}`)
+      history.push(`/${previewMaterial.referenceId}`)
     }
   }
 

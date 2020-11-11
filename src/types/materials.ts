@@ -26,7 +26,7 @@ export type Material = {
   name: string
   subtitle: string
   icon: Icon
-  category: Category
+  categories: Category[]
 }
 
 export type Icon = {
