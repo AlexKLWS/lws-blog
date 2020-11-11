@@ -1,13 +1,10 @@
 const home = '/'
-const miscArticle = '/misc/:id'
+const miscArticle = '/articles/:id'
 const life = '/life'
-const lifeArticle = '/life/:id'
 const code = '/code'
-const codeArticle = '/code/:id'
 const guides = '/guides'
 const guidesArticle = '/guides/:id'
 const projects = '/projects'
-const projectsArticle = '/projects/:id'
 const contact = '/contact'
 const login = '/login'
 const secret = {
@@ -25,13 +22,10 @@ export default {
   home,
   miscArticle,
   life,
-  lifeArticle,
   code,
-  codeArticle,
   guides,
   guidesArticle,
   projects,
-  projectsArticle,
   contact,
   login,
   secret,

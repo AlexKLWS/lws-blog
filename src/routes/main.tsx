@@ -24,19 +24,9 @@ const MainRouter = () => {
           <Home />
         </DefaultLayoutWrapper>
       </Route>
-      <Route path={routes.lifeArticle}>
-        <DefaultLayoutWrapper>
-          <ArticlesSection />
-        </DefaultLayoutWrapper>
-      </Route>
       <Route exact path={routes.life}>
         <DefaultLayoutWrapper>
           <Home />
-        </DefaultLayoutWrapper>
-      </Route>
-      <Route path={routes.codeArticle}>
-        <DefaultLayoutWrapper>
-          <ArticlesSection />
         </DefaultLayoutWrapper>
       </Route>
       <Route exact path={routes.code}>
@@ -50,11 +40,6 @@ const MainRouter = () => {
       <Route exact path={routes.guides}>
         <DefaultLayoutWrapper>
           <Home />
-        </DefaultLayoutWrapper>
-      </Route>
-      <Route path={routes.projectsArticle}>
-        <DefaultLayoutWrapper>
-          <ArticlesSection />
         </DefaultLayoutWrapper>
       </Route>
       <Route exact path={routes.projects}>
@@ -72,12 +57,12 @@ const MainRouter = () => {
           <Login />
         </DefaultLayoutWrapper>
       </Route>
-      <Route path={routes.secret.home}>{isLoggedIn ? <SecretRouter /> : <Redirect to={routes.home} />}</Route>
       <Route path={routes.miscArticle}>
         <DefaultLayoutWrapper>
           <ArticlesSection />
         </DefaultLayoutWrapper>
       </Route>
+      <Route path={routes.secret.home}>{isLoggedIn ? <SecretRouter /> : <Redirect to={routes.home} />}</Route>
       <Route>
         <DefaultLayoutWrapper>
           <EmptyPageController />

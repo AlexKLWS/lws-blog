@@ -5,7 +5,7 @@ import HomeView from './HomeView'
 import { useMaterialPreviewsProvider } from 'facades/materialPreviewsFetchFacade'
 import { page } from 'consts/query'
 import { resolveCategoryFromPathname, getCategoryPathname } from 'helpers/resolveCategory'
-import { PreviewMaterial } from 'types/materials'
+import { Category, PreviewMaterial } from 'types/materials'
 import FullscreenMessageView from 'components/FullscreenMessageView/FullscreenMessageView'
 
 const HomeController: React.FC = () => {
@@ -45,8 +45,12 @@ const HomeController: React.FC = () => {
   const onPreviewItemPress = (previewMaterial: PreviewMaterial) => {
     if (previewMaterial.url) {
       history.push(previewMaterial.url)
+      // } else if (previewMaterial.categories.includes(Category.Guides)) {
+      // @ts-ignore
+    } else if (previewMaterial.category === Category.Guides) {
+      history.push(`/guides/${previewMaterial.referenceId}`)
     } else {
-      history.push(`/${previewMaterial.referenceId}`)
+      history.push(`/articles/${previewMaterial.referenceId}`)
     }
   }
 
