@@ -46,11 +46,11 @@ const HomeView: React.FC<Props> = (props: Props) => {
     return (
       <div className='Pagination-controls-container'>
         <div style={{ display: 'flex' }}>
-          <button className='Arrow-container' onClick={props.navigateToPrevPage}>
+          <button className='App-button' onClick={props.navigateToPrevPage}>
             <img src={arrow} />
           </button>
           <p className='Page-index'>{`${props.currentPage}/${props.pagesCount}`}</p>
-          <button className='Arrow-container' onClick={props.navigateToNextPage}>
+          <button className='App-button' onClick={props.navigateToNextPage}>
             <img className={'Arrow-right'} src={arrow} />
           </button>
         </div>
