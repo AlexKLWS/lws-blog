@@ -34,7 +34,7 @@ const GuideEditorView: React.FC<Props> = (props: Props) => {
   }
 
   const onAddButtonPress = () => {
-    props.serviceInstance.addArrayItem('locations', { type: LocationType.MISC })
+    props.serviceInstance.addArrayItem('locations', locationsCount, { type: LocationType.MISC })
     setLocationsCount(locationsCount + 1)
   }
 

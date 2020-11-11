@@ -4,7 +4,7 @@ import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
 import uniqBy from 'lodash/uniqBy'
 
-import { constructArrayItemPath } from 'helpers/constructArrayItemPath'
+import { constructArrayItemPath, constructArrayItemValuePath } from 'helpers/constructArrayItemPath'
 import {
   MaterialDataObjectVerifier,
   EditorError,
@@ -18,8 +18,10 @@ export interface IMaterialDataService {
   updateData: (newData: any) => void
   getSubjectFor: (path: string) => Subject<any>
   getValueFor: (path: string) => any
-  getArrayItemSubjectFor: (pathToArray: string, pathToItemValue: string, index: number) => Subject<any>
+  getArrayItemValueSubjectFor: (pathToArray: string, pathToItemValue: string, index: number) => Subject<any>
   getArrayItemValueFor: (pathToArray: string, pathToItemValue: string, index: number) => any
+  getArrayItemSubjectFor: (pathToArray: string, index: number) => Subject<any>
+  getArrayItemFor: (pathToArray: string, index: number) => any
   addField: (path: string, value: any, isArray?: boolean) => void
   addFieldToArrayItem: (
     pathToArray: string,
@@ -28,7 +30,7 @@ export interface IMaterialDataService {
     index: number,
     addToArray?: boolean,
   ) => void
-  addArrayItem: (pathToArray: string, item?: any) => void
+  addArrayItem: (pathToArray: string, index: number, item?: any) => void
   removeArrayItem: (pathToArray: string, index: number) => void
   verifyData: () => EditorError[]
 }
@@ -95,8 +97,8 @@ export class MaterialDataService implements IMaterialDataService {
     return get(this._currentData, path)
   }
 
-  public getArrayItemSubjectFor(pathToArray: string, pathToItemValue: string, index: number) {
-    const path = constructArrayItemPath(pathToArray, pathToItemValue, index)
+  public getArrayItemValueSubjectFor(pathToArray: string, pathToItemValue: string, index: number) {
+    const path = constructArrayItemValuePath(pathToArray, pathToItemValue, index)
     if (!this._subjects[path]) {
       this._subjects[path] = new Subject<any>()
     }
@@ -104,7 +106,20 @@ export class MaterialDataService implements IMaterialDataService {
   }
 
   public getArrayItemValueFor(pathToArray: string, pathToItemValue: string, index: number) {
-    const path = constructArrayItemPath(pathToArray, pathToItemValue, index)
+    const path = constructArrayItemValuePath(pathToArray, pathToItemValue, index)
+    return get(this._currentData, path)
+  }
+
+  public getArrayItemSubjectFor(pathToArray: string, index: number) {
+    const path = constructArrayItemPath(pathToArray, index)
+    if (!this._subjects[path]) {
+      this._subjects[path] = new Subject<any>()
+    }
+    return this._subjects[path]
+  }
+
+  public getArrayItemFor(pathToArray: string, index: number) {
+    const path = constructArrayItemPath(pathToArray, index)
     return get(this._currentData, path)
   }
 
@@ -147,18 +162,18 @@ export class MaterialDataService implements IMaterialDataService {
     )
 
     this._addValueToField(value, itemFieldName, itemHigherLevelObject, addToArray)
-    const path = constructArrayItemPath(pathToArray, pathToItemValue, index)
+    const path = constructArrayItemValuePath(pathToArray, pathToItemValue, index)
     if (!this._subjects[path]) {
       this._subjects[path] = new Subject<any>()
     }
     this._subjects[path].next(value)
   }
 
-  public addArrayItem(pathToArray: string, item: any = {}) {
+  public addArrayItem(pathToArray: string, index: number, item: any = {}) {
     if (!this._currentData[pathToArray]) {
       this._currentData[pathToArray] = []
     }
-    this._currentData[pathToArray].push(item)
+    this._currentData[pathToArray].splice(index, 1, item)
   }
 
   public removeArrayItem(pathToArray: string, index: number) {

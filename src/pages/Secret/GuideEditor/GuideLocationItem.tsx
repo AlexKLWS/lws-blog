@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { LocationType } from 'types/guide'
-import ArrayItemInputDataController from 'components/MaterialDataFormItems/Input/ArrayItemInputDataController'
+import ArrayItemValueInputDataController from 'components/MaterialDataFormItems/Input/ArrayItemValueInputDataController'
 import { IMaterialDataService } from 'services/materialData'
 import EnumDropdown from 'components/Dropdowns/EnumDropdown/EnumDropdown'
 
@@ -21,7 +21,7 @@ const GuideLocationItem: React.FC<Props> = (props: Props) => {
   return (
     <li style={{ padding: '0px 0px 40px 0px' }}>
       <div className='GE-location-item-input-container'>
-        <ArrayItemInputDataController
+        <ArrayItemValueInputDataController
           index={props.index}
           serviceInstance={props.serviceInstance}
           pathToArray={props.pathToArray}
@@ -32,7 +32,7 @@ const GuideLocationItem: React.FC<Props> = (props: Props) => {
         />
       </div>
       <div className='GE-location-item-input-container'>
-        <ArrayItemInputDataController
+        <ArrayItemValueInputDataController
           index={props.index}
           serviceInstance={props.serviceInstance}
           pathToArray={props.pathToArray}
@@ -52,7 +52,7 @@ const GuideLocationItem: React.FC<Props> = (props: Props) => {
         />
       </div>
       <div className='GE-coordinates-input-container'>
-        <ArrayItemInputDataController
+        <ArrayItemValueInputDataController
           index={props.index}
           serviceInstance={props.serviceInstance}
           pathToArray={props.pathToArray}
@@ -84,7 +84,7 @@ const GuideLocationItem: React.FC<Props> = (props: Props) => {
         />
       </div>
       <div className='GE-location-item-input-container'>
-        <ArrayItemInputDataController
+        <ArrayItemValueInputDataController
           index={props.index}
           serviceInstance={props.serviceInstance}
           pathToArray={props.pathToArray}
@@ -104,7 +104,7 @@ const GuideLocationItem: React.FC<Props> = (props: Props) => {
         />
       </div>
       <div className='GE-location-item-input-container'>
-        <ArrayItemInputDataController
+        <ArrayItemValueInputDataController
           index={props.index}
           serviceInstance={props.serviceInstance}
           pathToArray={props.pathToArray}
@@ -124,7 +124,7 @@ const GuideLocationItem: React.FC<Props> = (props: Props) => {
         />
       </div>
       <div className='GE-location-item-input-container'>
-        <ArrayItemInputDataController
+        <ArrayItemValueInputDataController
           index={props.index}
           serviceInstance={props.serviceInstance}
           pathToArray={props.pathToArray}
