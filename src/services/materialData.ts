@@ -37,6 +37,7 @@ export interface IMaterialDataService {
 
 @injectable()
 export class MaterialDataService implements IMaterialDataService {
+  private _defaultData: any = {}
   private _currentData: any = {}
   private _verifier: MaterialDataObjectVerifier = {}
   private _subjects: { [path: string]: Subject<any> } = {}
@@ -74,7 +75,11 @@ export class MaterialDataService implements IMaterialDataService {
 
   public setup(verifier: MaterialDataObjectVerifier, defaultData?: any) {
     this._verifier = verifier
-    this._currentData = defaultData || {}
+    if (defaultData) {
+      // Deep copy
+      this._defaultData = JSON.parse(JSON.stringify(defaultData))
+      this._currentData = JSON.parse(JSON.stringify(defaultData))
+    }
   }
 
   public get currentData() {
@@ -169,11 +174,25 @@ export class MaterialDataService implements IMaterialDataService {
     this._subjects[path].next(value)
   }
 
-  public addArrayItem(pathToArray: string, index: number, item: any = {}) {
+  public addArrayItem(pathToArray: string, index: number, item?: any) {
+    let itemToAdd
+    if (item === undefined) {
+      if (this._defaultData[pathToArray] && this._defaultData[pathToArray].length !== 0) {
+        itemToAdd = this._defaultData[pathToArray][0]
+      } else {
+        itemToAdd = {}
+      }
+    } else {
+      itemToAdd = item
+    }
+    if (!this._subjects[pathToArray]) {
+      this._subjects[pathToArray] = new Subject<any>()
+    }
     if (!this._currentData[pathToArray]) {
       this._currentData[pathToArray] = []
     }
-    this._currentData[pathToArray].splice(index, 1, item)
+    this._currentData[pathToArray].splice(index, 1, itemToAdd)
+    this._subjects[pathToArray].next(this._currentData[pathToArray])
   }
 
   public removeArrayItem(pathToArray: string, index: number) {

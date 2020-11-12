@@ -52,21 +52,33 @@ export const useArrayItemValueInputDataProvider = (
   return { value, setValue }
 }
 
-export const useArrayInputDataProvider = (
+export const useArrayItemInputDataProvider = (
   serviceInstance: IMaterialDataService,
   pathToArray: string,
   index: number,
 ) => {
-  const [value, setValueState] = useState(serviceInstance.getArrayItemFor(pathToArray, index))
-
   const setValue = (newValue: any) => {
     serviceInstance.addArrayItem(pathToArray, index, newValue)
   }
 
+  return { setValue }
+}
+
+export const useArrayInputDataProvider = (serviceInstance: IMaterialDataService, pathToArray: string) => {
+  const [array, setArray] = useState<any[]>(serviceInstance.getValueFor(pathToArray))
+
+  const addItem = (index: number, item?: any) => {
+    serviceInstance.addArrayItem(pathToArray, index, item)
+  }
+
+  const removeItem = (index: number) => {
+    serviceInstance.removeArrayItem(pathToArray, index)
+  }
+
   useEffect(() => {
     const subscriptions: Subscription[] = [
-      onEmit<any>(serviceInstance.getArrayItemSubjectFor(pathToArray, index), (v) => {
-        setValueState(v)
+      onEmit<any[]>(serviceInstance.getSubjectFor(pathToArray), (v) => {
+        setArray([...v])
       }),
     ]
     return () => {
@@ -74,5 +86,5 @@ export const useArrayInputDataProvider = (
     }
   }, [])
 
-  return { value, setValue }
+  return { array, addItem, removeItem }
 }
