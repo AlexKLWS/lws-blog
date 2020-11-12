@@ -18,7 +18,7 @@ export const containerModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<IMaterialClientService<Material>>(MaterialClientServiceId).to(MaterailClientService)
   bind<IFileUploadService>(FileUploadServiceId).to(FileUploadService)
   bind<IMaterialPreviewFetchService>(MaterialPreviewFetchServiceId).to(MaterailPreviewFetchService)
-  bind<IMaterialDataService>(MaterialDataServiceId).to(MaterialDataService)
+  bind<IMaterialDataService>(MaterialDataServiceId).toConstructor(MaterialDataService)
 })
 
 export const container = new Container()

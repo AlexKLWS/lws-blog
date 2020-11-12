@@ -4,11 +4,8 @@ import { IMaterialDataService, MaterialDataServiceId } from 'services/materialDa
 import { MaterialDataObjectVerifier } from 'types/verifier'
 
 export const useMaterialDataServiceProvider = (verifier: MaterialDataObjectVerifier, defaultData?: any) => {
-  const service = useRef(useInjection<IMaterialDataService>(MaterialDataServiceId)).current
-
-  useEffect(() => {
-    service.setup(verifier, defaultData)
-  }, [])
+  const MaterialDataService = useInjection<IMaterialDataService>(MaterialDataServiceId) as any
+  const service = useRef(new MaterialDataService(verifier, defaultData)).current
 
   return { service }
 }

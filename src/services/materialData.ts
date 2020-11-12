@@ -14,7 +14,6 @@ import {
 
 export interface IMaterialDataService {
   currentData: any
-  setup: (verifier: MaterialDataObjectVerifier, defaultData?: any) => void
   updateData: (newData: any) => void
   getSubjectFor: (path: string) => Subject<any>
   getValueFor: (path: string) => any
@@ -37,9 +36,9 @@ export interface IMaterialDataService {
 
 @injectable()
 export class MaterialDataService implements IMaterialDataService {
-  private _defaultData: any = {}
+  private readonly _defaultData: any = {}
+  private readonly _verifier: MaterialDataObjectVerifier = {}
   private _currentData: any = {}
-  private _verifier: MaterialDataObjectVerifier = {}
   private _subjects: { [path: string]: Subject<any> } = {}
 
   private _getHigherLevelObject(path: string, obj: any) {
@@ -73,7 +72,7 @@ export class MaterialDataService implements IMaterialDataService {
     }
   }
 
-  public setup(verifier: MaterialDataObjectVerifier, defaultData?: any) {
+  public constructor(verifier: MaterialDataObjectVerifier, defaultData?: any) {
     this._verifier = verifier
     if (defaultData) {
       // Deep copy
