@@ -20,7 +20,7 @@ export const DEFAULT_GUIDE_DATA: Guide = {
   name: '',
   subtitle: '',
   icon: { data: '', height: null, width: null },
-  categories: [Category.Misc],
+  categories: [Category.Guides],
   defaultCenter: { lat: 0.0, lng: 0.0 },
   defaultZoom: 0,
   locations: [],
