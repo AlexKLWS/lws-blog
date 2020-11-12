@@ -5,7 +5,6 @@ import { Category } from 'types/materials'
 import { IMaterialDataService } from 'services/materialData'
 import InputDataController from 'components/MaterialDataFormItems/Input/InputDataController'
 import EnumDropdown from 'components/Dropdowns/EnumDropdown/EnumDropdown'
-import ArrayItemInputDataController from 'components/MaterialDataFormItems/Input/ArrayItemInputDataController'
 import ArrayInputDataController from 'components/MaterialDataFormItems/Input/ArrayInputDataController'
 
 type Props = {
@@ -14,8 +13,6 @@ type Props = {
 }
 
 const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
-  const [categoriesCount, setCategoriesCount] = useState(0)
-
   const getIconButtonText = (value: File | string | null) => {
     if (!value) {
       return 'Add icon'
