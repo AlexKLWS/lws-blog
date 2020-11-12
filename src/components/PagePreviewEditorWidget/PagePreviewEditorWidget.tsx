@@ -6,6 +6,7 @@ import { IMaterialDataService } from 'services/materialData'
 import InputDataController from 'components/MaterialDataFormItems/Input/InputDataController'
 import EnumDropdown from 'components/Dropdowns/EnumDropdown/EnumDropdown'
 import ArrayItemInputDataController from 'components/MaterialDataFormItems/Input/ArrayItemInputDataController'
+import ArrayInputDataController from 'components/MaterialDataFormItems/Input/ArrayInputDataController'
 
 type Props = {
   serviceInstance: IMaterialDataService
@@ -24,32 +25,6 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
     }
     return (value as File).name
   }
-
-  const renderCategories = useMemo(() => {
-    const items = []
-    let i = 0
-    while (i < categoriesCount) {
-      items.push(
-        <ArrayItemInputDataController
-          serviceInstance={props.serviceInstance}
-          index={i}
-          pathToArray={'categories'}
-          render={({ value, setValue }) => {
-            return (
-              <EnumDropdown
-                sourceEnum={Category as any}
-                value={value}
-                setValue={setValue}
-                disabled={props.categoryToggleDisabled}
-              />
-            )
-          }}
-        />,
-      )
-      i++
-    }
-    return items
-  }, [categoriesCount])
 
   return (
     <div className='PPEW-input-container'>
@@ -149,10 +124,40 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
           )
         }}
       />
-      <div className='PPEW-dropdown-container'>
-        <span className='PPEW-dropdown-label'>Categories:</span>
-        {renderCategories}
-      </div>
+      <ArrayInputDataController
+        serviceInstance={props.serviceInstance}
+        pathToArray={'categories'}
+        renderContentContainer={({ onItemAddButtonPress, itemsRenderList }) => {
+          return (
+            <div className='PPEW-dropdown-container'>
+              <div style={{ display: 'flex' }}>
+                <span className='App-label'>Categories:</span>
+                <button className='App-button' onClick={onItemAddButtonPress}>
+                  +
+                </button>
+              </div>
+              {itemsRenderList}
+            </div>
+          )
+        }}
+        renderItem={({ onItemRemoveButtonPress, value, setValue }) => {
+          return (
+            <div style={{ padding: '8px 0px', display: 'inline-flex' }}>
+              <div style={{ paddingRight: '8px' }}>
+                <EnumDropdown
+                  sourceEnum={Category as any}
+                  value={value}
+                  setValue={setValue}
+                  disabled={props.categoryToggleDisabled}
+                />
+              </div>
+              <button className='App-button' onClick={onItemRemoveButtonPress}>
+                -
+              </button>
+            </div>
+          )
+        }}
+      />
     </div>
   )
 }
