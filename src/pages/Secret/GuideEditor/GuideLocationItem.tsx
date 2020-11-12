@@ -13,11 +13,6 @@ type Props = {
 }
 
 const GuideLocationItem: React.FC<Props> = (props: Props) => {
-  const onRemoveButtonPress = () => {
-    props.serviceInstance.removeArrayItem(props.pathToArray, props.index)
-    props.onRemoveButtonPress()
-  }
-
   return (
     <li style={{ padding: '0px 0px 40px 0px' }}>
       <div className='GE-location-item-input-container'>
@@ -147,7 +142,7 @@ const GuideLocationItem: React.FC<Props> = (props: Props) => {
         />
       </div>
       <div className='GE-location-item-input-container'>
-        <input className='App-button' onClick={onRemoveButtonPress} type={'submit'} value={'Remove'} />
+        <input className='App-button' onClick={props.onRemoveButtonPress} type={'submit'} value={'Remove'} />
       </div>
     </li>
   )

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState } from 'react'
 
 import './GuideEditor.scss'
 
@@ -9,7 +9,7 @@ import { EditorError } from 'types/verifier'
 import GuideLocationItem from './GuideLocationItem'
 import { IMaterialDataService } from 'services/materialData'
 import InputDataController from 'components/MaterialDataFormItems/Input/InputDataController'
-import { LocationType } from 'types/guide'
+import ArrayInputDataController from 'components/MaterialDataFormItems/Input/ArrayInputDataController'
 
 type Props = {
   serviceInstance: IMaterialDataService
@@ -19,8 +19,6 @@ type Props = {
 }
 
 const GuideEditorView: React.FC<Props> = (props: Props) => {
-  const [locationsCount, setLocationsCount] = useState(0)
-
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const onSubmit = () => {
@@ -32,33 +30,6 @@ const GuideEditorView: React.FC<Props> = (props: Props) => {
     props.performDataCheck()
     setModalIsOpen(true)
   }
-
-  const onAddButtonPress = () => {
-    props.serviceInstance.addArrayItem('locations', locationsCount, { type: LocationType.MISC })
-    setLocationsCount(locationsCount + 1)
-  }
-
-  const onRemoveButtonPress = () => {
-    setLocationsCount(locationsCount - 1)
-  }
-
-  const renderLocationItems = useMemo(() => {
-    const items = []
-    let i = 0
-    while (i < locationsCount) {
-      items.push(
-        <GuideLocationItem
-          key={`${i}`}
-          serviceInstance={props.serviceInstance}
-          index={i}
-          pathToArray={'locations'}
-          onRemoveButtonPress={onRemoveButtonPress}
-        />,
-      )
-      i++
-    }
-    return items
-  }, [locationsCount])
 
   return (
     <div>
@@ -128,10 +99,30 @@ const GuideEditorView: React.FC<Props> = (props: Props) => {
           )
         }}
       />
-      <div className='GE-add-locations-button-container'>
-        <input className='App-button' onClick={onAddButtonPress} type={'submit'} value={'Add Location'} />
-      </div>
-      <ul style={{ listStyleType: 'none' }}>{renderLocationItems}</ul>
+      <ArrayInputDataController
+        serviceInstance={props.serviceInstance}
+        pathToArray={'locations'}
+        renderContentContainer={({ onItemAddButtonPress, itemsRenderList }) => {
+          return (
+            <>
+              <div className='GE-add-locations-button-container'>
+                <input className='App-button' onClick={onItemAddButtonPress} type={'submit'} value={'Add Location'} />
+              </div>
+              <ul style={{ listStyleType: 'none' }}>{itemsRenderList}</ul>
+            </>
+          )
+        }}
+        renderItem={({ onItemRemoveButtonPress, index }) => {
+          return (
+            <GuideLocationItem
+              serviceInstance={props.serviceInstance}
+              index={index}
+              pathToArray={'locations'}
+              onRemoveButtonPress={onItemRemoveButtonPress}
+            />
+          )
+        }}
+      />
       <div className='GE-button-container'>
         <input className='App-button' onClick={onSubmitButtonClick} type={'submit'} value={'Submit'} />
       </div>

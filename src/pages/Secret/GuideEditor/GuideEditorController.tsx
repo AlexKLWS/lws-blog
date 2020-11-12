@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useRouteMatch } from 'react-router-dom'
+import Loadable from 'react-loadable'
 
-import GuideEditorView from './GuideEditorView'
 import { EditorError } from 'types/verifier'
 import { useMaterialDataServiceProvider } from 'facades/MaterialData/materialDataServiceFacade'
 import { GUIDE_DATA_VERIFIER } from 'consts/verifiers'
 import { DEFAULT_GUIDE_DATA } from 'consts/defaults'
 import { useGuideClient } from 'facades/materialClientFacade'
+
+const LoadableEditorView = Loadable({
+  loader: () => import('./GuideEditorView'),
+  loading: () => {
+    return <div>LOADING</div>
+  },
+})
 
 const GuideEditorController = () => {
   const { guide, fetchGuide, postGuide } = useGuideClient()
@@ -38,7 +45,7 @@ const GuideEditorController = () => {
   }
 
   return (
-    <GuideEditorView
+    <LoadableEditorView
       submitData={postGuideWrapped}
       performDataCheck={performDataCheck}
       serviceInstance={service}
