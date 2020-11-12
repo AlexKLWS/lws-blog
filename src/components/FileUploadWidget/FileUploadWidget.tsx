@@ -78,8 +78,8 @@ const FileUploadWidget: React.FC<Props> = (props: Props) => {
 
   return (
     <div className='FUW-container'>
-      <div>
-        <span className='FUW-label'>Folders: </span>
+      <div style={{ display: 'flex' }}>
+        <span className='App-label'>Folders: </span>
         <input className='App-button' onClick={props.addFolder} type='submit' value='+' />
       </div>
       <ul className='FUW-folder-selector-list'>{renderFolderSelectors()}</ul>
