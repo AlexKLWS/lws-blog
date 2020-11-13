@@ -141,7 +141,7 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
         renderItem={({ onItemRemoveButtonPress, value, setValue, minNumberOfElements, index }) => {
           return (
             <div style={{ padding: '8px 0px', display: 'inline-flex' }}>
-              <div style={{ paddingRight: '8px' }}>
+              <div style={{ paddingRight: '8px', zIndex: 100 - index }}>
                 <EnumDropdown
                   sourceEnum={Category as any}
                   value={value}
