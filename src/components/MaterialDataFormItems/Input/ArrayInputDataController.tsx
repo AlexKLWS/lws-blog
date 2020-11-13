@@ -9,6 +9,7 @@ type Props = {
   serviceInstance: IMaterialDataService
   pathToArray: string
   minNumberOfElements?: number
+  maxNumberOfElements?: number
   renderContentContainer: (props: ContentContainerProps) => JSX.Element
   renderItem: (props: ItemProps) => JSX.Element
 }
@@ -16,6 +17,7 @@ type Props = {
 export type ContentContainerProps = {
   onItemAddButtonPress: () => void
   itemsRenderList: JSX.Element[]
+  maxNumberOfElements: number
 }
 
 export type ItemProps = {
@@ -26,11 +28,17 @@ export type ItemProps = {
   minNumberOfElements: number
 }
 
-const ArrayInputDataController: React.FC<Props> = ({ minNumberOfElements = 0, ...props }: Props) => {
+const ArrayInputDataController: React.FC<Props> = ({
+  minNumberOfElements = 0,
+  maxNumberOfElements = Number.POSITIVE_INFINITY,
+  ...props
+}: Props) => {
   const { array, addItem, removeItem } = useArrayInputDataProvider(props.serviceInstance, props.pathToArray)
 
   const onItemAddButtonPress = () => {
-    addItem(array.length, props.defaultItem)
+    if (array.length < maxNumberOfElements) {
+      addItem(array.length, props.defaultItem)
+    }
   }
 
   const onItemRemoveButtonPress = (index: number) => {
@@ -61,7 +69,11 @@ const ArrayInputDataController: React.FC<Props> = ({ minNumberOfElements = 0, ..
     })
   }
 
-  return props.renderContentContainer({ onItemAddButtonPress, itemsRenderList: itemsRenderList() })
+  return props.renderContentContainer({
+    onItemAddButtonPress,
+    maxNumberOfElements,
+    itemsRenderList: itemsRenderList(),
+  })
 }
 
 export default ArrayInputDataController
