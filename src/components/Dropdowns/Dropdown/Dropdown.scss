@@ -19,6 +19,14 @@
   &.open {
     background-color: $secondary-color;
   }
+
+  &.inactive {
+    color: $secondary-color;
+
+    &:hover {
+      background-color: $white-color;
+    }
+  }
 }
 
 .Dropdown-menu-list {

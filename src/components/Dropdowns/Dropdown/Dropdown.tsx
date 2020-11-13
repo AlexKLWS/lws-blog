@@ -13,7 +13,7 @@ const Dropdown: React.FC<Props> = (props: Props) => {
   const [dropdownIsOpen, setDropdownState] = useState(false)
 
   const onDropdownPress = () => {
-    if (!!props.disabled) {
+    if (props.disabled) {
       return
     }
     setDropdownState(!dropdownIsOpen)
@@ -21,7 +21,10 @@ const Dropdown: React.FC<Props> = (props: Props) => {
 
   return (
     <div className='Dropdown-container'>
-      <div className={dropdownIsOpen ? 'Dropdown-trigger open' : 'Dropdown-trigger'} onClick={onDropdownPress}>
+      <div
+        className={`Dropdown-trigger ${dropdownIsOpen ? `open` : ''} ${props.disabled ? `inactive` : ''}`}
+        onClick={onDropdownPress}
+      >
         {`+ ${props.dropdownTriggerText}`}
       </div>
 
