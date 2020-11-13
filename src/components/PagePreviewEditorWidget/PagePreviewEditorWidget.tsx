@@ -9,7 +9,7 @@ import ArrayInputDataController from 'components/MaterialDataFormItems/Input/Arr
 
 type Props = {
   serviceInstance: IMaterialDataService
-  categoryToggleDisabled?: boolean
+  firstCategoryToggleDisabled?: boolean
 }
 
 const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
@@ -124,6 +124,7 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
       <ArrayInputDataController
         serviceInstance={props.serviceInstance}
         pathToArray={'categories'}
+        minNumberOfElements={1}
         renderContentContainer={({ onItemAddButtonPress, itemsRenderList }) => {
           return (
             <div className='PPEW-dropdown-container'>
@@ -137,7 +138,7 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
             </div>
           )
         }}
-        renderItem={({ onItemRemoveButtonPress, value, setValue }) => {
+        renderItem={({ onItemRemoveButtonPress, value, setValue, minNumberOfElements, index }) => {
           return (
             <div style={{ padding: '8px 0px', display: 'inline-flex' }}>
               <div style={{ paddingRight: '8px' }}>
@@ -145,12 +146,14 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
                   sourceEnum={Category as any}
                   value={value}
                   setValue={setValue}
-                  disabled={props.categoryToggleDisabled}
+                  disabled={props.firstCategoryToggleDisabled && index === 0}
                 />
               </div>
-              <button className='App-button' onClick={onItemRemoveButtonPress}>
-                -
-              </button>
+              {index >= minNumberOfElements && (
+                <button className='App-button' onClick={onItemRemoveButtonPress}>
+                  -
+                </button>
+              )}
             </div>
           )
         }}

@@ -8,27 +8,35 @@ type Props = {
   defaultItem?: any
   serviceInstance: IMaterialDataService
   pathToArray: string
+  minNumberOfElements?: number
   renderContentContainer: (props: ContentContainerProps) => JSX.Element
   renderItem: (props: ItemProps) => JSX.Element
 }
 
-type ContentContainerProps = {
+export type ContentContainerProps = {
   onItemAddButtonPress: () => void
   itemsRenderList: JSX.Element[]
 }
 
-type ItemProps = {
+export type ItemProps = {
   onItemRemoveButtonPress: () => void
   index: number
   value: any
   setValue: (newValue: any) => void
+  minNumberOfElements: number
 }
 
-const ArrayInputDataController: React.FC<Props> = (props: Props) => {
+const ArrayInputDataController: React.FC<Props> = ({ minNumberOfElements = 0, ...props }: Props) => {
   const { array, addItem, removeItem } = useArrayInputDataProvider(props.serviceInstance, props.pathToArray)
 
   const onItemAddButtonPress = () => {
     addItem(array.length, props.defaultItem)
+  }
+
+  const onItemRemoveButtonPress = (index: number) => {
+    if (index >= minNumberOfElements) {
+      removeItem(index)
+    }
   }
 
   const itemsRenderList = () => {
@@ -40,7 +48,13 @@ const ArrayInputDataController: React.FC<Props> = (props: Props) => {
           pathToArray={props.pathToArray}
           index={index}
           render={({ setValue }) =>
-            props.renderItem({ value, setValue, index, onItemRemoveButtonPress: () => removeItem(index) })
+            props.renderItem({
+              value,
+              setValue,
+              index,
+              minNumberOfElements,
+              onItemRemoveButtonPress: () => onItemRemoveButtonPress(index),
+            })
           }
         />
       )

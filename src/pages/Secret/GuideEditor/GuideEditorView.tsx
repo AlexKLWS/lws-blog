@@ -34,7 +34,7 @@ const GuideEditorView: React.FC<Props> = (props: Props) => {
   return (
     <div>
       <h1 className='App-title'>Guide Editor</h1>
-      <PagePreviewEditorWidget serviceInstance={props.serviceInstance} categoryToggleDisabled />
+      <PagePreviewEditorWidget serviceInstance={props.serviceInstance} firstCategoryToggleDisabled />
       <InputDataController
         serviceInstance={props.serviceInstance}
         path={'info'}
@@ -105,10 +105,10 @@ const GuideEditorView: React.FC<Props> = (props: Props) => {
         renderContentContainer={({ onItemAddButtonPress, itemsRenderList }) => {
           return (
             <>
+              <ul style={{ listStyleType: 'none' }}>{itemsRenderList}</ul>
               <div className='GE-add-locations-button-container'>
                 <input className='App-button' onClick={onItemAddButtonPress} type={'submit'} value={'Add Location'} />
               </div>
-              <ul style={{ listStyleType: 'none' }}>{itemsRenderList}</ul>
             </>
           )
         }}
