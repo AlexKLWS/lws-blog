@@ -58,6 +58,11 @@ export class MaterailPreviewFetchService implements IMaterialPreviewFetchService
       this._pagePreviewsData.next(responseData)
     } catch (e) {
       console.log('ERROR: ', e)
+      this._pagePreviewsData.next({
+        materialPreviews: [],
+        pagesCount: this._pagePreviewsData.value.pagesCount,
+        fetchInProgress: false,
+      })
     }
   }
 
