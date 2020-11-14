@@ -27,6 +27,7 @@ export type Material = {
   subtitle: string
   icon: Icon
   categories: Category[]
+  hidden: boolean
 }
 
 export type Icon = {

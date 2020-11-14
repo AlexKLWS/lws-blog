@@ -5,6 +5,7 @@ export const DEFAULT_ARTICLE_DATA: Article = {
   subtitle: '',
   icon: { data: '', height: null, width: null },
   categories: [Category.Misc],
+  hidden: false,
   articleText: '',
 }
 
@@ -13,6 +14,7 @@ export const DEFAULT_EXT_MATERIAL_DATA: ExtMaterial = {
   subtitle: '',
   icon: { data: '', height: null, width: null },
   categories: [Category.Misc],
+  hidden: false,
   url: '',
 }
 
@@ -24,5 +26,6 @@ export const DEFAULT_GUIDE_DATA: Guide = {
   defaultCenter: { lat: 0.0, lng: 0.0 },
   defaultZoom: 0,
   locations: [],
+  hidden: false,
   info: '',
 }
