@@ -33,7 +33,7 @@ const noArticleText = {
   description: 'No article content!',
 }
 
-export const editorErrors = {
+export const articleEditorErrors = {
   noArticleText,
 }
 
