@@ -45,7 +45,7 @@ const HomeController: React.FC = () => {
   const onPreviewItemPress = (previewMaterial: PreviewMaterial) => {
     if (previewMaterial.url) {
       history.push(`${routes.secret.pageEditor}/${previewMaterial.referenceId}`)
-    } else if (previewMaterial.categories.includes(Category.Guides)) {
+    } else if (previewMaterial.isGuideMaterial) {
       history.push(`${routes.secret.guideEditor}/${previewMaterial.referenceId}`)
     } else {
       history.push(`${routes.secret.editor}/${previewMaterial.referenceId}`)
