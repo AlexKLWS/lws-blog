@@ -74,7 +74,7 @@ const HomeView: React.FC<Props> = (props: Props) => {
           </animated.div>
         ))}
       </div>
-      {props.pagesCount > 1 ? renderPageControls() : null}
+      {props.pagesCount > 1 ? renderPageControls() : <div style={{ height: '48px' }} />}
     </div>
   )
 }
