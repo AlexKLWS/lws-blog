@@ -28,4 +28,5 @@ export const DEFAULT_GUIDE_DATA: Guide = {
   locations: [],
   hidden: false,
   info: '',
+  isGuideMaterial: true,
 }

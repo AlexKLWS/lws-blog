@@ -13,11 +13,13 @@ export type Guide = {
   info: string
   defaultZoom: number
   defaultCenter: LocationCoords
+  isGuideMaterial: true
 } & Material
 
 export type PreviewMaterial = {
   createdAt: string
   url?: string
+  isGuideMaterial?: boolean
 } & Material
 
 export type Material = {
