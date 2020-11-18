@@ -158,6 +158,28 @@ const PagePreviewEditorWidget: React.FC<Props> = (props: Props) => {
           )
         }}
       />
+      <InputDataController
+        serviceInstance={props.serviceInstance}
+        path={'hidden'}
+        render={({ value, setValue }) => {
+          return (
+            <div style={{ display: 'flex', flex: 1, padding: '16px 0px', alignItems: 'center' }}>
+              <span className='App-label'>Hidden: </span>
+              <label className='PPEW-toggle-container'>
+                <input
+                  className='PPEW-toggle-input'
+                  type='checkbox'
+                  checked={value}
+                  onChange={() => {
+                    setValue(!value)
+                  }}
+                />
+                <span className='PPEW-toggle' />
+              </label>
+            </div>
+          )
+        }}
+      />
     </div>
   )
 }
