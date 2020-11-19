@@ -9,6 +9,8 @@ import { getAuthHeader } from 'helpers/getAuthHeader'
 
 export interface IMaterialClientService<T extends Material> {
   material: BehaviorSubject<T | null>
+  error: BehaviorSubject<Error | null>
+  isLoading: BehaviorSubject<boolean>
   postArticle: (article: Article, referenceId?: string) => Promise<void>
   postExtMaterial: (page: ExtMaterial, referenceId?: string) => Promise<void>
   postGuide: (guide: Guide, referenceId?: string) => Promise<void>
@@ -20,6 +22,8 @@ export interface IMaterialClientService<T extends Material> {
 @injectable()
 export class MaterailClientService<T extends Material> implements IMaterialClientService<T> {
   private readonly _material: BehaviorSubject<T | null> = new BehaviorSubject<T | null>(null)
+  private readonly _error: BehaviorSubject<Error | null> = new BehaviorSubject<Error | null>(null)
+  private readonly _isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   private readonly _sessionService: ISessionService
 
   public constructor(@inject(SessionServiceId) sessionService: ISessionService) {
@@ -28,6 +32,14 @@ export class MaterailClientService<T extends Material> implements IMaterialClien
 
   public get material() {
     return this._material
+  }
+
+  public get error() {
+    return this._error
+  }
+
+  public get isLoading() {
+    return this._isLoading
   }
 
   private _processIconDimensions(iconWidth: string | null, iconHeight: string | null) {
@@ -79,10 +91,16 @@ export class MaterailClientService<T extends Material> implements IMaterialClien
     }
 
     try {
+      this._error.next(null)
+      this._material.next(null)
+      this._isLoading.next(true)
       const response = await axios(request)
       this._material.next(response.data)
     } catch (e) {
       console.log('ERROR: ', e)
+      this._error.next(e)
+    } finally {
+      this._isLoading.next(false)
     }
   }
 
@@ -113,10 +131,16 @@ export class MaterailClientService<T extends Material> implements IMaterialClien
     }
 
     try {
+      this._error.next(null)
+      this._material.next(null)
+      this._isLoading.next(true)
       const response = await axios(request)
       this._material.next(response.data)
     } catch (e) {
       console.log('ERROR: ', e)
+      this._error.next(e)
+    } finally {
+      this._isLoading.next(false)
     }
   }
 
