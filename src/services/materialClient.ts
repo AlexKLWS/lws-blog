@@ -5,6 +5,7 @@ import { Article, ExtMaterial, Material, Guide } from 'types/materials'
 import { apiEndpoint } from 'consts/endpoints'
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject'
 import { ISessionService, SessionServiceId } from './session'
+import { getAuthHeader } from 'helpers/getAuthHeader'
 
 export interface IMaterialClientService<T extends Material> {
   material: BehaviorSubject<T | null>
@@ -66,13 +67,12 @@ export class MaterailClientService<T extends Material> implements IMaterialClien
 
   private async _postMaterial<T extends Material>(url: string, material: T, referenceId?: string) {
     const data = await this._prepareMaterialForPost<T>(material, referenceId)
-    const authToken = `Bearer ${this._sessionService.getToken()}`
 
     const request: AxiosRequestConfig = {
       method: 'POST',
       url,
       headers: {
-        Authorization: authToken,
+        ...getAuthHeader(this._sessionService.getToken()),
         'Content-Type': 'application/json',
       },
       data,
@@ -107,6 +107,9 @@ export class MaterailClientService<T extends Material> implements IMaterialClien
       method: 'GET',
       url,
       params,
+      headers: {
+        ...getAuthHeader(this._sessionService.getToken()),
+      },
     }
 
     try {
