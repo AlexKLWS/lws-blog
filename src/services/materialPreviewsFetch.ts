@@ -1,19 +1,22 @@
-import { injectable } from 'inversify'
+import { inject, injectable } from 'inversify'
 import axios, { AxiosRequestConfig } from 'axios'
 
 import { Category } from 'types/materials'
 import { apiEndpoint } from 'consts/endpoints'
 import { BehaviorSubject } from 'rxjs'
 import { PagePreviewsData } from 'types/pagePreviewData'
+import { ISessionService, SessionServiceId } from './session'
+import { getAuthHeader } from 'helpers/getAuthHeader'
 
 export interface IMaterialPreviewFetchService {
   materialPreviews: BehaviorSubject<PagePreviewsData>
-  fetchMaterialPreviews: (category: Category, page: string | number) => Promise<void>
+  fetchMaterialPreviews: (category: Category, page: string | number, includeHidden?: boolean) => Promise<void>
 }
 
 interface RequestParams {
   page?: string | number
   category?: number
+  include_hidden?: boolean
 }
 
 const PAGE_PREVIEW_DATA_DEFAULTS = {
@@ -27,20 +30,29 @@ export class MaterailPreviewFetchService implements IMaterialPreviewFetchService
   private readonly _pagePreviewsData: BehaviorSubject<PagePreviewsData> = new BehaviorSubject<PagePreviewsData>(
     PAGE_PREVIEW_DATA_DEFAULTS,
   )
+  private readonly _sessionService: ISessionService
+
+  public constructor(@inject(SessionServiceId) sessionService: ISessionService) {
+    this._sessionService = sessionService
+  }
 
   public get materialPreviews() {
     return this._pagePreviewsData
   }
 
-  public async fetchMaterialPreviews(category: Category, page: string | number) {
+  public async fetchMaterialPreviews(category: Category, page: string | number, includeHidden?: boolean) {
     const params: RequestParams = {
       category,
       page,
+      include_hidden: includeHidden,
     }
 
     const request: AxiosRequestConfig = {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        ...getAuthHeader(this._sessionService.getToken()),
+        'Content-Type': 'application/json',
+      },
       url: `${apiEndpoint}/previews`,
       params,
     }

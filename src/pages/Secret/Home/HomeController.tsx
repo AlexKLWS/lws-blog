@@ -12,7 +12,7 @@ const HomeController: React.FC = () => {
   const location = useLocation()
   const history = useHistory()
 
-  const { materialPreviews, pagesCount, fetchMaterialPreviews } = useMaterialPreviewsProvider()
+  const { materialPreviews, pagesCount, fetchMaterialPreviews } = useMaterialPreviewsProvider(true)
   const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {

@@ -4,11 +4,11 @@ import { useInjection } from 'services/provider'
 import { Subscription } from 'rxjs'
 import { Category, PreviewMaterial } from 'types/materials'
 
-export const useMaterialPreviewsProvider = () => {
+export const useMaterialPreviewsProvider = (withHidden?: boolean) => {
   const service = useRef(useInjection<IMaterialPreviewFetchService>(MaterialPreviewFetchServiceId))
 
   const fetchMaterialPreviews = (category: Category, page: string | number) => {
-    service.current.fetchMaterialPreviews(category, page)
+    service.current.fetchMaterialPreviews(category, page, withHidden)
   }
 
   const [materialPreviews, setMaterialPreviews] = useState<PreviewMaterial[]>([])
