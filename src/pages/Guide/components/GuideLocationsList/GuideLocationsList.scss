@@ -26,7 +26,13 @@
 .Guide-info-location-list-item {
   @include button;
   align-items: center;
-  padding: 10px 0px 10px 10px;
+  padding: 16px 0px 16px 10px;
+}
+
+_::-webkit-full-page-media,
+_:future,
+:root .Guide-info-location-list-item {
+  padding: 0px 0px 0px 10px;
 }
 
 .Guide-info-location-list-item-label {
@@ -42,7 +48,14 @@
   @include normal;
   padding-left: 40px;
   padding-right: 40px;
+  padding-bottom: 16px;
   margin-block-start: 0px;
+}
+
+_::-webkit-full-page-media,
+_:future,
+:root .Guide-info-note {
+  padding-bottom: 0px;
 }
 
 .Guide-info-container,

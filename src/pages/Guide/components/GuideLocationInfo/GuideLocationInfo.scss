@@ -74,7 +74,13 @@
 .Guide-location-info-title {
   @include normal-mono;
   text-align: right;
-  padding-bottom: 8px;
+  padding-bottom: 16px;
+}
+
+_::-webkit-full-page-media,
+_:future,
+:root .Guide-location-info-title {
+  padding-bottom: 0px;
 }
 
 .Guide-location-info-description {
