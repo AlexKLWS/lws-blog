@@ -1,8 +1,17 @@
 @import './styles/config';
 
-body * {
+body {
   -webkit-font-smoothing: subpixel-antialiased !important;
   text-rendering: optimizeLegibility !important;
+}
+
+// Fix for Chrome
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
 }
 
 .App-flex-container {
