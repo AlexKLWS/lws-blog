@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Home from 'pages/Home'
@@ -20,34 +21,61 @@ const MainRouter = () => {
   return (
     <Switch>
       <Route exact path={routes.home}>
+        <Helmet>
+          <title>LWS - Home</title>
+          <meta name='description' content='Personal blog by Alex Korzh' />
+        </Helmet>
         <DefaultLayoutWrapper>
           <Home />
         </DefaultLayoutWrapper>
       </Route>
       <Route exact path={routes.life}>
+        <Helmet>
+          <title>LWS - Life</title>
+          <meta name='description' content='Personal blog by Alex Korzh' />
+        </Helmet>
         <DefaultLayoutWrapper>
           <Home />
         </DefaultLayoutWrapper>
       </Route>
       <Route exact path={routes.code}>
+        <Helmet>
+          <title>LWS - Code</title>
+          <meta name='description' content='Personal blog by Alex Korzh' />
+        </Helmet>
         <DefaultLayoutWrapper>
           <Home />
         </DefaultLayoutWrapper>
       </Route>
       <Route path={routes.guidesArticle}>
+        <Helmet>
+          <title>LWS</title>
+        </Helmet>
         <Guide />
       </Route>
       <Route exact path={routes.guides}>
+        <Helmet>
+          <title>LWS - Guides</title>
+          <meta name='description' content='Personal blog by Alex Korzh' />
+        </Helmet>
         <DefaultLayoutWrapper>
           <Home />
         </DefaultLayoutWrapper>
       </Route>
       <Route exact path={routes.projects}>
+        <Helmet>
+          <title>LWS - Projects</title>
+          <meta name='description' content='Personal blog by Alex Korzh' />
+        </Helmet>
         <DefaultLayoutWrapper>
           <Home />
         </DefaultLayoutWrapper>
       </Route>
       <Route path={routes.contact}>
+        <Helmet>
+          <title>LWS - Contact</title>
+          <meta name='description' content='Personal blog by Alex Korzh' />
+        </Helmet>
         <DefaultLayoutWrapper>
           <Contact />
         </DefaultLayoutWrapper>
@@ -58,12 +86,19 @@ const MainRouter = () => {
         </DefaultLayoutWrapper>
       </Route>
       <Route path={routes.miscArticle}>
+        <Helmet>
+          <title>LWS</title>
+        </Helmet>
         <DefaultLayoutWrapper>
           <ArticlesSection />
         </DefaultLayoutWrapper>
       </Route>
       <Route path={routes.secret.home}>{isLoggedIn ? <SecretRouter /> : <Redirect to={routes.home} />}</Route>
       <Route>
+        <Helmet>
+          <title>LWS</title>
+          <meta name='description' content='Personal blog by Alex Korzh' />
+        </Helmet>
         <DefaultLayoutWrapper>
           <EmptyPageController />
         </DefaultLayoutWrapper>

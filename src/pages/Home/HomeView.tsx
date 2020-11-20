@@ -1,5 +1,4 @@
 import React from 'react'
-import { Helmet } from 'react-helmet'
 import { useTrail, animated } from 'react-spring'
 import { Link } from 'react-router-dom'
 
@@ -59,10 +58,6 @@ const HomeView: React.FC<Props> = (props: Props) => {
 
   return (
     <div className='Home-container'>
-      <Helmet>
-        <title>LWS</title>
-        <meta name='description' content='Personal blog by Alex Korzh' />
-      </Helmet>
       <div className='Previews-grid'>
         {transitions.map((p, index) => (
           <animated.div key={`${index}`} style={p}>
