@@ -10,7 +10,7 @@ const ImageRenderer = (props: MarkdownNodeProps) => {
     srcList: props.src ? props.src : '',
     useSuspense: false,
   })
-  return <img className={'ImageRenderer'} src={src} width={'100%'} />
+  return <img className={'ImageRenderer'} src={src} width={'100%'} alt='' />
 }
 
 export default ImageRenderer

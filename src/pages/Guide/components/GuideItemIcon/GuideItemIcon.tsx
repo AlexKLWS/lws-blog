@@ -10,13 +10,13 @@ import { default as genericIcon } from 'assets/icons/Generic.svg'
 const GuideItemIcon = ({ type, styleOverride }: { type: LocationType; styleOverride?: React.CSSProperties }) => {
   switch (type) {
     case LocationType.BAR:
-      return <img src={bar} style={styleOverride || pinIconStyle} />
+      return <img src={bar} style={styleOverride || pinIconStyle} alt='Bar' />
     case LocationType.CAFE:
-      return <img src={cafe} style={styleOverride || pinIconStyle} />
+      return <img src={cafe} style={styleOverride || pinIconStyle} alt='Cafe' />
     case LocationType.RESTAURANT:
-      return <img src={restaurant} style={styleOverride || pinIconStyle} />
+      return <img src={restaurant} style={styleOverride || pinIconStyle} alt='Restaurant' />
     default:
-      return <img src={genericIcon} style={styleOverride || pinIconStyle} />
+      return <img src={genericIcon} style={styleOverride || pinIconStyle} alt='' />
   }
 }
 

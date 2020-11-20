@@ -12,7 +12,7 @@ const LoadableImage: React.FC<Props> = (props: Props) => {
     srcList: props.src || '',
   })
 
-  return <img src={src} className={props.className} />
+  return <img src={src} className={props.className} alt='' />
 }
 
 export default LoadableImage
