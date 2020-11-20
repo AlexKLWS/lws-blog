@@ -15,6 +15,7 @@ const HomeController: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     const category = resolveCategoryFromPathname(location as any)
     const pageFromQuery = new URLSearchParams(location?.search).get(page) || 1
     fetchMaterialPreviews(category, pageFromQuery)

@@ -10,6 +10,7 @@ const ArticlesSection: React.FC = () => {
 
   useEffect(() => {
     fetchArticle(match.params.id)
+    window.scrollTo(0, 0)
   }, [])
 
   if (error) {
