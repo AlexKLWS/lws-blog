@@ -15,7 +15,10 @@
   justify-content: space-between;
   margin-top: 10px;
   margin-bottom: 21px;
+  flex-direction: column;
+
   @media (min-width: $breakpoint-desktop-or-laptop) {
+    flex-direction: row;
     width: 70%;
   }
 }
