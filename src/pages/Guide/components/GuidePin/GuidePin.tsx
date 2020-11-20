@@ -19,7 +19,7 @@ const GuidePin: React.FC<Props> = (props: Props) => {
       <div className={'Guide-pin-icon-container'}>
         <GuideItemIcon type={props.type} />
       </div>
-      <img style={{ width: '35px', height: '50px' }} src={mapPin} />
+      <img style={{ width: '35px', height: '50px' }} src={mapPin} alt='' />
       <input
         className={'Guide-pin-button'}
         type={'button'}
