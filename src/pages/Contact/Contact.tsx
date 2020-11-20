@@ -22,11 +22,11 @@ const Contact: React.FC = () => {
         LinkedIn
       </a>
       <div style={{ height: '16px' }} />
-      <span className='Twitter-caption'>My twitter about video games, code, art and everything related:</span>
+      <span className='Twitter-caption'>Video games, code, art and everything related:</span>
       <a className='Contact-link' href='https://twitter.com/longwinshadows'>
         @longwinshadows
       </a>
-      <span className='Twitter-caption'>My twitter about personal stuff, Russian politics, etc:</span>
+      <span className='Twitter-caption'>Personal stuff, Russian politics, etc:</span>
       <a className='Contact-link' href='https://twitter.com/alexkorzh7'>
         @alexkorzh7
       </a>
