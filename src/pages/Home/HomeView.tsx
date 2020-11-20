@@ -1,6 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { useTrail, animated } from 'react-spring'
+import { Link } from 'react-router-dom'
 
 import { PreviewMaterial } from 'types/materials'
 import { default as arrow } from 'assets/icons/Arrow.svg'
@@ -12,25 +13,15 @@ interface Props {
   materialPreviews: PreviewMaterial[]
   currentPage: number
   pagesCount: number
-  navigateToNextPage: () => void
-  navigateToPrevPage: () => void
-  onPreviewItemPress: (previewMaterial: PreviewMaterial) => void
+  getDifferentPageLink: (next?: boolean) => string
+  getPreviewItemLink: (previewMaterial: PreviewMaterial) => string
 }
 
 const HomeView: React.FC<Props> = (props: Props) => {
   const renderPreviewsItems = (previewMaterial: PreviewMaterial) => {
     return (
       <div key={previewMaterial.referenceId} className={'Material-preview-item-container'}>
-        <div
-          tabIndex={0}
-          className={'Material-preview-item'}
-          onClick={() => {
-            props.onPreviewItemPress(previewMaterial)
-          }}
-          onKeyPressCapture={() => {
-            props.onPreviewItemPress(previewMaterial)
-          }}
-        >
+        <Link className={'Material-preview-item'} to={props.getPreviewItemLink(previewMaterial)}>
           <div className={'Material-preview-icon-container'}>
             <InlineIcon svg={previewMaterial.icon.data} />
           </div>
@@ -38,7 +29,7 @@ const HomeView: React.FC<Props> = (props: Props) => {
             <p className={'Material-preview-items-title'}>{previewMaterial.name}</p>
             <p className={'Material-preview-items-subtitle'}>{previewMaterial.subtitle}</p>
           </div>
-        </div>
+        </Link>
       </div>
     )
   }
@@ -47,13 +38,13 @@ const HomeView: React.FC<Props> = (props: Props) => {
     return (
       <div className='Pagination-controls-container'>
         <div style={{ display: 'flex' }}>
-          <button className='App-button' onClick={props.navigateToPrevPage}>
+          <Link className='App-button' to={props.getDifferentPageLink()}>
             <img src={arrow} />
-          </button>
+          </Link>
           <p className='Page-index'>{`${props.currentPage}/${props.pagesCount}`}</p>
-          <button className='App-button' onClick={props.navigateToNextPage}>
+          <Link className='App-button' to={props.getDifferentPageLink(true)}>
             <img className={'Arrow-right'} src={arrow} />
-          </button>
+          </Link>
         </div>
       </div>
     )

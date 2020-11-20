@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useHistory } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import HomeView from './HomeView'
 import { useMaterialPreviewsProvider } from 'facades/materialPreviewsFetchFacade'
 import { page } from 'consts/query'
-import { resolveCategoryFromPathname, getCategoryPathname } from 'helpers/resolveCategory'
-import { Category, PreviewMaterial } from 'types/materials'
+import { resolveCategoryFromPathname } from 'helpers/resolveCategory'
+import { PreviewMaterial } from 'types/materials'
 import FullscreenMessageView from 'components/FullscreenMessageView/FullscreenMessageView'
 
 const HomeController: React.FC = () => {
   const location = useLocation()
-  const history = useHistory()
 
   const { materialPreviews, pagesCount, fetchInProgress, fetchMaterialPreviews } = useMaterialPreviewsProvider()
   const [currentPage, setCurrentPage] = useState(1)
@@ -24,31 +23,29 @@ const HomeController: React.FC = () => {
     }
   }, [location])
 
-  const navigateToNextPage = () => {
-    let newPage = currentPage + 1
-    if (newPage > pagesCount) {
-      newPage = pagesCount
-    }
-    history.push(`${location.pathname}?${page}=${newPage}`)
-    setCurrentPage(newPage)
-  }
-
-  const navigateToPrevPage = () => {
-    let newPage = currentPage - 1
-    if (newPage < 1) {
-      newPage = 1
-    }
-    history.push(`${location.pathname}?${page}=${newPage}`)
-    setCurrentPage(newPage)
-  }
-
-  const onPreviewItemPress = (previewMaterial: PreviewMaterial) => {
-    if (previewMaterial.url) {
-      history.push(previewMaterial.url)
-    } else if (previewMaterial.isGuideMaterial) {
-      history.push(`/guides/${previewMaterial.referenceId}`)
+  const getDifferentPageLink = (next?: boolean) => {
+    let newPage = currentPage
+    if (next) {
+      newPage = currentPage + 1
+      if (newPage > pagesCount) {
+        newPage = pagesCount
+      }
     } else {
-      history.push(`/articles/${previewMaterial.referenceId}`)
+      newPage = currentPage - 1
+      if (newPage < 1) {
+        newPage = 1
+      }
+    }
+    return `${location.pathname}?${page}=${newPage}`
+  }
+
+  const getPreviewItemLink = (previewMaterial: PreviewMaterial) => {
+    if (previewMaterial.url) {
+      return previewMaterial.url
+    } else if (previewMaterial.isGuideMaterial) {
+      return `/guides/${previewMaterial.referenceId}`
+    } else {
+      return `/articles/${previewMaterial.referenceId}`
     }
   }
 
@@ -59,11 +56,10 @@ const HomeController: React.FC = () => {
   return (
     <HomeView
       materialPreviews={materialPreviews}
-      navigateToPrevPage={navigateToPrevPage}
-      navigateToNextPage={navigateToNextPage}
+      getDifferentPageLink={getDifferentPageLink}
       currentPage={currentPage}
       pagesCount={pagesCount}
-      onPreviewItemPress={onPreviewItemPress}
+      getPreviewItemLink={getPreviewItemLink}
     />
   )
 }
