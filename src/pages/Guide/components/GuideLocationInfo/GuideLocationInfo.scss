@@ -29,6 +29,7 @@
 }
 
 .Guide-location-info-contents {
+  @include transition-ease;
   padding: 0px 40px 40px 40px;
   display: flex;
   flex-direction: column;
@@ -51,12 +52,12 @@
 
 .Guide-location-info-photo-placeholder {
   width: 100%;
-  height: 55%;
+  height: 285px;
   background-color: $secondary-color;
 
   @media (min-width: $breakpoint-desktop-or-laptop) {
     width: 55%;
-    height: 100%;
+    height: 300px;
   }
 }
 
@@ -74,14 +75,7 @@
 .Guide-location-info-title {
   @include normal-mono;
   text-align: right;
-  padding-bottom: 16px;
   font-weight: 600;
-}
-
-_::-webkit-full-page-media,
-_:future,
-:root .Guide-location-info-title {
-  padding-bottom: 0px;
 }
 
 .Guide-location-info-description {
