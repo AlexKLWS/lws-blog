@@ -1,5 +1,10 @@
 @import './styles/config';
 
+body * {
+  -webkit-font-smoothing: subpixel-antialiased !important;
+  text-rendering: optimizeLegibility !important;
+}
+
 .App-flex-container {
   display: flex;
   justify-content: center;

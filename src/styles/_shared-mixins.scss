@@ -5,12 +5,14 @@
 @mixin normal-mono {
   font-family: IBM Plex Mono;
   font-style: normal;
+  font-weight: 400;
 }
 
 @mixin normal {
   font-family: Muli;
   font-style: normal;
   line-height: 27px;
+  font-weight: 400;
 }
 
 @mixin title {
