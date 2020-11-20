@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Helmet } from 'react-helmet'
 import GoogleMapReact from 'google-map-react'
 
 import './Guide.scss'
@@ -14,6 +15,8 @@ const API_KEY = process.env.REACT_APP_GMAPS_API_KEY || ''
 const LOCATION_INFO_ANIMATION_SYNC_DELAY = 400
 
 type Props = {
+  guideName: string
+  guideSubtitle: string
   defaultZoom: number
   defaultCenter: LocationCoords
   guideInfo: string
@@ -54,6 +57,10 @@ const GuideView: React.FC<Props> = (props: Props) => {
 
   return (
     <div style={{ height: '100vh', width: '100%' }}>
+      <Helmet>
+        <title>{props.guideName}</title>
+        <meta name='description' content={props.guideSubtitle} />
+      </Helmet>
       <GoogleMapReact
         bootstrapURLKeys={{ key: API_KEY }}
         center={centerCoords}

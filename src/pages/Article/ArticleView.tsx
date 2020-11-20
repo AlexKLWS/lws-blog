@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import Loadable from 'react-loadable'
 import { useTransition, animated } from 'react-spring'
 import { DateTime } from 'luxon'
@@ -29,6 +30,10 @@ export const ArticleView: React.FC<Props> = ({ article }: Props) => {
 
   return (
     <div className={'ArticleContainer'}>
+      <Helmet>
+        <title>{article?.name}</title>
+        <meta name='description' content={article?.subtitle} />
+      </Helmet>
       {transitions.map(({ item, key, props }) =>
         !item ? (
           <animated.div style={{ ...props, padding: '20px 42px', position: 'absolute', right: 0, left: 0 }}>

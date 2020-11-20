@@ -18,6 +18,8 @@ const GuideController: React.FC = () => {
 
   return (
     <GuideView
+      guideName={guide.name}
+      guideSubtitle={guide.subtitle}
       guideInfo={guide.info}
       locations={guide.locations}
       defaultZoom={guide.defaultZoom}

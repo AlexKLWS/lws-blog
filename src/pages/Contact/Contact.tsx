@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 
 import './Contact.scss'
 import { Link } from 'react-router-dom'
@@ -7,6 +8,10 @@ import routes from 'consts/routes'
 const Contact: React.FC = () => {
   return (
     <div className='Contact-container'>
+      <Helmet>
+        <title>Contact</title>
+        <meta name='description' content='Personal blog by Alex Korzh' />
+      </Helmet>
       <h1 className='Contact-title'>Contact</h1>
       <p className='Contact-info'>
         If you have comments, questions or feedback about my work — just shoot me an email. For partnerships or

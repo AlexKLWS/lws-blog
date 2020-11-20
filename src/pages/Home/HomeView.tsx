@@ -1,5 +1,6 @@
-import React, { useRef } from 'react'
-import { useTrail, animated, useSpring, useChain, config } from 'react-spring'
+import React from 'react'
+import { Helmet } from 'react-helmet'
+import { useTrail, animated } from 'react-spring'
 
 import { PreviewMaterial } from 'types/materials'
 import { default as arrow } from 'assets/icons/Arrow.svg'
@@ -67,6 +68,10 @@ const HomeView: React.FC<Props> = (props: Props) => {
 
   return (
     <div className='Home-container'>
+      <Helmet>
+        <title>LWS</title>
+        <meta name='description' content='Personal blog by Alex Korzh' />
+      </Helmet>
       <div className='Previews-grid'>
         {transitions.map((p, index) => (
           <animated.div key={`${index}`} style={p}>
