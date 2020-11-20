@@ -20,6 +20,7 @@ export const useInputDataProvider = (serviceInstance: IMaterialDataService, path
     return () => {
       subscriptions.forEach((it) => it.unsubscribe())
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return { value, setValue }
@@ -47,6 +48,7 @@ export const useArrayItemValueInputDataProvider = (
     return () => {
       subscriptions.forEach((it) => it.unsubscribe())
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return { value, setValue }
@@ -84,6 +86,7 @@ export const useArrayInputDataProvider = (serviceInstance: IMaterialDataService,
     return () => {
       subscriptions.forEach((it) => it.unsubscribe())
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return { array, addItem, removeItem }

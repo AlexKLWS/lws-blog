@@ -25,6 +25,7 @@ const EnumDropdown: React.FC<Props> = (props: Props) => {
       }
     }
     return items
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

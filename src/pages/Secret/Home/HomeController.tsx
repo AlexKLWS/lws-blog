@@ -6,7 +6,7 @@ import routes from 'consts/routes'
 import { useMaterialPreviewsProvider } from 'facades/materialPreviewsFetchFacade'
 import { resolveCategoryFromPathname } from 'helpers/resolveCategory'
 import { page } from 'consts/query'
-import { PreviewMaterial, Category } from 'types/materials'
+import { PreviewMaterial } from 'types/materials'
 
 const HomeController: React.FC = () => {
   const location = useLocation()
@@ -22,6 +22,7 @@ const HomeController: React.FC = () => {
     if (pageFromQuery !== currentPage) {
       setCurrentPage(pageFromQuery as number)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location])
 
   const navigateToNextPage = () => {
@@ -78,6 +79,7 @@ const HomeController: React.FC = () => {
         },
       },
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   )
 

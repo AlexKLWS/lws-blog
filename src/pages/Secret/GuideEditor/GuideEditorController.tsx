@@ -26,12 +26,14 @@ const GuideEditorController = () => {
     if (match.params.id) {
       fetchGuide(match.params.id)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     if (guide) {
       service.updateData(guide)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guide])
 
   const performDataCheck = () => {

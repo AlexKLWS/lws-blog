@@ -22,6 +22,7 @@ const HomeController: React.FC = () => {
     if (pageFromQuery !== currentPage) {
       setCurrentPage(pageFromQuery as number)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location])
 
   const getDifferentPageLink = (next?: boolean) => {

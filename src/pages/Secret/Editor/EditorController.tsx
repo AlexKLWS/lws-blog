@@ -26,12 +26,14 @@ const EditorController: React.FC = () => {
     if (match.params.id) {
       fetchArticle(match.params.id)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     if (article) {
       service.updateData(article)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [article])
 
   const performDataCheck = () => {

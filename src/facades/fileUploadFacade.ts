@@ -36,6 +36,7 @@ export function useFileUploadFacade(): [
       return () => {
         subscriptions.forEach((it) => it.unsubscribe())
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return [uploadPercentage, fileURL, isError]

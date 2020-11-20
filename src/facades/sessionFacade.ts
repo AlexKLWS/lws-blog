@@ -25,6 +25,7 @@ export function useTokenProvider(tokenUpdateCallbackKey: string) {
     service.current.addOnManualUpdateCallback(tokenUpdateCallbackKey, () => {
       setIsLoggedIn(service.current.isTokenPresent)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return {

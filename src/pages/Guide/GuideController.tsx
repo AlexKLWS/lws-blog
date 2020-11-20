@@ -10,6 +10,7 @@ const GuideController: React.FC = () => {
 
   useEffect(() => {
     fetchGuide(match.params.id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (!guide) {

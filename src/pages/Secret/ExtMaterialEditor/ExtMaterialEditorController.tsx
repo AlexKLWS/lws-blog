@@ -26,12 +26,14 @@ const ExtMaterialEditorController: React.FC = () => {
     if (match.params.id) {
       fetchExtMaterial(match.params.id)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     if (extMaterial) {
       service.updateData(extMaterial)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [extMaterial])
 
   const performDataCheck = () => {
