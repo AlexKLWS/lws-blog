@@ -36,7 +36,7 @@ const Header: React.FC = () => {
           </Link>
           {!isSmallerScreen && (
             <div className='Header-portrait'>
-              <img src={src} width='auto' height='100%' />
+              <img src={src} width='auto' height='100%' alt='' />
             </div>
           )}
         </div>
