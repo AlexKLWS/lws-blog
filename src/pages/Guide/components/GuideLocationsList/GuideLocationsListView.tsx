@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Transition } from 'react-transition-group'
 import { ReactComponent as Arrow } from 'assets/icons/Arrow.svg'
 

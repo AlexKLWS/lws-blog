@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { IMaterialPreviewFetchService, MaterialPreviewFetchServiceId } from 'services/materialPreviewsFetch'
 import { useInjection } from 'services/provider'
 import { Subscription } from 'rxjs'

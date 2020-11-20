@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { useInjection } from 'services/provider'
 import { IMaterialDataService, MaterialDataServiceId } from 'services/materialData'
 import { MaterialDataObjectVerifier } from 'types/verifier'
