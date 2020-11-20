@@ -22,3 +22,22 @@ body * {
     padding: 0px 40px;
   }
 }
+
+@font-face {
+  font-family: 'Muli';
+  src: url('Mulish-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('IBMPlexMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('IBMPlexMono-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
