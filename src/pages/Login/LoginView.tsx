@@ -47,10 +47,10 @@ const LoginView: React.FC<Props> = (props: Props) => {
       />
       <p className='Login-GDPR-info'>
         I've made this login page for myself, so I don't expecte anyone else to use it, but I'm still providing this
-        notice just in case. This website is using cookies to store{' '}
-        <a href={'https://jwt.io/introduction/'}>JWT token</a> used to authenticate the user. The token is stored for 24
-        hours only. By logging in you consent to store this token on your device. If you had previously logged in, and
-        would like to remove the token cookie, press the button below.
+        notice just in case. This website is using <a href='https://en.wikipedia.org/wiki/HTTP_cookie'>cookies</a> to
+        store <a href='https://jwt.io/introduction/'>JWT token</a> used to authenticate the user. The token is stored
+        for 24 hours only. By logging in you consent to store this token on your device. If you had previously logged
+        in, and would like to remove the token cookie, press the button below.
       </p>
       <input className='App-button' onClick={props.onClearCookiesPress} type='submit' value='Clear Cookies' />
     </div>
