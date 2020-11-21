@@ -1,8 +1,16 @@
 import React, { useEffect } from 'react'
+import Loadable from 'react-loadable'
 
-import GuideView from './GuideView'
 import { useRouteMatch } from 'react-router-dom'
 import { useGuideClient } from 'facades/materialClientFacade'
+import FullscreenMessageView from 'components/FullscreenMessageView/FullscreenMessageView'
+
+const LoadableGuideView = Loadable({
+  loader: () => import('./GuideView'),
+  loading: () => {
+    return <FullscreenMessageView title={`Loading...`} subtitle={``} />
+  },
+})
 
 const GuideController: React.FC = () => {
   const { guide, fetchGuide } = useGuideClient()
@@ -18,7 +26,7 @@ const GuideController: React.FC = () => {
   }
 
   return (
-    <GuideView
+    <LoadableGuideView
       guideName={guide.name}
       guideSubtitle={guide.subtitle}
       guideInfo={guide.info}
