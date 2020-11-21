@@ -47,7 +47,7 @@ export const ArticleView: React.FC<Props> = ({ article }: Props) => {
           <animated.div style={{ ...props, padding: '20px 42px', minHeight: '720px', position: 'relative' }}>
             <div className={'ArticleTitleContainer'}>
               <h1 className={'ArticleTitle'}>{article?.name}</h1>
-              <h3 className={'ArticleSubtitle'}>{article?.subtitle}</h3>
+              <h2 className={'ArticleSubtitle'}>{article?.subtitle}</h2>
             </div>
             <LoadableArticleTextView text={article!.articleText} />
             <p className={'ArticleDate'}>{formattedDate}</p>
