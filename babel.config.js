@@ -13,5 +13,6 @@ module.exports = {
     ['@babel/plugin-proposal-decorators', { legacy: true }],
     ['@babel/plugin-proposal-class-properties', { loose: true }],
     'babel-plugin-parameter-decorator',
+    '@babel/plugin-transform-runtime',
   ],
 }
