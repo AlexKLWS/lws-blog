@@ -7,7 +7,7 @@ import routes from 'consts/routes'
 const Footer: React.FC = () => {
   return (
     <div className='Footer-container'>
-      <div className='Footer-links-container'>
+      <nav className='Footer-links-container'>
         <Link to={routes.home} className='Footer-item'>
           Home
         </Link>
@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
         <Link to={routes.contact} className='Footer-item'>
           Contact
         </Link>
-      </div>
+      </nav>
       <span className='Footer-copyright-name'>&copy; Alex Korzh</span>
     </div>
   )

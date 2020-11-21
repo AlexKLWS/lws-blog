@@ -26,11 +26,14 @@ const DefaultLayoutWrapper: React.FC<Props> = (props: Props) => {
 
   return (
     <>
+      <a className='App-skip-link' href='#main'>
+        Skip to main
+      </a>
       {isDesktopOrLaptop && <LoadableBackgroundView />}
       <div className='App-flex-container'>
         <div className='App-container'>
           {!props.hideHeader && <Header />}
-          {props.children}
+          <main id='main'>{props.children}</main>
           {!props.hideFooter && <Footer />}
         </div>
       </div>

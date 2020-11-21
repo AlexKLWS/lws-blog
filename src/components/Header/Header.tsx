@@ -41,7 +41,7 @@ const Header: React.FC = () => {
           )}
         </div>
       </div>
-      <div className='Sections-list'>
+      <nav className='Sections-list'>
         <Link to={routes.life} className={getLinkStyle(routes.life)}>
           Life
         </Link>
@@ -54,7 +54,7 @@ const Header: React.FC = () => {
         <Link to={routes.projects} className={getLinkStyle(routes.projects)}>
           Projects
         </Link>
-      </div>
+      </nav>
     </div>
   )
 }
