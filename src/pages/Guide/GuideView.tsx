@@ -110,7 +110,11 @@ const GuideView: React.FC<Props> = (props: Props) => {
           />
 
           <div style={{ flex: 1 }} />
-          <div className={'Guide-footer-container'}>
+        </div>
+      </div>
+      <div className={'Guide-footer-content-container'}>
+        <div className={'Guide-footer-inner-content-container'}>
+          <div className={'Guide-footer-wrapper'}>
             <Footer />
           </div>
         </div>
