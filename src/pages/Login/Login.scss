@@ -7,10 +7,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 600px;
+  height: 650px;
 }
 
 .Login-input {
   @include input-mixin;
   margin-bottom: 30px;
+}
+
+.Login-GDPR-info {
+  @include normal;
+  font-size: 15px;
+  padding: 30px 24px;
+
+  @media (min-width: $breakpoint-desktop-or-laptop) {
+    font-size: 16px;
+    padding: 30px 82px;
+  }
 }

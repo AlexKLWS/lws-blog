@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import LoginView from './LoginView'
 import { useLoginFacade } from 'facades/sessionFacade'
 import routes from 'consts/routes'
+import { deleteAllCookies } from 'helpers/cookies'
 
 const LoginController: React.FC = () => {
   const [login] = useLoginFacade()
@@ -16,11 +17,16 @@ const LoginController: React.FC = () => {
     }
   }
 
+  const onClearCookiesPress = () => {
+    deleteAllCookies()
+  }
+
   return (
     <LoginView
       onLoginPress={(username: string, password: string) => {
         handleLogin(username, password)
       }}
+      onClearCookiesPress={onClearCookiesPress}
     />
   )
 }
