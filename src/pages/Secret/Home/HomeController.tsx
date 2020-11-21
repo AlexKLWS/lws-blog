@@ -1,12 +1,13 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
 
-import HomeView from './HomeView'
+import HomeView from '../../Home/HomeView'
 import routes from 'consts/routes'
 import { useMaterialPreviewsProvider } from 'facades/materialPreviewsFetchFacade'
 import { resolveCategoryFromPathname } from 'helpers/resolveCategory'
 import { page } from 'consts/query'
 import { PreviewMaterial } from 'types/materials'
+import Dropdown from 'components/Dropdowns/Dropdown/Dropdown'
 
 const HomeController: React.FC = () => {
   const location = useLocation()
@@ -16,6 +17,7 @@ const HomeController: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     const category = resolveCategoryFromPathname(location as any)
     const pageFromQuery = new URLSearchParams(location?.search).get(page) || 1
     fetchMaterialPreviews(category, pageFromQuery)
@@ -25,33 +27,32 @@ const HomeController: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location])
 
-  const navigateToNextPage = () => {
-    let newPage = currentPage + 1
-    if (newPage > pagesCount) {
-      newPage = pagesCount
-    }
-    history.push(`${location.pathname}?${page}=${newPage}`)
-    setCurrentPage(newPage)
-  }
-
-  const navigateToPrevPage = () => {
-    let newPage = currentPage - 1
-    if (newPage < 1) {
-      newPage = 1
-    }
-    history.push(`${location.pathname}?${page}=${newPage}`)
-    setCurrentPage(newPage)
-  }
-
-  const onPreviewItemPress = (previewMaterial: PreviewMaterial) => {
-    if (previewMaterial.url) {
-      history.push(`${routes.secret.pageEditor}/${previewMaterial.referenceId}`)
-    } else if (previewMaterial.isGuideMaterial) {
-      history.push(`${routes.secret.guideEditor}/${previewMaterial.referenceId}`)
+  const getDifferentPageLink = (next?: boolean) => {
+    let newPage = currentPage
+    if (next) {
+      newPage = currentPage + 1
+      if (newPage > pagesCount) {
+        newPage = pagesCount
+      }
     } else {
-      history.push(`${routes.secret.editor}/${previewMaterial.referenceId}`)
+      newPage = currentPage - 1
+      if (newPage < 1) {
+        newPage = 1
+      }
+    }
+    return `${location.pathname}?${page}=${newPage}`
+  }
+
+  const getPreviewItemLink = (previewMaterial: PreviewMaterial) => {
+    if (previewMaterial.url) {
+      return `${routes.secret.pageEditor}/${previewMaterial.referenceId}`
+    } else if (previewMaterial.isGuideMaterial) {
+      return `${routes.secret.guideEditor}/${previewMaterial.referenceId}`
+    } else {
+      return `${routes.secret.editor}/${previewMaterial.referenceId}`
     }
   }
+
   const dropdownItems = useMemo(
     () => [
       {
@@ -84,15 +85,18 @@ const HomeController: React.FC = () => {
   )
 
   return (
-    <HomeView
-      materialPreviews={materialPreviews}
-      navigateToPrevPage={navigateToPrevPage}
-      navigateToNextPage={navigateToNextPage}
-      currentPage={currentPage}
-      pagesCount={pagesCount}
-      onPreviewItemPress={onPreviewItemPress}
-      dropdownItems={dropdownItems}
-    />
+    <>
+      <div style={{ paddingBottom: '40px' }}>
+        <Dropdown dropdownTriggerText={'Add'} items={dropdownItems} />
+      </div>
+      <HomeView
+        materialPreviews={materialPreviews}
+        getDifferentPageLink={getDifferentPageLink}
+        currentPage={currentPage}
+        pagesCount={pagesCount}
+        getPreviewItemLink={getPreviewItemLink}
+      />
+    </>
   )
 }
 
