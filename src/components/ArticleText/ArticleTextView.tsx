@@ -7,6 +7,7 @@ import InlineCodeRenderer from 'components/ArticleText/markdownNodes/InlineCodeR
 import TextRenderer from 'components/ArticleText/markdownNodes/TextRenderer/TextRenderer'
 import LinkRenderer from 'components/ArticleText/markdownNodes/LinkRenderer/LinkRenderer'
 import ParagraphRenderer from './markdownNodes/ParagraphRenderer/ParagraphRenderer'
+import ListRenderer from './markdownNodes/ListRenderer/ListRenderer'
 
 type Props = {
   text: string
@@ -23,6 +24,7 @@ const ArticleTextView: React.FC<Props> = (props: Props) => {
         image: ImageRenderer,
         link: LinkRenderer,
         paragraph: ParagraphRenderer,
+        list: ListRenderer,
       }}
     />
   )
