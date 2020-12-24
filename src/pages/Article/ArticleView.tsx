@@ -36,7 +36,7 @@ export const ArticleView: React.FC<Props> = ({ article }: Props) => {
       </Helmet>
       {transitions.map(({ item, key, props }) =>
         !item ? (
-          <animated.div style={{ ...props, padding: '20px 42px', position: 'absolute', right: 0, left: 0 }}>
+          <animated.div key={key} style={{ ...props, padding: '20px 42px', position: 'absolute', right: 0, left: 0 }}>
             <div className={'ArticleTitleContainer'}>
               <div className={'ArticleTitleSkeletonLoader'} />
               <div className={'ArticleSubtitleSkeletonLoader'} />
@@ -44,7 +44,7 @@ export const ArticleView: React.FC<Props> = ({ article }: Props) => {
             <div className={'ArticleTextSkeletonLoader'} />
           </animated.div>
         ) : (
-          <animated.div style={{ ...props, padding: '20px 42px', minHeight: '720px', position: 'relative' }}>
+          <animated.div key={key} style={{ ...props, padding: '20px 42px', minHeight: '720px', position: 'relative' }}>
             <div className={'ArticleTitleContainer'}>
               <h1 className={'ArticleTitle'}>{article?.name}</h1>
               <h2 className={'ArticleSubtitle'}>{article?.subtitle}</h2>
