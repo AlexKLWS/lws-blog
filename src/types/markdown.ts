@@ -3,4 +3,7 @@ export type MarkdownNodeProps = {
   value?: string
   children: React.ReactChildren
   src?: string
+  href?: string
+  level?: number
+  ordered?: boolean
 }
