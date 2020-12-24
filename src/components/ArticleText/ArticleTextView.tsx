@@ -8,6 +8,7 @@ import TextRenderer from 'components/ArticleText/markdownNodes/TextRenderer/Text
 import LinkRenderer from 'components/ArticleText/markdownNodes/LinkRenderer/LinkRenderer'
 import ParagraphRenderer from './markdownNodes/ParagraphRenderer/ParagraphRenderer'
 import ListRenderer from './markdownNodes/ListRenderer/ListRenderer'
+import ListItemRenderer from './markdownNodes/ListItemRenderer/ListItemRenderer'
 
 type Props = {
   text: string
@@ -25,6 +26,7 @@ const ArticleTextView: React.FC<Props> = (props: Props) => {
         link: LinkRenderer,
         paragraph: ParagraphRenderer,
         list: ListRenderer,
+        listItem: ListItemRenderer,
       }}
     />
   )
