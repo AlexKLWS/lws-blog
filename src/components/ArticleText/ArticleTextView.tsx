@@ -18,6 +18,7 @@ const ArticleTextView: React.FC<Props> = (props: Props) => {
   return (
     <ReactMarkdown
       source={props.text}
+      escapeHtml={false}
       renderers={{
         code: CodeRenderView,
         inlineCode: InlineCodeRenderer,
