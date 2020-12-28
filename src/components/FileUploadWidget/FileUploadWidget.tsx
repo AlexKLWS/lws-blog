@@ -37,7 +37,7 @@ const FileUploadWidget: React.FC<Props> = (props: Props) => {
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   props.onFilesAdd(data, event)
                 }}
-                accept='image/x-png,image/gif,image/jpeg'
+                accept='image/x-png,image/gif,image/jpeg,image/png'
                 multiple
               />
               <label className='App-button' htmlFor={`fileSelector-${data.id}`}>
