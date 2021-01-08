@@ -22,7 +22,7 @@ const MainRouter = () => {
     <Switch>
       <Route exact path={routes.home}>
         <Helmet>
-          <title>LWS - Home</title>
+          <title>LWS - Alex Korzh - Home</title>
           <meta name='description' content='Personal blog by Alex Korzh' />
         </Helmet>
         <DefaultLayoutWrapper>
@@ -31,7 +31,7 @@ const MainRouter = () => {
       </Route>
       <Route exact path={routes.life}>
         <Helmet>
-          <title>LWS - Life</title>
+          <title>LWS - Alex Korzh - Life</title>
           <meta name='description' content='Personal blog by Alex Korzh' />
         </Helmet>
         <DefaultLayoutWrapper>
@@ -40,7 +40,7 @@ const MainRouter = () => {
       </Route>
       <Route exact path={routes.code}>
         <Helmet>
-          <title>LWS - Code</title>
+          <title>LWS - Alex Korzh - Code</title>
           <meta name='description' content='Personal blog by Alex Korzh' />
         </Helmet>
         <DefaultLayoutWrapper>
@@ -49,13 +49,13 @@ const MainRouter = () => {
       </Route>
       <Route path={routes.guidesArticle}>
         <Helmet>
-          <title>LWS</title>
+          <title>LWS - Alex Korzh</title>
         </Helmet>
         <Guide />
       </Route>
       <Route exact path={routes.guides}>
         <Helmet>
-          <title>LWS - Guides</title>
+          <title>LWS - Alex Korzh - Guides</title>
           <meta name='description' content='Personal blog by Alex Korzh' />
         </Helmet>
         <DefaultLayoutWrapper>
@@ -64,7 +64,7 @@ const MainRouter = () => {
       </Route>
       <Route exact path={routes.projects}>
         <Helmet>
-          <title>LWS - Projects</title>
+          <title>LWS - Alex Korzh - Projects</title>
           <meta name='description' content='Personal blog by Alex Korzh' />
         </Helmet>
         <DefaultLayoutWrapper>
@@ -73,7 +73,7 @@ const MainRouter = () => {
       </Route>
       <Route path={routes.contact}>
         <Helmet>
-          <title>LWS - Contact</title>
+          <title>LWS - Alex Korzh - Contact</title>
           <meta name='description' content='Personal blog by Alex Korzh' />
         </Helmet>
         <DefaultLayoutWrapper>
@@ -87,7 +87,7 @@ const MainRouter = () => {
       </Route>
       <Route path={routes.miscArticle}>
         <Helmet>
-          <title>LWS</title>
+          <title>LWS - Alex Korzh</title>
         </Helmet>
         <DefaultLayoutWrapper>
           <ArticlesSection />
@@ -96,7 +96,7 @@ const MainRouter = () => {
       <Route path={routes.secret.home}>{isLoggedIn ? <SecretRouter /> : <Redirect to={routes.home} />}</Route>
       <Route>
         <Helmet>
-          <title>LWS</title>
+          <title>LWS - 404</title>
           <meta name='description' content='Personal blog by Alex Korzh' />
         </Helmet>
         <DefaultLayoutWrapper>

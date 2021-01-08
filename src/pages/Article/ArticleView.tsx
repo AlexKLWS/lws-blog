@@ -31,7 +31,7 @@ export const ArticleView: React.FC<Props> = ({ article }: Props) => {
   return (
     <div className={'ArticleContainer'}>
       <Helmet>
-        <title>{article?.name}</title>
+        <title>{`${article?.name} - Alex Korzh`}</title>
         <meta name='description' content={article?.subtitle} />
       </Helmet>
       {transitions.map(({ item, key, props }) =>

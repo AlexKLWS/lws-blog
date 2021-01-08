@@ -58,7 +58,7 @@ const GuideView: React.FC<Props> = (props: Props) => {
   return (
     <div style={{ height: '100vh', width: '100%' }}>
       <Helmet>
-        <title>{props.guideName}</title>
+        <title>{`${props.guideName} - Alex Korzh`}</title>
         <meta name='description' content={props.guideSubtitle} />
       </Helmet>
       <GoogleMapReact
